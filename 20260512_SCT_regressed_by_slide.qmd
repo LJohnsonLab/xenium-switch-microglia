@@ -1,0 +1,125 @@
+---
+title: "SCT: regressed by slide"
+date: last-modified
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    df-print: paged
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+---
+
+We build a baseline single-cell clustering for the microglia_switch dataset. We apply `SCTransform` __regressing by slide__, then run the standard graph-based clustering pipeline (PCA → KNN → Louvain). 
+
+
+
+
+
+```{r}
+#| label: setup
+
+library(Seurat)
+library(tidyverse)
+library(qs2)
+library(fs)
+# scCustomize only used here for its categorical palette helper on UMAPs.
+library(scCustomize)
+
+# Seed Louvain (and any future stochastic step) so cluster labels stay stable across renders.
+set.seed(1)
+
+# load the post-SCT already saved
+xen <- qs_read("data/20260512_microglia_switch_sct_regressed_by_slide.qs2")
+
+```
+
+## SCTransform (no covariate regressed)
+
+```{r}
+#| label: sct
+#| eval: false
+# eval:false because this block is the one-off build step; the checkpoint above is reloaded on every render.
+
+# Load the raw merged object produced by R/20260512_xenium2seurat.R.
+xen <- qs_read("data/20260512_microglia_switch_original_seurat.qs2")
+# Xenium is the count assay; force it as default so SCTransform reads the right matrix.
+DefaultAssay(xen) <- "Xenium"
+cat("cells:",    ncol(xen),
+    " features:", nrow(xen),
+    " assays:",  paste(Assays(xen), collapse = ", "),
+    "\n")
+
+# Baseline normalization with no covariate regressed
+xen <- SCTransform(xen, assay = "Xenium", verbose = FALSE,
+                   vars.to.regress = "slide")
+# Switch default to SCT so downstream Run/Find* use the residuals, not raw counts.
+DefaultAssay(xen) <- "SCT"
+cat("variable features:", length(VariableFeatures(xen)), "\n")
+
+# Default npcs (50) is fine; we only use the first 30 downstream.
+xen <- RunPCA(xen)
+
+# 1:30 PCs matches the QC plan; FindNeighbors default k = 20.
+xen <- FindNeighbors(xen, reduction = "pca", dims = 1:30, verbose = FALSE)
+
+# algorithm = 1 is plain Louvain (not Leiden); resolution 0.5 is the agreed coarse-grain setting.
+xen <- FindClusters(xen, resolution = 0.5, algorithm = 1, verbose = FALSE)
+
+# UMAP only for visual QC of the clusters; not used by any downstream stat.
+xen <- RunUMAP(xen, reduction = "pca", dims = 1:30, verbose = FALSE)
+
+# qs_save(xen, "data/20260512_microglia_switch_sct_regressed_by_slide.qs2")
+```
+
+## Plot PCA
+
+```{r}
+#| label: palette
+colorines <- scCustomize_Palette(num_groups = n_distinct(xen$seurat_clusters), ggplot_default_colors = FALSE)
+```
+
+```{r}
+#| label: pca
+# Split by slide to eyeball the slide effect on PC1/PC2 before any correction
+PCAPlot(xen,split.by = "slide", cols = colorines)
+```
+
+## Plot UMAP
+
+```{r}
+#| label: umap
+# Palette sized to the actual cluster count so colours stay stable if resolution changes the number of clusters.
+
+DimPlot(xen, cols = colorines)
+
+```
+
+### Per slide
+ 
+```{r}
+#| label: umap-slide
+#| fig-width: 10
+#| column: page
+
+# Side-by-side UMAPs per slide 
+ DimPlot(xen, split.by = "slide",  cols = colorines)+ NoLegend()
+
+```
+
+### Per sample
+
+```{r}
+#| label: umap-sample
+#| fig-width: 14
+#| fig-height: 12
+#| column: page
+
+ # Per-sample facets check whether 4s2M_F2 (partial section) lands in the same cluster geometry as the other six.
+ DimPlot(xen, split.by = "sample_id", ncol = 3, cols = colorines)+ NoLegend()
+
+
+```
