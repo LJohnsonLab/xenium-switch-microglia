@@ -57,5 +57,5 @@ All samples are 5XFAD; the prefix encodes the microglial APOE state, not amyloid
 ## Notes
 
 - Both slides export `Region_1` only — sample-level segmentation has not yet been applied; sample assignment requires manual ROI definition in Xenium Explorer (or programmatic polygon masks) using the layouts on page 2 of the PDF key.
-- Slide `0022474` stores its experiment manifest as `experiment.xenium_slide1.xenium`; slide `0069080` uses the standard `experiment.xenium`.
+- Slide `0022474` originally exported its experiment manifest as `experiment.xenium_slide1.xenium`; renamed on disk to `experiment.xenium` on 2026-05-12 so `Seurat::LoadXenium()` resolves it. Slide `0069080` uses the standard `experiment.xenium`.
 - Sample `4s2M_F2` **is not complete**, only has a fragment remaining on the slide.
