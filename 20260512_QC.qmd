@@ -1,0 +1,328 @@
+---
+title: "QC: sample and slide diagnostics"
+date: last-modified
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    df-print: paged
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+---
+
+This notebook is report-only. It interrogates two known confounds before any downstream analysis:
+
+1. **Sample-to-sample variation**, with explicit focus on whether `4s2M_F2` (only a tissue fragment remained on the slide) behaves as an outlier.
+2. **Slide-to-slide variation**, since slide `0022474` was processed with Xenium Onboard Analysis (XOA) v3.2.0.7 and slide `0069080` with XOA v3.3.0.1, one year apart. Per-cell `segmentation_method` and the slide-level segmentation fractions are the most direct probes for segmentation drift between versions. The official [XOA release notes](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/release-notes/release-notes-for-xoa) document what changed across versions.
+ The panel (`mBrain_480g`, design `JRZFVH`) and the `metrics_summary.csv` schema match between slides.
+
+No filtering, normalization, or batch correction yet. 
+
+## Setup
+
+```{r}
+#| label: setup
+library(Seurat)
+library(tidyverse)
+library(qs2)
+library(fs)
+library(jsonlite)
+library(patchwork)
+library(gt)
+
+slide_dirs <- c(
+  Slide1_0022474 = "xenium_rawData/Slide1_output-XETG00118__0022474__Region_1__20250418__203103",
+  Slide2_0069080 = "xenium_rawData/output-XETG00118__0069080__Region_1__20260417__210507")
+
+samples <- tribble(
+  ~sample_id, ~slide,            ~condition,
+  "4s2_F1",   "Slide1_0022474",  "control",
+  "4s2M_F1",  "Slide1_0022474",  "switched",
+  "4s2M_F2",  "Slide1_0022474",  "switched",
+  "4s2_F2",   "Slide2_0069080",  "control",
+  "4s2_F3",   "Slide2_0069080",  "control",
+  "4s2M_F3",  "Slide2_0069080",  "switched",
+  "4s2M_F4",  "Slide2_0069080",  "switched")
+
+sample_levels <- samples |> arrange(condition, sample_id) |> pull(sample_id)
+qc_metrics    <- c("nCount_Xenium", "nFeature_Xenium", "cell_area",
+                   "median_qv",     "nCount_raw",      "nFeature_raw")
+```
+
+## Load the Seurat object
+
+```{r}
+#| label: load-xen
+xen <- qs_read("data/20260512_microglia_switch_original_seurat.qs2")
+meta <- xen@meta.data |>
+  rownames_to_column("cell") |>
+  mutate(sample_id = factor(sample_id, levels = sample_levels))
+cat("cells:", nrow(meta), "  features:", nrow(xen), "\n")
+```
+
+## Slide-level summary
+
+Both slides export the same `metrics_summary.csv` schema. We render the slide-level metrics in two tables: a small run-metadata block (which samples land on which slide, when it ran, and which XOA version produced the outputs) and a numeric-metrics block with the between-slide ratio (Slide2 / Slide1). A ratio outside `[1/1.2, 1.2]` (i.e. a >20 % difference) is bolded.
+
+**Segmentation method.** Both slides report `segmented_cell_nuc_expansion_frac = 1`, so every cell on every slide is defined by 5 µm isotropic dilation of the segmented nucleus. XOA set this default in v2.0 (March 2024). The two slides were processed with different XOA versions (v3.2.0.7 vs v3.3.0.1), but the public [release notes](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/release-notes/release-notes-for-xoa) do not document any change to the nuclear-expansion path between these versions. XOA v3.3.0 introduced multimodal cell-segmentation refinements that filter incorrect boundary-stain segmentations and merge boundary-stain image segmentations, but those changes apply only when membrane stains are available, which is not the case here. Any between-slide shift therefore more likely reflects acquisition or tissue differences than a documented XOA algorithm change. The instrument firmware also differs across runs (v3.2.1.2 vs v3.4.1.0) and may contribute independently.
+
+```{r}
+#| label: slide-summary-load
+read_slide_summary <- function(slide_dir, slide_label) {
+  manifest <- read_json(path(slide_dir, "experiment.xenium"))
+  metrics  <- read_csv(path(slide_dir, "metrics_summary.csv"), show_col_types = FALSE) |>
+    select(num_cells_detected,
+           cells_per_100um2,
+           fraction_transcripts_decoded_q20,
+           fraction_transcripts_assigned,
+           median_transcripts_per_cell,
+           median_genes_per_cell,
+           adjusted_negative_control_probe_rate,
+           adjusted_negative_control_codeword_rate)
+  tibble(slide                = slide_label,
+         analysis_sw_version  = manifest$analysis_sw_version,
+         run_start_time       = manifest$run_start_time) |>
+    bind_cols(metrics)}
+
+slide_summary <- imap(slide_dirs, read_slide_summary) |> list_rbind()
+```
+
+```{r}
+#| label: slide-meta-table
+slide_samples <- samples |>
+  summarize(samples = paste(sample_id, collapse = ", "), .by = slide)
+
+slide_meta <- slide_summary |>
+  select(slide, run_start_time, analysis_sw_version) |>
+  left_join(slide_samples, by = "slide")
+
+slide_meta |>
+  gt(rowname_col = "slide") |>
+  tab_header(title = "Run metadata") |>
+  cols_label(run_start_time      = "run start",
+             analysis_sw_version = "XOA version",
+             samples             = "samples on slide") |>
+  tab_options(table.font.size = px(12))
+```
+
+```{r}
+#| label: slide-numeric-table
+slide_numeric <- slide_summary |>
+  select(-any_of(c("analysis_sw_version", "run_start_time"))) |>
+  pivot_longer(-slide, names_to = "metric", values_to = "value") |>
+  pivot_wider(names_from = slide, values_from = value) |>
+  mutate(ratio = Slide2_0069080 / Slide1_0022474,
+         flagged = !is.na(ratio) & (ratio > 1.2 | ratio < 1 / 1.2))
+
+slide_numeric |>
+  gt(rowname_col = "metric") |>
+  fmt_number(columns = c(Slide1_0022474, Slide2_0069080, ratio), n_sigfig = 3) |>
+  sub_missing(columns = ratio, missing_text = "—") |>
+  data_color(columns = ratio,
+             colors = scales::col_numeric(palette = c("steelblue", "white", "firebrick"),
+                                          domain  = c(0.5, 2.0))) |>
+  tab_style(style = cell_text(weight = "bold"),
+            locations = cells_body(rows = flagged)) |>
+  cols_hide(columns = flagged) |>
+  tab_header(title = "Slide-level Xenium metrics") |>
+  tab_options(table.font.size = px(12))
+```
+
+We observe three coupled differences between slides. Slide2 returns 1.35-fold more cells than Slide1 (415,000 vs 307,000), yet cells per 100 µm² are essentially identical (0.192 vs 0.186). Slide2 simply images a larger region.
+
+Cells on Slide2 are richer. Median transcripts per cell rise 1.25-fold (843 vs 677) and median genes per cell rise 1.10-fold (201 vs 183). Decoder quality is unchanged: fraction_transcripts_decoded_q20 = 0.808 on both slides.
+
+Two segmentation-quality signals move in the same direction on Slide2. The fraction of decoded transcripts assigned to a cell falls to 0.662 from 0.712 (ratio 0.93); more transcripts therefore sit outside the nuclear-expansion mask. The adjusted negative-control probe rate rises 1.33-fold (0.00540 vs 0.00406). The negative-control codeword rate is flat (ratio 0.97), so the decoder false-positive rate has not changed.
+
+We rule out decoder quality as the cause. The XOA [release notes](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/release-notes/release-notes-for-xoa) for v3.2 → v3.3 do not document any change to the nuclear-expansion segmentation path used here; the v3.3 segmentation updates target boundary-stain segmentation, which our runs do not use. We therefore attribute the slide effect to acquisition or tissue differences between the two runs (one year apart, instrument firmware v3.2.1.2 vs v3.4.1.0), not to a documented XOA algorithm change.
+
+## Sample-vs-sample distributions
+
+Violin + boxplot of each per-cell QC metric, x = sample (control samples first, switched second), fill = condition. The partial section `4s2M_F2` is outlined in black; the dashed line is the cohort median across all cells.
+
+```{r}
+#| label: long-meta
+meta_long <- meta |>
+  select(cell, sample_id, slide, condition, partial_section, all_of(qc_metrics)) |>
+  pivot_longer(all_of(qc_metrics), names_to = "metric", values_to = "value")
+
+cohort_medians <- meta_long |>
+  summarize(cohort_median = median(value, na.rm = TRUE), .by = metric)
+```
+
+```{r}
+#| label: sample-violin
+#| column: page
+#| fig-width: 12
+#| fig-height: 8
+plot_metric_by_sample <- function(metric_name) {
+  data <- meta_long |> filter(metric == metric_name)
+  hline <- cohort_medians |> filter(metric == metric_name) |> pull(cohort_median)
+  data |>
+    ggplot(aes(sample_id, value, fill = condition)) +
+    geom_violin(scale = "width", linewidth = 0.2,
+                aes(colour = partial_section)) +
+    geom_boxplot(width = 0.15, outlier.size = 0.2, fill = "white", linewidth = 0.3) +
+    geom_hline(yintercept = hline, linetype = "dashed", colour = "grey40") +
+    scale_colour_manual(values = c(`TRUE` = "black", `FALSE` = NA), guide = "none") +
+    scale_fill_manual(values = c(control = "#7FB3D5", switched = "#F1948A")) +
+    labs(title = metric_name, x = NULL, y = NULL) +
+    theme_bw(base_size = 11) +
+    theme(axis.text.x = element_text(angle = 30, hjust = 1),
+          legend.position = "none")}
+
+wrap_plots(map(qc_metrics, plot_metric_by_sample), ncol = 2) +
+  plot_annotation(title = "Per-cell QC metrics by sample",
+                  subtitle = "Dashed line = cohort median; black outline = partial section (4s2M_F2)") +
+  plot_layout(guides = "collect")
+```
+
+Per-cell distributions overlap across the seven samples for every metric. 4s2M_F2 sits inside the cohort range on every panel and shows no visual outlier behaviour. The dominant structure is slide of origin: the three Slide1 samples (4s2_F1, 4s2M_F1, 4s2M_F2) sit below the four Slide2 samples on nCount_Xenium, nFeature_Xenium, and cell_area, reproducing the slide-level shift.
+
+## Per-sample scaled-deviation table
+
+For each metric, compute the median per sample, then z-score the seven sample medians against their own mean and SD. Cells with `|z| > 2` are bolded; the colour scale runs from blue (low) to red (high).
+
+```{r}
+#| label: z-table
+sample_medians <- meta_long |>
+  summarize(sample_median = median(value, na.rm = TRUE),
+            .by = c(metric, sample_id, condition, slide))
+
+sample_z <- sample_medians |>
+  mutate(z = (sample_median - mean(sample_median)) / sd(sample_median),
+         .by = metric)
+
+z_wide <- sample_z |>
+  select(sample_id, condition, slide, metric, z) |>
+  pivot_wider(names_from = metric, values_from = z) |>
+  arrange(condition, sample_id)
+
+flag_cells <- function(gt_obj, col) {
+  gt_obj |>
+    tab_style(style = cell_text(weight = "bold"),
+              locations = cells_body(columns = all_of(col),
+                                     rows = abs(.data[[col]]) > 2))}
+
+z_gt <- z_wide |>
+  gt(rowname_col = "sample_id") |>
+  tab_header(title = "z-score of per-sample medians",
+             subtitle = "z = (sample_median - mean) / sd across the 7 samples; |z| > 2 = bold") |>
+  fmt_number(columns = all_of(qc_metrics), decimals = 2) |>
+  data_color(columns = all_of(qc_metrics),
+             colors = scales::col_numeric(palette = c("steelblue", "white", "firebrick"),
+                                          domain  = c(-3, 3))) |>
+  tab_options(table.font.size = px(12))
+
+reduce(qc_metrics, flag_cells, .init = z_gt)
+```
+
+```{r}
+#| label: z-verdict
+flagged <- sample_z |>
+  filter(abs(z) > 2) |>
+  mutate(direction = if_else(z > 0, "high", "low"),
+         note      = sprintf("%s: %s (z = %+0.2f)", metric, direction, z))
+
+if (nrow(flagged) == 0) {
+  cat("No sample flags any metric at |z| > 2.\n")
+} else {
+  flagged |>
+    summarize(metrics = paste(note, collapse = "; "), .by = sample_id) |>
+    glue::glue_data("- **{sample_id}** flagged on: {metrics}") |>
+    paste(collapse = "\n") |>
+    cat()}
+```
+
+The z-score table confirms the visual reading. Only 4s2_F1 crosses |z| > 2, and it does so on median_qv (z = +2.13). A higher median QV indicates cleaner decoding, not a defect; we keep the sample. 4s2M_F2 sits within ±1.2 SD on every metric. The partial-section concern does not translate into a per-cell QC failure.
+
+The sign of each z-score reproduces the slide structure. Every Slide1 sample carries negative z on nCount_Xenium, nFeature_Xenium, and cell_area; every Slide2 sample carries positive z. The slide confound therefore propagates from per-cell distributions into per-sample medians.
+
+## Slide-vs-slide distributions
+
+Per-cell metric densities split by slide. The vertical line in each panel is the per-slide median.
+
+```{r}
+#| label: slide-density
+#| fig-width: 12
+#| fig-height: 8
+slide_medians <- meta_long |>
+  summarize(slide_median = median(value, na.rm = TRUE), .by = c(metric, slide))
+
+plot_metric_by_slide <- function(metric_name) {
+  data <- meta_long |> filter(metric == metric_name)
+  meds <- slide_medians |> filter(metric == metric_name)
+  data |>
+    ggplot(aes(value, colour = slide, fill = slide)) +
+    geom_density(alpha = 0.25, linewidth = 0.5) +
+    geom_vline(data = meds, aes(xintercept = slide_median, colour = slide),
+               linetype = "dashed", linewidth = 0.4) +
+    scale_colour_manual(values = c(Slide1_0022474 = "#1f78b4", Slide2_0069080 = "#e31a1c")) +
+    scale_fill_manual(values   = c(Slide1_0022474 = "#1f78b4", Slide2_0069080 = "#e31a1c")) +
+    labs(title = metric_name, x = NULL, y = "density") +
+    theme_bw(base_size = 11)}
+
+wrap_plots(map(qc_metrics, plot_metric_by_slide), ncol = 2) +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom")
+```
+
+Slide2 shifts the per-cell distributions consistently to the right on nCount_Xenium, nFeature_Xenium, cell_area, nCount_raw, and nFeature_raw. The two slides share the same bimodal median_qv distribution with peaks near 29 and 40; QV is not differentially affected.
+
+## Per-cell control rates
+
+Per cell: fraction of total transcripts that fall in the `ControlCodeword` or `ControlProbe` assays. Elevated values indicate noisy segmentation (cell boundaries pulling in stray molecules from neighbouring tissue). Both metrics are plotted by sample and by slide.
+
+```{r}
+#| label: control-rates
+#| fig-width: 10
+#| column: page
+#| fig-height: 6
+total_counts <- meta$nCount_Xenium
+ctrl_counts  <- map_dfc(c(ControlCodeword = "ControlCodeword",
+                          ControlProbe    = "ControlProbe"),
+                        \(assay_name) colSums(GetAssayData(xen, assay = assay_name, layer = "counts")))
+ctrl_rates <- ctrl_counts |>
+  mutate(across(everything(), \(x) x / total_counts)) |>
+  rename(ControlCodeword_rate = ControlCodeword,
+         ControlProbe_rate    = ControlProbe) |>
+  bind_cols(meta |> select(cell, sample_id, slide, condition, partial_section))
+
+ctrl_long <- ctrl_rates |>
+  pivot_longer(c(ControlCodeword_rate, ControlProbe_rate),
+               names_to = "metric", values_to = "rate")
+
+p_sample <- ctrl_long |>
+  ggplot(aes(sample_id, rate, fill = condition)) +
+  geom_boxplot(outlier.size = 0.2, linewidth = 0.3) +
+  facet_wrap(~ metric, scales = "free_y", ncol = 1) +
+  scale_fill_manual(values = c(control = "#7FB3D5", switched = "#F1948A")) +
+  labs(title = "Per-cell control transcript rate by sample", x = NULL, y = "fraction") +
+  theme_bw(base_size = 11) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1),
+        legend.position = "none")
+
+p_slide <- ctrl_long |>
+  ggplot(aes(slide, rate, fill = slide)) +
+  geom_boxplot(outlier.size = 0.2, linewidth = 0.3) +
+  facet_wrap(~ metric, scales = "free_y", ncol = 1) +
+  scale_fill_manual(values = c(Slide1_0022474 = "#1f78b4", Slide2_0069080 = "#e31a1c")) +
+  labs(title = "Per-cell control transcript rate by slide", x = NULL, y = "fraction") +
+  theme_bw(base_size = 11) +
+  theme(legend.position = "none")
+
+p_sample | p_slide
+```
+
+Per-cell control rates stay below 0.02 for ControlCodeword and below 0.04 for ControlProbe on every sample and on both slides. Within-cell purity is therefore high everywhere. The slide-level adjusted negative-control probe rate from Section Slide-level summary did rise 1.33-fold on Slide2, but the per-cell rate does not reproduce that pattern at any meaningful magnitude. The slide-level metric captures extracellular probes; the per-cell metric captures within-cell contamination. The two are decoupled, and the per-cell view confirms that segmentation drift does not contaminate individual cells.
+
+## Verdict and recommendation
+
+**Sample 4s2M_F2 is not an outlier.** Every per-cell QC metric for the partial section sits within ±1.2 SD of the cohort mean of sample medians. We keep 4s2M_F2 in the dataset with its `partial_section = TRUE` flag and revisit it only if downstream clustering reveals biological skew.
+
+**A slide effect seems to exist.** Slide2 cells carry 25 % more transcripts and 10 % more genes than Slide1 cells at essentially identical cell density (0.192 vs 0.186 cells per 100 µm²). The fraction of transcripts assigned to a cell drops 7 % on Slide2, and the adjusted negative-control probe rate rises 33 %. Both segmentation-quality signals move together. Decoder quality (fraction_transcripts_decoded_q20 = 0.808) and the negative-control codeword rate are unchanged. The XOA [release notes](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/release-notes/release-notes-for-xoa) for v3.2 → v3.3 describe only multimodal-segmentation refinements, which do not apply to the nuclear-expansion path used here. We therefore treat the slide as a technical confound driven by acquisition or tissue differences (instrument firmware v3.2.1.2 vs v3.4.1.0, runs one year apart) rather than by a documented XOA algorithm change.
+
+
