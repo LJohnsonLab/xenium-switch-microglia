@@ -1,5 +1,6 @@
 ---
 title: "SpaNorm: spatial-aware normalization"
+subtitle: "sample.p = 0.05"
 date: last-modified
 format:
   html:
@@ -26,6 +27,19 @@ Bibliography for this notebook:
 - Salim et al., "SpaNorm: spatially-aware normalization for spatial transcriptomics data," Genome Biology, 2025. DOI: 10.1186/s13059-025-03565-y.
 - SpaNorm package vignette: https://bhuvad.github.io/SpaNorm/articles/SpaNorm.html.
 - Cached NotebookLM read-through: `notebookLM/2026-05-12_spanorm-background.md`.
+
+## SpaNorm Tuning parameters
+
+
+**`sample.p`** is the random fraction of cells used to fit the negative-binomial GLM parameters. The package default is 0.25. We use 0.05 here. Subsampling buys runtime and memory at near-no accuracy cost because the splines only need a representative scatter of cells across each tissue. Salim et al. (Genome Biology, 2025) recommend ~5 % on ~400k-cell Xenium datasets. The companion notebook `20260512_SpaNorm_samplep025.qmd` re-runs the same pipeline at the package default of 0.25.
+
+**`df.tps`** sets the degrees of freedom of the 2D thin-plate spline. The package default is 6. A length-2 vector decouples biology and library-size smoothness. We keep them coupled at 6 because the targeted 480-gene Xenium panel does not show the sharp gradients that justify an asymmetric spline.
+
+**`adj.method`** selects how SpaNorm returns the residuals. `"auto"` lets the package pick among `"logpac"` (log percentile-invariant adjusted counts; the recommended default for Seurat workflows), `"pearson"`, `"medbio"`, and `"meanbio"` based on the fitted model. We use `"auto"`.
+
+**`backend`** toggles GPU vs CPU. `"auto"` falls back from GPU to CPU and is the safe choice on a laptop without CUDA.
+
+Two further arguments stay at their defaults but are worth knowing: `gene.model = "nb"` (negative binomial; the only spatially-validated option in version 1.4.0) and `lambda.a = 1e-4` (the L2 penalty on the spline coefficients, set conservatively to avoid overfitting the per-sample fits).
 
 ## Setup
 
@@ -159,12 +173,16 @@ colorines <- scCustomize_Palette(num_groups = n_distinct(xen$seurat_clusters), g
 PCAPlot(xen, split.by = "slide", cols = colorines)
 ```
 
+**Result.** Slide1 and Slide2 occupy the same PC1 and PC2 envelope, and cluster colors map onto the same fan structure on both panels. We read this as removal of the slide-level mean shift that `20260512_QC.qmd` flagged. Residual density differences in clusters 2 (red) and 14 (dark blue) are mild and most plausibly track tissue composition, not a global library-size shift.
+
 ## UMAP
 
 ```{r}
 #| label: umap
 DimPlot(xen, cols = colorines)
 ```
+
+**Result.** At Louvain resolution 0.5 SpaNorm yields 25 discrete clusters with clean separation between lobes. The cluster count sits in the same range as the two SCT notebooks at the matched resolution. The topology shows several isolated islands (cluster 16 upper-left; clusters 17 and 21 lower-left) that we will inspect for marker specificity in the three-way comparison notebook.
 
 ### Per slide
 
@@ -177,6 +195,8 @@ DimPlot(xen, cols = colorines)
 DimPlot(xen, split.by = "slide", cols = colorines) + NoLegend()
 ```
 
+**Result.** Two regions of the UMAP show a clear slide imbalance. The top-left island carries the green cluster on Slide1 and a dark-red cluster on Slide2, so the two slides populate the same UMAP territory with different cluster identities. The bottom-center lobe (cluster 0) is also visibly denser on Slide2 than on Slide1. 
+
 ### Per sample
 
 ```{r}
@@ -188,6 +208,8 @@ DimPlot(xen, split.by = "slide", cols = colorines) + NoLegend()
 # Per-sample facets check whether 4s2M_F2 (partial section) lands in the same cluster geometry as the other six.
 DimPlot(xen, split.by = "sample_id", ncol = 3, cols = colorines) + NoLegend()
 ```
+
+**Result.** The six complete sections (4s2_F1, F2, F3 and 4s2M_F1, F3, F4) reproduce the full 25-cluster landscape with similar cluster proportions. 4s2M_F2 contributes fewer cells overall, as expected for a partial section, but the cells it does contribute land in the same basins as the matched complete sections. We retain 4s2M_F2 for now and re-evaluate at the cluster-composition step.
 
 ## References
 
