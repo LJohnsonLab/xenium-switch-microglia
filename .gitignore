@@ -77,3 +77,6 @@ data/*
 # Claude
 context/
 notebookLM/
+
+# HPC - Morgan Compute Core
+HPC/
