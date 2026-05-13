@@ -13,3 +13,16 @@
 - Is the `.gitignore` ready to commit, or are further entries pending?
 
 **Token Budget:** ~210 tokens.
+
+## 2026-05-12 — Ingest, QC, and three-way normalization scaffold
+
+**What we did.** We built the ingest script `R/20260512_xenium2seurat.R`: `LoadXenium` per slide, attach per-sample ROIs from `spatial_data/<sample>_cells_stats.csv`, summarise transcripts via duckplyr, filter to `nCount_Xenium > 0 & median_qv >= 20`, merge with `JoinLayers`, save `data/20260512_microglia_switch_original_seurat.qs2` (480 × ~430k cells). We wrote `20260512_QC.qmd` (sample-vs-sample and slide-vs-slide diagnostics) and committed three parallel clustering notebooks: SCTransform without regressor, SCTransform with `vars.to.regress = "slide"`, and per-sample SpaNorm (`20260512_SpaNorm.qmd`). All three end with ScaleData → PCA(30) → FindNeighbors → Louvain(0.5) → UMAP. We resolved the SpaNorm 1.4.0 SpatialExperiment-only dispatch by wrapping each per-sample subset in a `SpatialExperiment` before the call, and bringing logcounts back as a v5 `CreateAssay5Object(data = ...)`. We cached the SpaNorm background read-through at `notebookLM/2026-05-12_spanorm-background.md` and cite (Salim, Genome Biology, 2025).
+
+**Slide effect.** Slide2 vs Slide1 shows +25 % transcripts/cell, -7 % assignment rate, +33 % control-probe rate. Verdict (in `20260512_QC.html`) attributes this to acquisition/tissue/firmware drift, not XOA algorithmic change.
+
+**Unresolved.**
+- Run the SpaNorm build chunk end-to-end and save `data/20260512_microglia_switch_spanorm.qs2`; the `qs_save` line is commented in the qmd.
+- Three-way visual comparison of SCT-no-regress vs SCT-slide-regress vs SpaNorm on PCA/UMAP/Louvain.
+- Decide whether to drop `4s2M_F2` (partial section) before DE.
+
+**Token Budget:** ~245 tokens.
