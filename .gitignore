@@ -1,0 +1,79 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# R / RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+.Renviron
+.Rapp.history
+renv/library/
+renv/local/
+renv/cellar/
+renv/lock/
+renv/python/
+renv/staging/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+.env
+
+# Quarto / Jupyter
+/.quarto/
+_site/
+_freeze/
+*_files/
+*_cache/
+*.html
+
+# Logs / temp
+*.log
+*.tmp
+tmp/
+temp/
+
+# Xenium raw data: ignore everything except the README
+xenium_rawData/*
+!xenium_rawData/README.md
+!xenium_rawData/4s2MxFAD Xenium_brain key_042126.pdf
+
+# Processed data artefacts: ignore everything except the README
+data/*
+!data/README.md
+
+# Claude
+context/
+notebookLM/
