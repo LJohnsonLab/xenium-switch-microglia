@@ -43,6 +43,11 @@ library(SpaNorm)
 library(SpatialExperiment)
 # scCustomize only contributes its categorical palette helper for the UMAP plots.
 library(scCustomize)
+# kableExtra renders the per-cluster top-marker table inside a scroll box.
+library(kableExtra)
+
+# Source the shared helper functions; fiddle() draws the per-cluster violin panel.
+source("R/20260514-helper_functions.R")
 
 # Seed Louvain and any other stochastic step so cluster labels stay stable across renders.
 set.seed(1)
@@ -164,7 +169,8 @@ Cluster identities differ between the two builds (cluster 4, green, dominates th
 
 ```{r}
 #| label: umap
-DimPlot(xen, cols = colorines)
+# label = TRUE prints the cluster id inside each UMAP island so the markers panels below stay legible.
+DimPlot(xen, cols = colorines, label = TRUE, label.size = 5) + NoLegend()
 ```
 
 **Result.** `sample.p = 0.25` yields 25 clusters, the same count as `sample.p = 0.05` at the matched Louvain resolution.  
@@ -203,6 +209,63 @@ DimPlot(xen, split.by = "sample_id", ncol = 3, cols = colorines) + NoLegend()
 **Result.** All six complete sections (4s2_F1, F2, F3 and 4s2M_F1, F3, F4) reproduce the 25-cluster landscape with similar proportions.   
 
 4s2M_F2 still contributes fewer cells, as expected for the partial section, but the cells it does contribute land in the same basins as the matched complete sections, with cluster 0 (dark) at the top and the lower-left gray/red lobe both well represented. The partial-section flag stays a cell-count flag, not a normalization or cluster-identity flag.
+
+## Find all markers
+
+
+```{r}
+#| label: find-all-markers
+#| eval: false
+
+# devtools::install_github('immunogenomics/presto')
+# presto gives a far faster Wilcoxon Rank Sum implementation than Seurat's default.
+library(presto)
+
+# FindAllMarkers needs cluster identities as the active Idents().
+Idents(xen) <- "seurat_clusters"
+spanorm_markers <- FindAllMarkers(xen, only.pos = TRUE, densify = TRUE)
+
+# write_csv(spanorm_markers, file = "results/20260514-find_all_markers_spanorm_p025.csv")
+```
+
+
+```{r}
+#| label: markers-table
+
+# Reload the cached marker table so the table chunk renders without rerunning FindAllMarkers.
+spanorm_markers <- read_csv("results/20260514-find_all_markers_spanorm_p025.csv")
+
+# Top 10 markers per cluster, sorted by avg_log2FC inside each cluster.
+spanorm_markers <- spanorm_markers |>
+  select(cluster, gene, avg_log2FC, p_val_adj) |>
+  group_by(cluster) |>
+  arrange(desc(avg_log2FC), .by_group = TRUE)
+
+
+kbl(spanorm_markers |> slice_head(n = 10)) |>
+  kable_styling("striped") |>
+  scroll_box(height = "500px")
+
+```
+
+```{r}
+#| label: markers-violin
+#| column: page
+#| fig-height: 25
+#| fig-width: 12
+
+# Top 5 markers per cluster feed fiddle(); the SpaNorm assay carries the log-scale normalized values.
+top_5_genes_spanorm <- spanorm_markers |>
+  slice_head(n = 5) |>
+  pull(gene) |>
+  unique()
+
+fiddle(xen,
+       genes_of_interest = top_5_genes_spanorm,
+       classification_col = "seurat_clusters",
+       assay = "SpaNorm")
+```
+
 
 ## Summary
 
