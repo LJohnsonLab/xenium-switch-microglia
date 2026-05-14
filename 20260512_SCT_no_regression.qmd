@@ -1,5 +1,6 @@
 ---
 title: "SCT"
+subtitle: "Run SCTransform with **no** covariate regressed"
 date: last-modified
 format:
   html:
@@ -28,6 +29,11 @@ library(qs2)
 library(fs)
 # scCustomize only used here for its categorical palette helper on UMAPs.
 library(scCustomize)
+
+library(kableExtra)
+
+source("R/20260217-helper_functions.R")
+
 
 # Seed Louvain (and any future stochastic step) so cluster labels stay stable across renders.
 set.seed(1)
@@ -93,7 +99,7 @@ PCAPlot(xen,split.by = "slide", cols = colorines)
 #| label: umap
 # Palette sized to the actual cluster count so colours stay stable if resolution changes the number of clusters.
 
-DimPlot(xen, cols = colorines)
+DimPlot(xen, cols = colorines,label = TRUE,label.size = 5) + NoLegend()
 
 ```
 
@@ -122,3 +128,58 @@ DimPlot(xen, cols = colorines)
 
 
 ```
+
+## Find all markers
+
+
+```{r}
+#| label: find-all-markers
+#| eval: false
+
+# devtools::install_github('immunogenomics/presto')
+library(presto) # faster implementation of the Wilcoxon Rank Sum Test
+
+Idents(xen) <- "seurat_clusters"
+sct_markers <- FindAllMarkers(xen,only.pos = TRUE, densify = TRUE)
+
+# write_csv(sct_markers, file = "results/20260514-find_all_markers_cst_noRegressed.csv")
+```
+
+ 
+```{r}
+ #| label: markers-table
+
+sct_markers <- read_csv("results/20260514-find_all_markers_cst_noRegressed.csv")
+
+# Top 10 markers per cluster by avg_log2FC
+sct_markers <- sct_markers |> 
+  select(cluster, gene, avg_log2FC, p_val_adj) |> 
+  group_by(cluster) |>
+  arrange(desc(avg_log2FC), .by_group = TRUE)
+  
+  
+kbl(sct_markers |> slice_head(n = 10)) |> 
+  kable_styling("striped") |> 
+  scroll_box(height = "500px")
+  
+```
+
+```{r}
+#| label: markers-violin
+#| column: page
+#| fig-height: 25
+#| fig-width: 12
+
+top_5_genes_sct <- sct_markers |> 
+  slice_head(n = 5) |>
+  pull(gene) |>
+  unique()
+
+fiddle(xen,
+       genes_of_interest = top_5_genes_sct,
+       classification_col = "seurat_clusters",
+       assay = "SCT")
+```
+
+
+
