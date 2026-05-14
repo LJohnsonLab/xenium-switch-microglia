@@ -59,10 +59,11 @@ fiddle <- function(seurat_obj,
     # Fetch data from Seurat object
     violin_data <- FetchData(seurat_obj, c(genes_of_interest, classification_col), assay = assay)
 
-    # Reshape data to long format
+    # Reshape data to long format; keep natural cluster order on the x-axis
+    # and stack genes vertically as facet rows so the gene name acts as the y-axis label.
     violin_data_long <- violin_data |>
         pivot_longer(-all_of(classification_col)) |>
-        mutate(seurat_clusters = fct_rev(.data[[classification_col]]),
+        mutate(seurat_clusters = factor(.data[[classification_col]]),
                name = factor(name, levels = genes_of_interest))
 
     # Generate color palette matching default ggplot discrete colors
@@ -70,47 +71,37 @@ fiddle <- function(seurat_obj,
     palette_colors <- scales::hue_pal()(length(cluster_levels))
     names(palette_colors) <- cluster_levels
 
-    # Build the violin plot
+    # Build the violin plot: clusters on x, expression on y, one facet row per gene.
     p <- ggplot(violin_data_long, aes(x = seurat_clusters, y = value, fill = seurat_clusters)) +
         geom_violin(aes(color = seurat_clusters),
                     scale = violin_scale,
                     trim = violin_trim,
                     adjust = violin_adjust,
                     show.legend = FALSE) +
-        coord_flip() +
         scale_fill_manual(values = palette_colors) +
         scale_color_manual(values = palette_colors) +
-        facet_wrap(~name, scales = "free_x", nrow = facet_nrow) +
+        facet_wrap(~name, ncol = 1, scales = "free_y", strip.position = "left") +
         theme_minimal() +
         labs(x = "Cluster", y = "Expression Levels") +
         theme(
-            legend.position = "left",
-            # Color each y-axis label to match its cluster
-            axis.text.y = element_text(
-                size = axis_text_y_size,
-                color = rev(palette_colors[cluster_levels])
+            legend.position = "none",
+            # Color each x-axis tick label to match its cluster
+            axis.text.x = element_text(
+                size = axis_text_x_size,
+                color = palette_colors[cluster_levels],
+                angle = 45, hjust = 1
             ),
-            axis.text.x = element_text(size = axis_text_x_size),
+            # Hide per-facet expression-level numbers; the violin shape carries the info.
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank(),
             panel.grid.major.x = element_blank(),
             panel.grid.minor.x = element_blank(),
-            strip.text = element_text(size = strip_text_size, face = "italic",
-                                      angle = strip_angle, hjust = 1, vjust = 0.7)
+            # Gene labels on the left now stand in for the y-axis title.
+            strip.text.y.left = element_text(size = strip_text_size, face = "italic",
+                                             angle = 0, hjust = 1)
         )
 
-    # Convert to grob and remove duplicate y-axes from all facets except the first
-    g <- ggplotGrob(p)
-    axis_grobs <- which(grepl("axis-l", g$layout$name))
-    invisible(
-        map(axis_grobs, function(i) {
-            if (g$layout[i, "name"] != "axis-l-1-1") {
-                g$grobs[[i]] <<- nullGrob()
-            }
-        })
-    )
-
-    # Display the plot
-    grid.newpage()
-    grid.draw(g)
+    print(p)
 }
 
 
