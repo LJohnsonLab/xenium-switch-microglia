@@ -10,12 +10,14 @@ Xenium in situ spatial transcriptomics of mouse brain under a microglia-specific
 
 1. **Ingest** (`R/20260512_xenium2seurat.R`): `LoadXenium` per slide, attach per-sample ROIs from `spatial_data/<sample>_cells_stats.csv`, summarise transcripts via duckplyr, filter to `!is.na(sample_id) & nCount_Xenium > 0 & median_qv >= 20`, merge with `add.cell.ids = c("slide1", "slide2")`, `JoinLayers`, save as `data/20260512_microglia_switch_original_seurat.qs2`.
 2. **QC** (`20260512_QC.qmd`): sample-vs-sample and slide-vs-slide diagnostics on per-cell QC and slide `metrics_summary.csv`; verdict in the rendered HTML.
-3. **Normalization comparison**: three parallel notebooks at the project root.
-   - `20260512_SCT_no_regression.qmd`: SCTransform with no covariate.
+3. **Normalization comparison**: parallel notebooks at the project root.
+   - `20260512_SCT_no_regression.qmd`: SCTransform, no covariate.
    - `20260512_SCT_regressed_by_slide.qmd`: SCTransform with `vars.to.regress = "slide"`.
-   - `20260512_SpaNorm.qmd`: per-sample SpaNorm (seven fits), logcounts written back into a v5 `SpaNorm` assay.
-   All three end with PCA(30) → FindNeighbors → Louvain at resolution 0.5 → UMAP, plotted by slide and by sample.
-4. **DE / spatial comparison** between `4s2` (E4) and `4s2M` (E2) littermates: not started.
+   - `20260512_SpaNorm_sample005.qmd`: per-sample SpaNorm at `sample.p = 0.05`.
+   - `20260513_SpaNorm_samplep025.qmd` (**project default**, promoted 2026-05-14): per-sample SpaNorm at `sample.p = 0.25`; cleaner slide balance than 0.05 with identical cluster count.
+   All end with PCA(30) → FindNeighbors → Louvain(0.5) → UMAP plotted by slide and by sample.
+4. **Marker analysis & cell-type annotation** (`20260512_SCT_no_regression.qmd`, `20260513_SpaNorm_samplep025.qmd`): presto-backed `FindAllMarkers(only.pos = TRUE)` (chunk gated `eval: false` after a one-pass render) writes `results/20260514-find_all_markers_*.csv`; a top-10-per-cluster table (kbl + scroll_box) and a `fiddle()` violin panel render in each qmd. Cell-type calls and contamination flags live in `results/20260514-cluster_celltype_assignments_*.md`.
+5. **DE / spatial comparison** between `4s2` (E4) and `4s2M` (E2) littermates: not started.
 
 ## Data
 
@@ -23,7 +25,7 @@ Xenium in situ spatial transcriptomics of mouse brain under a microglia-specific
   - Slide `0022474` (run 2025-04-18, `4s2_FAD_LG`): samples 4s2_F1, 4s2M_F1, 4s2M_F2. Manifest was renamed in-place from `experiment.xenium_slide1.xenium` to `experiment.xenium` on 2026-05-12 (see README).
   - Slide `0069080` (run 2026-04-17, `AgeXMetabolism_Run7`): samples 4s2_F2, 4s2_F3, 4s2M_F3, 4s2M_F4.
 - `spatial_data/` (tracked): Xenium Explorer v4.1.1 ROI exports per slide (CSV + GeoJSON, `20260512-slide_<id>.{csv,geojson}`) plus seven `<sample>_cells_stats.csv` per-sample cell tables. These are the authoritative sample masks.
-- `data/` (gitignored except `README.md`): processed artefacts. Current files: `20260512_microglia_switch_original_seurat.qs2` (480 × ~430k cells), `20260512_microglia_switch_sct.qs2`, `20260512_microglia_switch_sct_regressed_by_slide.qs2`. The SpaNorm checkpoint (`data/20260512_microglia_switch_spanorm.qs2`) is built by the SpaNorm qmd's `eval: false` chunk on first run.
+- `data/` (gitignored except `README.md`): processed artefacts. Current files: `20260512_microglia_switch_original_seurat.qs2` (480 × ~430k cells), `20260512_microglia_switch_sct.qs2`, `20260512_microglia_switch_sct_regressed_by_slide.qs2`, `20260512_microglia_switch_spanorm_p025.qs2` (the promoted SpaNorm default). The 0.05 variant checkpoint is built on demand by `20260512_SpaNorm_sample005.qmd`.
 - Source key PDF `4s2MxFAD Xenium_brain key_042126.pdf` is tracked under `xenium_rawData/`; page 2 holds the sample-layout diagrams needed for any manual ROI redo.
 
 ## Environment
@@ -36,6 +38,7 @@ R 4.5.2 + tidyverse, native pipe `|>` only. Key packages: Seurat v5, qs2, fs, du
 - All mice are 5XFAD. The `4s2` vs `4s2M` distinction is about microglial APOE state, not amyloid background.
 - Date-prefixed filenames use `YYYYMMDD-`.
 - `xenium_rawData/<slide_dir>/` paths must be referenced verbatim; the two slide directories use different naming patterns.
+- Shared plotting helpers live at `R/20260514-helper_functions.R`. `fiddle()` draws per-cluster violins with clusters on the x-axis (color-matched, rotated 45°) and genes stacked as left-strip facets, with expression-level tick numbers hidden.
 
 ## Key Decisions
 
@@ -44,10 +47,12 @@ R 4.5.2 + tidyverse, native pipe `|>` only. Key packages: Seurat v5, qs2, fs, du
 - SpaNorm fits run **per sample** (seven fits), not per slide. Spatial smoothness collapses across disconnected tissue sections; running per slide would feed the model multiple unrelated sections at once (Salim, Genome Biology, 2025).
 - No Quarto / knitr caching anywhere. Heavy steps save intermediates under `data/*.qs2` and the qmd `eval: false` build chunks reload those checkpoints on render.
 - Cached NotebookLM read-throughs live at `notebookLM/<date>_<topic>.md` (gitignored). They back the inline literature citations in the qmds.
+- Promoted SpaNorm `sample.p = 0.25` (package default) over the 0.05 value initially suggested for ~400k-cell datasets (Salim, Genome Biology, 2025). At 0.25 the per-slide UMAPs balance more cleanly with identical 25-cluster count; decision recorded in `20260513_SpaNorm_samplep025.qmd`.
+- Cell-type calls come from the top-10 FindAllMarkers per cluster ranked by `avg_log2FC`, organized by cell-type similarity (not cluster number) in the assignment md, with explicit contamination flags for off-profile genes.
 
 ## Current State
 
-Ingest, QC, and three normalization notebooks are committed. The merged Seurat object (480 × ~430k cells, 7 samples, 2 slides) holds raw counts; SCT-no-regress and SCT-slide-regress checkpoints exist on disk; the SpaNorm checkpoint is built the first time the SpaNorm qmd is run with the build chunk set to `eval: true`. Next step is the three-way comparison (PCA / UMAP / Louvain) and the DE/spatial analysis between `4s2` (E4) and `4s2M` (E2) littermates. Sample `4s2M_F2` is a partial section; the QC verdict cleared it as non-outlier on per-cell QC, but treat it cautiously in cluster-composition comparisons.
+Ingest, QC, four normalization notebooks, and a first-pass cell-type annotation are committed. SCT-no-regress (30 clusters) and SpaNorm `sample.p = 0.25` (25 clusters, project default) both carry FindAllMarkers tables and cell-type assignment reports under `results/`. SpaNorm reveals a discrete cytotoxic-T-cell cluster (24: Cd3d/Gzmb/Nkg7/Itk) that SCT does not separate, and drops the SCT contamination clusters (Hbb-bs+ 27, Calb2-contaminated OL 26). Next steps: sub-cluster microglia (SpaNorm 4 / SCT 3) before DE; run DoubletFinder on the mixed reactive clusters (SpaNorm 13/15/23); inspect the T-cell cluster spatially near plaques; sub-cluster SpaNorm astrocytes (5, 8) to look for the SCT cluster 28 DAA signature; then start the E4-vs-E2 (`4s2` vs `4s2M`) DE comparison. Sample `4s2M_F2` is a partial section; flag it in cluster-composition comparisons.
 
 ## Gotchas
 
