@@ -1,0 +1,267 @@
+---
+title: "SpaNorm clean: sample.p = 0.25"
+subtitle: " cluster 20 + 25 removed"
+date: last-modified
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    df-print: paged
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+---
+
+## Why this notebook
+
+The promoted SpaNorm build at `sample.p = 0.25` (`20260513_SpaNorm_samplep025.qmd`) yields 25 clusters at Louvain 0.5. Two of them, `seurat_clusters` 20 and 25, look like slide-specific debris on the per-slide UMAP and carry top markers we read as artefactual rather than biological. We re-fit per-sample SpaNorm at `sample.p = 0.25` on the raw merged object after dropping the cells assigned to those two clusters, and we re-cluster from PCA forward. 
+
+Every other parameter is held fixed against the parent notebook so the before-after comparison is clean: same seven per-sample SpaNorm fits, same `sample.p = 0.25`, same `df.tps = 6`, same `ScaleData -> PCA(30) -> FindNeighbors -> Louvain(0.5) -> UMAP` chain, same 480-gene variable-feature set.
+
+Bibliography for this notebook:
+
+- Salim et al., "SpaNorm: spatially-aware normalization for spatial transcriptomics data," Genome Biology, 2025. DOI: 10.1186/s13059-025-03565-y.
+- SpaNorm package vignette: https://bhuvad.github.io/SpaNorm/articles/SpaNorm.html.
+- Parent notebook: `20260513_SpaNorm_samplep025.qmd` (promoted project default).
+
+## Setup
+
+```{r}
+#| label: setup
+
+# Seurat v5 holds the merged Xenium object with the per-slide FOV slots we read centroids from.
+library(Seurat)
+library(tidyverse)
+# qs2 reads the multi-GB checkpoint roughly 10x faster than saveRDS.
+library(qs2)
+library(fs)
+# SpaNorm is the spatially aware normalization (Salim, Genome Biology, 2025).
+library(SpaNorm)
+# SpatialExperiment is the native input class for SpaNorm; we build one per sample.
+library(SpatialExperiment)
+# scCustomize only contributes its categorical palette helper for the UMAP plots.
+library(scCustomize)
+# kableExtra renders the per-cluster top-marker table inside a scroll box.
+library(kableExtra)
+
+# Source the shared helper functions; fiddle() draws the per-cluster violin panel.
+source("R/20260514-helper_functions.R")
+
+# Seed Louvain and any other stochastic step so cluster labels stay stable across renders.
+set.seed(1)
+
+# Reload the post-SpaNorm clean checkpoint; built by the chunk below on the one-pass eval:true render.
+xen <- qs_read("data/20260516_microglia_switch_spanorm_p025_clean.qs2")
+```
+
+## Build the clean SpaNorm assay (drop clusters 20 + 25, re-fit per sample)
+
+```{r}
+#| label: spanorm-clean
+#| eval: false
+
+
+# Sample, slide, and condition lookup; matches R/20260512_xenium2seurat.R for self-containment.
+samples <- tribble(
+  ~sample_id, ~slide,            ~condition,
+  "4s2_F1",   "Slide1_0022474",  "control",
+  "4s2M_F1",  "Slide1_0022474",  "switched",
+  "4s2M_F2",  "Slide1_0022474",  "switched",
+  "4s2_F2",   "Slide2_0069080",  "control",
+  "4s2_F3",   "Slide2_0069080",  "control",
+  "4s2M_F3",  "Slide2_0069080",  "switched",
+  "4s2M_F4",  "Slide2_0069080",  "switched")
+
+# Start from the promoted dirty build and drop the rubbish clusters in one go.
+# SpaNorm needs raw counts, so we strip the object back to the Xenium assay and drop the
+# stale SpaNorm normalization, PCA / UMAP, and seurat_clusters before re-fitting.
+xen <- qs_read("data/20260512_microglia_switch_spanorm_p025.qs2")
+DefaultAssay(xen) <- "Xenium"
+xen <- subset(xen, subset = seurat_clusters %in% c("20", "25"), invert = TRUE)
+xen <- DietSeurat(xen, assays = "Xenium", dimreducs = NULL, graphs = NULL)
+
+# Slide -> FOV is fixed: the merge of the two LoadXenium slides keeps the FOVs as fov and fov.2.
+slide_to_fov <- c(Slide1_0022474 = "fov", Slide2_0069080 = "fov.2")
+fov_lookup   <- set_names(slide_to_fov[samples$slide], samples$sample_id)
+
+# Run SpaNorm on one sample at the package-default subsample. Returns the log-scale normalized matrix.
+spanorm_one_sample <- function(s, xen, fov_lookup) {
+  # Subset keeps only the cells of one tissue section; SpaNorm's smoothness assumption is per section.
+  seu_s <- subset(xen, subset = sample_id == s)
+  # Centroids come from the slide FOV; we filter to the cells that survived the per-sample subset.
+  coords <- GetTissueCoordinates(seu_s, image = fov_lookup[[s]]) |>
+    filter(cell %in% Cells(seu_s))
+  # SpatialExperiment is SpaNorm's native input; we hand it raw counts plus the 2D centroids.
+  spe <- SpatialExperiment(
+    assays        = list(counts = GetAssayData(seu_s, assay = "Xenium", layer = "counts")),
+    spatialCoords = as.matrix(coords[, c("x", "y")]))
+  # sample.p = 0.25 and df.tps = 6 are held identical to the parent notebook for a like-for-like comparison.
+  spe <- SpaNorm(spe,
+                 sample.p   = 0.25,
+                 df.tps     = 6,
+                 adj.method = "auto",
+                 backend    = "auto",
+                 verbose    = TRUE)
+  # logcounts holds the normalized matrix; we keep Seurat's cell barcodes for the later cbind.
+  out <- SummarizedExperiment::assay(spe, "logcounts")
+  colnames(out) <- Cells(seu_s)
+  out}
+
+# Loop over the 7 samples; map keeps the per-sample matrices named for the reduce step.
+norm_list <- map(samples$sample_id, spanorm_one_sample,
+                 xen = xen, fov_lookup = fov_lookup) |>
+  set_names(samples$sample_id)
+
+# qs_save(norm_list, "data/20260516_norm_list_sample025_clean.qs2")
+
+# Bind the per-sample matrices into one wide normalized matrix and reorder to the merged object's cell order.
+# Qualify reduce() because SpatialExperiment loads IRanges, whose reduce() masks purrr::reduce.
+norm_mat <- purrr::reduce(norm_list, cbind)
+norm_mat <- norm_mat[, Cells(xen)]
+
+# Attach as a new v5 assay; data layer only because the auto-selected adjustment returns log-scale residuals.
+# CreateAssay5Object avoids the "counts layer not present" warning that CreateAssayObject (v3) triggers inside a v5 object.
+xen[["SpaNorm"]] <- CreateAssay5Object(data = norm_mat)
+DefaultAssay(xen) <- "SpaNorm"
+
+# Use all 480 genes as variable features; on a targeted Xenium panel every gene was chosen as informative by design,
+# and FindVariableFeatures("vst") requires a counts layer the SpaNorm assay does not carry.
+VariableFeatures(xen) <- rownames(xen)
+
+# RunPCA expects a scale.data layer; SCT writes it implicitly, but our custom SpaNorm assay only carries the data layer.
+xen <- ScaleData(xen, verbose = FALSE)
+
+# Default npcs (50) is fine; we only use the first 30 downstream.
+xen <- RunPCA(xen, npcs = 30, verbose = FALSE)
+
+# 1:30 PCs and resolution 0.5 match the parent notebook for a like-for-like comparison.
+xen <- FindNeighbors(xen, reduction = "pca", dims = 1:30, verbose = FALSE)
+xen <- FindClusters(xen, resolution = 0.5, algorithm = 1, verbose = FALSE)
+xen <- RunUMAP(xen, reduction = "pca", dims = 1:30, verbose = FALSE)
+
+qs_save(xen, "data/20260516_microglia_switch_spanorm_p025_clean.qs2")
+```
+
+## PCA split by slide
+
+```{r}
+#| label: palette
+# Palette sized to the actual cluster count so colors stay stable if removing clusters 20+25 shifts the count.
+colorines <- scCustomize_Palette(num_groups = n_distinct(xen$seurat_clusters), ggplot_default_colors = FALSE)
+```
+
+```{r}
+#| label: pca
+# Split by slide to compare against the dirty PCA in 20260513_SpaNorm_samplep025.html.
+PCAPlot(xen, split.by = "slide", cols = colorines)
+```
+
+**Result.** The PC1/PC2 envelope keeps the fan shape of the parent build. Both slides span the same PC1 range (-12 to ~15) and the same PC2 range (-7 to ~28), and the red upper-PC2 lobe (cluster 2 here, microglia per the markers below) sits in matched positions on Slide1 and Slide2. The dense low-PC2 multi-cluster basin reproduces on both panels with no slide-only outlier. The cluster-20 / cluster-25 cells removed before re-fitting do not leave a visible hole in the PCA envelope.
+
+## UMAP
+
+```{r}
+#| label: umap
+# label = TRUE prints the cluster id inside each UMAP island so the markers panels below stay legible.
+DimPlot(xen, cols = colorines, label = TRUE, label.size = 5) + NoLegend()
+```
+
+**Result.** Cleaning yields 22 clusters at Louvain 0.5, three fewer than the 25-cluster parent build. The drop is one cluster more than the two we removed, which tells us the cluster-20 / cluster-25 cells were not standalone islands; their removal redistributed cells across neighbours and Louvain collapsed one further cluster at the same resolution. We therefore treat the new decomposition as a fresh cluster set, not a trimmed version of the 25-cluster map, and re-run FindAllMarkers below to re-derive cell-type calls.
+
+The 22 islands span the same UMAP footprint as the parent (umap_1 from -15 to ~10, umap_2 from -10 to ~13). All major basins reappear: the oligodendrocyte mass at the bottom (cluster 0), the microglia lobe (cluster 2 here), the astrocyte cluster 4, the endothelial cluster 7, and the satellite islands at the periphery (clusters 16, 18, 19) all reproduce the parent topology.
+
+### Per slide
+
+```{r}
+#| label: umap-slide
+#| fig-width: 10
+#| column: page
+
+# Side-by-side UMAPs per slide; the failure mode we test against is any residual cluster that lives on only one slide.
+DimPlot(xen, split.by = "slide", cols = colorines) + NoLegend()
+```
+
+**Result.** The two slides now populate the same cluster geometry across the whole UMAP. Every island that carried cells on the parent build still does so on both slides, with comparable densities in the large basins (oligodendrocytes at the bottom, microglia mid-left, astrocytes centre, excitatory neurons upper-right). The slide imbalance the parent build still showed at the bottom-centre lobe is no longer visible after the cluster-20 / cluster-25 removal. The one residual asymmetry is the top-centre satellite (cluster 16, ciliated/ependymal per Ccdc153 / Tmem212 / Dnah11 in the violin panel below), which sits clearly denser on Slide2 than on Slide1; the markers are anatomically plausible (ependyma lines the ventricles, which sample differently between the two slides), so we treat this as a sampling effect rather than a normalization residual and leave it in place.
+
+### Per sample
+
+```{r}
+#| label: umap-sample
+#| fig-width: 14
+#| fig-height: 12
+#| column: page
+
+# Per-sample facets; 4s2M_F2 (partial section) is still expected to contribute fewer cells than the other six.
+DimPlot(xen, split.by = "sample_id", ncol = 3, cols = colorines) + NoLegend()
+```
+
+**Result.** All six complete sections (4s2_F1, F2, F3 and 4s2M_F1, F3, F4) reproduce the 22-cluster landscape with similar proportions. 4s2M_F2 contributes fewer cells, as expected for the partial section, but its cells land in the same basins as the matched complete sections with no new sample-only island. The cluster-16 satellite (ependymal) shows the same Slide1-versus-Slide2 split flagged above: it is absent from 4s2_F1, 4s2M_F1, and 4s2M_F2 (all Slide1) and clearly populated in 4s2_F2, 4s2_F3, 4s2M_F3, and 4s2M_F4 (all Slide2), consistent with a tissue-sampling effect on ventricle-adjacent ependymal cells rather than a normalization artefact.
+
+## Find all markers
+
+```{r}
+#| label: find-all-markers
+#| eval: false
+
+# devtools::install_github('immunogenomics/presto')
+# presto gives a far faster Wilcoxon Rank Sum implementation than Seurat's default.
+library(presto)
+
+# FindAllMarkers needs cluster identities as the active Idents().
+Idents(xen) <- "seurat_clusters"
+spanorm_markers <- FindAllMarkers(xen, only.pos = TRUE, densify = TRUE)
+
+ write_csv(spanorm_markers, file = "results/20260516-find_all_markers_spanorm_p025_clean.csv")
+```
+
+
+```{r}
+#| label: markers-table
+
+# Reload the cached marker table so the table chunk renders without rerunning FindAllMarkers.
+spanorm_markers <- read_csv("results/20260516-find_all_markers_spanorm_p025_clean.csv")
+
+# Top 10 markers per cluster, sorted by avg_log2FC inside each cluster.
+spanorm_markers <- spanorm_markers |>
+  select(cluster, gene, avg_log2FC, p_val_adj) |>
+  group_by(cluster) |>
+  arrange(desc(avg_log2FC), .by_group = TRUE)
+
+
+kbl(spanorm_markers |> slice_head(n = 10)) |>
+  kable_styling("striped") |>
+  scroll_box(height = "500px")
+
+```
+
+```{r}
+#| label: markers-violin
+#| column: page
+#| fig-height: 25
+#| fig-width: 12
+
+# Top 5 markers per cluster feed fiddle(); the SpaNorm assay carries the log-scale normalized values.
+top_5_genes_spanorm <- spanorm_markers |>
+  slice_head(n = 5) |>
+  pull(gene) |>
+  unique()
+
+fiddle(xen,
+       genes_of_interest = top_5_genes_spanorm,
+       classification_col = "seurat_clusters",
+       assay = "SpaNorm")
+```
+
+
+## Summary
+
+Re-fitting per-sample SpaNorm at `sample.p = 0.25` after dropping cluster-20 and cluster-25 cells from the promoted build yields 22 clusters at Louvain 0.5, three fewer than the 25-cluster parent. The drop is one more than the two clusters we removed, so the two rubbish clusters were not standalone islands; their cells pulled enough density into one neighbour that Louvain collapsed it. Per-slide balance improves: the only residual asymmetry is a ciliated/ependymal cluster (16; Ccdc153 / Tmem212 / Dnah11) enriched on Slide2, which we attribute to ventricle sampling rather than to a slide effect on normalization. The top markers per cluster (oligodendrocytes: Mag / Mog / Mbp at cluster 0; deep-layer excitatory neurons: Fezf2 / Syt6 / Slc17a7 at cluster 1; microglia: Cx3cr1 / P2ry12 / Tmem119 / Hexb at cluster 2; astrocytes: Plpp3 / Gja1 / Slc7a10 at cluster 4; endothelial: Cldn5 / Flt1 / Emcn at cluster 7) reproduce the canonical anchors from the parent annotation, so the biological backbone survived the cleaning. We promote this clean build as the working SpaNorm decomposition and re-run the cell-type assignment table against the new 22-cluster set.
+
+## References
+
+- Salim A et al. "SpaNorm: spatially-aware normalization for spatial transcriptomics data." Genome Biology, 2025. DOI: 10.1186/s13059-025-03565-y.
+- SpaNorm vignette: https://bhuvad.github.io/SpaNorm/articles/SpaNorm.html.
+- Parent notebook: `20260513_SpaNorm_samplep025.qmd`.
+
