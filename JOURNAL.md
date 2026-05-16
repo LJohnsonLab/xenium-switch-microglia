@@ -36,3 +36,13 @@
 **Unresolved.** Spatially inspect the SpaNorm T-cell cluster (24) near plaques; sub-cluster microglia (SpaNorm 4 / SCT 3) before DE; run DoubletFinder on SpaNorm 13/15/23; sub-cluster SpaNorm astrocytes (5, 8) to recover the SCT cluster 28 DAA signature; start the E4-vs-E2 DE between `4s2` and `4s2M`.
 
 **Token Budget:** ~280 tokens.
+
+## 2026-05-17 — Clean SpaNorm re-fit, microglia sub-cluster, and the contamination cleaning recipe
+
+**Context & changes.** Built `20260516_SpaNorm_samplep025_clean.qmd` (`data/20260516_microglia_switch_spanorm_p025_clean.qs2`): drops the artefactual cluster-20 cells from the parent SpaNorm build, re-fits SpaNorm per sample, brackets Louvain at 0.5 (22 clusters) and 0.7 (30 clusters). Promoted 0.7 because it resolves homeostatic vs DAM microglia (12 / 6), recovers the discrete T-cell cluster (28: Cd3d / Gzmb / Nkg7 / Itk) that the 0.5 cut lost, and re-splits Sst+ / Vip+ / Pvalb+ GABAergic. The user-requested "cluster 25 removal" silently no-opped (parent only had 0-24); only cluster 20 dropped. Then built `20260517_microglia_subcluster.qmd` (`data/20260517_microglia_subcluster.qs2`): subsets clean cluster 2 (~36k microglia), `DietSeurat` to Xenium only, re-fits SpaNorm per sample on microglia (`df.tps = 6` converges at ~7k cells / section), brackets Louvain at 0.5 (11 sub-clusters) and 0.3 (7). Promoted 0.3 because slide imbalance at 0.5 (OL-contamination, multi-lineage doublet) absorbs at 0.3. Three robust microglia states: DAM (0), homeostatic (1), IRM + proliferating (6: Cxcl10 / Mki67 / Ifit1 / Ifit2). Custom APOE probes rs429358-WT (E3/E4) and rs7412-ALT (E2) enrich per cluster, giving a per-cell molecular hook for the E4-vs-E2 contrast. Cell-type assignment notes moved from `results/` to new `notes/` folder; marker CSVs stay in `results/`. `fiddle()` x-axis text size 6 → 12.
+
+**Cleaning recipe.** Two-strategy contamination filter in `notes/20260517-cluster_celltype_assignments_microglia_subcluster.md`: (1) wholesale drop of contamination clusters 2 / 3 / 4 / 5, keeping 0 / 1 / 6 at Louvain 0.3, then (2) per-cell `AddModuleScore()` against seven contamination-marker sets (OL, excitatory, inhibitory, astrocyte, endothelial, pericyte, ependymal/CP). No DoubletFinder; the 480-probe panel breaks its kNN assumption.
+
+**Unresolved.** Pseudobulk E4-vs-E2 DE on cleaned microglia 0 / 1 / 6 at 0.3. Sub-cluster consolidated DAM to recover Stage-1 vs Stage-2 (visible at 0.5 as cluster 4 Spp1 / Gpnmb / H2-Eb1 / Cd74 vs 0 Lyz2 / Cst7 / Ccl3 / Lpl). Spatially inspect IRM cluster near plaques. Sub-cluster astrocyte pair (clean-0.7 clusters 2, 8) for DAA signature. Cross-validate APOE probe per-cell calls against genotype.
+
+**Token Budget:** ~340 tokens.
