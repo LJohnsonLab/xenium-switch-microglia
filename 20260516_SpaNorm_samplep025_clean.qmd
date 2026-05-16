@@ -213,7 +213,7 @@ library(presto)
 Idents(xen) <- "seurat_clusters"
 spanorm_markers <- FindAllMarkers(xen, only.pos = TRUE, densify = TRUE)
 
- write_csv(spanorm_markers, file = "results/20260516-find_all_markers_spanorm_p025_clean.csv")
+ write_csv(spanorm_markers, file = "results/20260516-find_all_markers_spanorm_p025_clean_res05.csv")
 ```
 
 
@@ -221,7 +221,7 @@ spanorm_markers <- FindAllMarkers(xen, only.pos = TRUE, densify = TRUE)
 #| label: markers-table
 
 # Reload the cached marker table so the table chunk renders without rerunning FindAllMarkers.
-spanorm_markers <- read_csv("results/20260516-find_all_markers_spanorm_p025_clean.csv")
+spanorm_markers <- read_csv("results/20260516-find_all_markers_spanorm_p025_clean_res05.csv")
 
 # Top 10 markers per cluster, sorted by avg_log2FC inside each cluster.
 spanorm_markers <- spanorm_markers |>
