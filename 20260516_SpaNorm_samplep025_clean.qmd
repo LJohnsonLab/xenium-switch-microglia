@@ -1,6 +1,6 @@
 ---
 title: "SpaNorm clean: sample.p = 0.25"
-subtitle: " cluster 20 + 25 removed"
+subtitle: "clusters 15 + 20 removed"
 date: last-modified
 format:
   html:
@@ -16,14 +16,21 @@ execute:
 
 ## Why this notebook
 
-The promoted SpaNorm build at `sample.p = 0.25` (`20260513_SpaNorm_samplep025.qmd`) yields 25 clusters at Louvain 0.5. Two of them, `seurat_clusters` 20 and 25, look like slide-specific debris on the per-slide UMAP and carry top markers we read as artefactual rather than biological. We re-fit per-sample SpaNorm at `sample.p = 0.25` on the raw merged object after dropping the cells assigned to those two clusters, and we re-cluster from PCA forward. 
+The  SpaNorm build at `sample.p = 0.25` (`20260513_SpaNorm_samplep025.qmd`) yields 25 clusters at Louvain 0.5. Two of them, `seurat_clusters` 15 and 20, look like contamination on the per-slide UMAP and carry top markers we read as artefactual rather than biological:
 
-Every other parameter is held fixed against the parent notebook so the before-after comparison is clean: same seven per-sample SpaNorm fits, same `sample.p = 0.25`, same `df.tps = 6`, same `ScaleData -> PCA(30) -> FindNeighbors -> Louvain(0.5) -> UMAP` chain, same 480-gene variable-feature set.
+- Cluster 15 (parent annotation: mixed reactive / disease-associated, likely doublets). Top markers: Serpina3n + Gpnmb + Car12 reactive triad mixed with the neuronal markers Grin2a / Grin2b / Gad1 / Dgat2 / Tnr. Read as plaque-microenvironment doublets between reactive microglia / astrocytes and their neuronal neighbors.
+- Cluster 20 (parent annotation: excitatory neurons, Calb1+/Tdo2+ of uncertain region). Top markers: Calb1 + Tdo2 + Grin2a / Grin2b + Car12 / Dgat2 / Tnr. Tdo2 and Calb1 mark dentate gyrus, habenula, and cerebellar Purkinje / granule layers (Allen Brain Atlas, mouse), so the cluster is anchored on regionally restricted genes and biases by section coverage rather than by biology shared across the seven samples.
+
+We re-fit per-sample SpaNorm at `sample.p = 0.25` on the raw merged object after dropping the cells assigned to those two clusters, and we re-cluster from PCA forward. 
+
+Every other parameter is held fixed against the parent notebook so the before-after comparison is clean: same seven per-sample SpaNorm fits, same `sample.p = 0.25`, same `df.tps = 6`, same `ScaleData -> PCA(30) -> FindNeighbors -> Louvain -> UMAP` chain, same 480-gene variable-feature set. We bracket Louvain at 0.5 and 0.7 on the same PCA / SNN graph and stash each cluster-id vector as a named metadata column (`clusters_res05` / `clusters_res07`) on a single saved Seurat object, matching the structure of `20260517_microglia_subcluster.qmd`.
+
 
 Bibliography for this notebook:
 
 - Salim et al., "SpaNorm: spatially-aware normalization for spatial transcriptomics data," Genome Biology, 2025. DOI: 10.1186/s13059-025-03565-y.
 - SpaNorm package vignette: https://bhuvad.github.io/SpaNorm/articles/SpaNorm.html.
+- Allen Brain Atlas, mouse, for Tdo2 / Calb1 regional expression: https://mouse.brain-map.org.
 - Parent notebook: `20260513_SpaNorm_samplep025.qmd` (promoted project default).
 
 ## Setup
@@ -52,18 +59,19 @@ source("R/20260514-helper_functions.R")
 # Seed Louvain and any other stochastic step so cluster labels stay stable across renders.
 set.seed(1)
 
-# Reload the post-SpaNorm clean checkpoint; built by the chunk below on the one-pass eval:true render.
+# Reload the clean SpaNorm checkpoint; the build chunk below writes both clusters_res05
+# and clusters_res07 as named metadata columns on the same object.
 xen <- qs_read("data/20260516_microglia_switch_spanorm_p025_clean.qs2")
 ```
 
-## Build the clean SpaNorm assay (drop clusters 20 + 25, re-fit per sample)
+## Build the clean SpaNorm assay (drop clusters 15 + 20, re-fit per sample, bracket Louvain 0.5 / 0.7)
 
 ```{r}
 #| label: spanorm-clean
 #| eval: false
 
 
-# Sample, slide, and condition lookup; matches R/20260512_xenium2seurat.R for self-containment.
+# Sample / slide / condition manifest; matches R/20260512_xenium2seurat.R for self-containment.
 samples <- tribble(
   ~sample_id, ~slide,            ~condition,
   "4s2_F1",   "Slide1_0022474",  "control",
@@ -74,207 +82,255 @@ samples <- tribble(
   "4s2M_F3",  "Slide2_0069080",  "switched",
   "4s2M_F4",  "Slide2_0069080",  "switched")
 
-# Start from the promoted dirty build and drop the rubbish clusters in one go.
-# SpaNorm needs raw counts, so we strip the object back to the Xenium assay and drop the
-# stale SpaNorm normalization, PCA / UMAP, and seurat_clusters before re-fitting.
+# Start from the promoted parent build and drop the two contamination clusters before re-fitting.
+# SpaNorm needs raw counts, so we strip the object back to the Xenium assay and drop the stale
+# SpaNorm normalization, PCA / UMAP, and seurat_clusters before re-fitting.
 xen <- qs_read("data/20260512_microglia_switch_spanorm_p025.qs2")
 DefaultAssay(xen) <- "Xenium"
-xen <- subset(xen, subset = seurat_clusters %in% c("20", "25"), invert = TRUE)
+
+# Confirm both cluster levels are present before subsetting; the previous version of this
+# notebook silently no-oped on a non-existent "25" level (gotcha logged in CLAUDE.md).
+stopifnot(all(c("15", "20") %in% levels(xen$seurat_clusters)))
+xen <- subset(xen, subset = seurat_clusters %in% c("15", "20"), invert = TRUE)
+
 xen <- DietSeurat(xen, assays = "Xenium", dimreducs = NULL, graphs = NULL)
 
-# Slide -> FOV is fixed: the merge of the two LoadXenium slides keeps the FOVs as fov and fov.2.
+# Literal slide -> FOV map; the merge of the two LoadXenium slides kept the FOVs as fov / fov.2.
 slide_to_fov <- c(Slide1_0022474 = "fov", Slide2_0069080 = "fov.2")
 fov_lookup   <- set_names(slide_to_fov[samples$slide], samples$sample_id)
 
-# Run SpaNorm on one sample at the package-default subsample. Returns the log-scale normalized matrix.
+# Run SpaNorm on one sample; SpaNorm's spatial smoothness assumption is per tissue section.
 spanorm_one_sample <- function(s, xen, fov_lookup) {
-  # Subset keeps only the cells of one tissue section; SpaNorm's smoothness assumption is per section.
-  seu_s <- subset(xen, subset = sample_id == s)
-  # Centroids come from the slide FOV; we filter to the cells that survived the per-sample subset.
+  # One tissue section at a time; subsetting first keeps the TPS basis fitting only to that section.
+  seu_s  <- subset(xen, subset = sample_id == s)
+  # Centroids from the slide FOV; filter to the cells that survived the per-sample subset.
   coords <- GetTissueCoordinates(seu_s, image = fov_lookup[[s]]) |>
     filter(cell %in% Cells(seu_s))
-  # SpatialExperiment is SpaNorm's native input; we hand it raw counts plus the 2D centroids.
+  # SpatialExperiment is SpaNorm's native input; raw counts plus the 2D centroids.
   spe <- SpatialExperiment(
     assays        = list(counts = GetAssayData(seu_s, assay = "Xenium", layer = "counts")),
     spatialCoords = as.matrix(coords[, c("x", "y")]))
-  # sample.p = 0.25 and df.tps = 6 are held identical to the parent notebook for a like-for-like comparison.
+  # sample.p = 0.25 and df.tps = 6 held identical to the parent build for a like-for-like comparison.
   spe <- SpaNorm(spe,
                  sample.p   = 0.25,
                  df.tps     = 6,
                  adj.method = "auto",
                  backend    = "auto",
                  verbose    = TRUE)
-  # logcounts holds the normalized matrix; we keep Seurat's cell barcodes for the later cbind.
   out <- SummarizedExperiment::assay(spe, "logcounts")
   colnames(out) <- Cells(seu_s)
   out}
 
-# Loop over the 7 samples; map keeps the per-sample matrices named for the reduce step.
+# Run SpaNorm on each of the seven samples; map keeps the per-sample matrices named for the reduce step.
 norm_list <- map(samples$sample_id, spanorm_one_sample,
                  xen = xen, fov_lookup = fov_lookup) |>
   set_names(samples$sample_id)
 
-# qs_save(norm_list, "data/20260516_norm_list_sample025_clean.qs2")
-
-# Bind the per-sample matrices into one wide normalized matrix and reorder to the merged object's cell order.
+# Bind the per-sample matrices into one wide normalized matrix; reorder to the merged cell order.
 # Qualify reduce() because SpatialExperiment loads IRanges, whose reduce() masks purrr::reduce.
 norm_mat <- purrr::reduce(norm_list, cbind)
 norm_mat <- norm_mat[, Cells(xen)]
 
-# Attach as a new v5 assay; data layer only because the auto-selected adjustment returns log-scale residuals.
-# CreateAssay5Object avoids the "counts layer not present" warning that CreateAssayObject (v3) triggers inside a v5 object.
+# Attach as a v5 SpaNorm assay; data layer only because the auto-selected adjustment returns log-residuals.
+# CreateAssay5Object avoids the "counts layer not present" warning that CreateAssayObject (v3) triggers.
 xen[["SpaNorm"]] <- CreateAssay5Object(data = norm_mat)
 DefaultAssay(xen) <- "SpaNorm"
 
-# Use all 480 genes as variable features; on a targeted Xenium panel every gene was chosen as informative by design,
-# and FindVariableFeatures("vst") requires a counts layer the SpaNorm assay does not carry.
+# All 480 panel genes stay as variable features; FindVariableFeatures("vst") fails on a v5 assay
+# carrying only the data layer, and the targeted Xenium panel is small enough that every gene
+# is informative by design.
 VariableFeatures(xen) <- rownames(xen)
 
-# RunPCA expects a scale.data layer; SCT writes it implicitly, but our custom SpaNorm assay only carries the data layer.
+# A v5 assay carrying only the data layer needs an explicit ScaleData before RunPCA.
 xen <- ScaleData(xen, verbose = FALSE)
 
-# Default npcs (50) is fine; we only use the first 30 downstream.
+# 30 PCs match the parent build; default npcs = 50 is fine.
 xen <- RunPCA(xen, npcs = 30, verbose = FALSE)
 
-# 1:30 PCs and resolution 0.5 match the parent notebook for a like-for-like comparison.
+# Build the SNN graph once, then run Louvain at both resolutions inside the build.
+# Each FindClusters call overwrites seurat_clusters and Idents(xen), so stash each result
+# in a named metadata column; downstream chunks switch resolutions via group.by / Idents().
 xen <- FindNeighbors(xen, reduction = "pca", dims = 1:30, verbose = FALSE)
+
 xen <- FindClusters(xen, resolution = 0.5, algorithm = 1, verbose = FALSE)
+xen$clusters_res05 <- xen$seurat_clusters
+
+xen <- FindClusters(xen, resolution = 0.7, algorithm = 1, verbose = FALSE)
+xen$clusters_res07 <- xen$seurat_clusters
+
 xen <- RunUMAP(xen, reduction = "pca", dims = 1:30, verbose = FALSE)
 
-qs_save(xen, "data/20260516_microglia_switch_spanorm_p025_clean.qs2")
+# qs_save(xen, "data/20260516_microglia_switch_spanorm_p025_clean.qs2")
 ```
 
-## PCA split by slide
+## Louvain at resolution 0.5
 
 ```{r}
-#| label: palette
-# Palette sized to the actual cluster count so colors stay stable if removing clusters 20+25 shifts the count.
-colorines <- scCustomize_Palette(num_groups = n_distinct(xen$seurat_clusters), ggplot_default_colors = FALSE)
+#| label: palette-05
+# Palette sized to the Louvain-0.5 cluster count; this section uses the clusters_res05 column.
+colorines_05 <- scCustomize_Palette(num_groups = n_distinct(xen$clusters_res05), ggplot_default_colors = FALSE)
 ```
+
+### PCA per slide
 
 ```{r}
-#| label: pca
-# Split by slide to compare against the dirty PCA in 20260513_SpaNorm_samplep025.html.
-PCAPlot(xen, split.by = "slide", cols = colorines)
+#| label: pca-05
+# Slide split so any residual slide-driven sub-structure surfaces before the UMAP.
+PCAPlot(xen, group.by = "clusters_res05", split.by = "slide", cols = colorines_05)
 ```
 
-**Result.** The PC1/PC2 envelope keeps the fan shape of the parent build. Both slides span the same PC1 range (-12 to ~15) and the same PC2 range (-7 to ~28), and the red upper-PC2 lobe (cluster 2 here, microglia per the markers below) sits in matched positions on Slide1 and Slide2. The dense low-PC2 multi-cluster basin reproduces on both panels with no slide-only outlier. The cluster-20 / cluster-25 cells removed before re-fitting do not leave a visible hole in the PCA envelope.
+**Result.** Both slides span the same PC1 / PC2 envelope and the major clusters sit in matched positions. 
 
-## UMAP
+
+### UMAP
 
 ```{r}
-#| label: umap
-# label = TRUE prints the cluster id inside each UMAP island so the markers panels below stay legible.
-DimPlot(xen, cols = colorines, label = TRUE, label.size = 5) + NoLegend()
+#| label: umap-05
+# label = TRUE prints the cluster id inside each island so the marker panels below stay legible.
+DimPlot(xen, group.by = "clusters_res05", cols = colorines_05, label = TRUE, label.size = 5) + NoLegend()
 ```
 
-**Result.** Cleaning yields 22 clusters at Louvain 0.5, three fewer than the 25-cluster parent build. The drop is one cluster more than the two we removed, which tells us the cluster-20 / cluster-25 cells were not standalone islands; their removal redistributed cells across neighbours and Louvain collapsed one further cluster at the same resolution. We therefore treat the new decomposition as a fresh cluster set, not a trimmed version of the 25-cluster map, and re-run FindAllMarkers below to re-derive cell-type calls.
 
-The 22 islands span the same UMAP footprint as the parent (umap_1 from -15 to ~10, umap_2 from -10 to ~13). All major basins reappear: the oligodendrocyte mass at the bottom (cluster 0), the microglia lobe (cluster 2 here), the astrocyte cluster 4, the endothelial cluster 7, and the satellite islands at the periphery (clusters 16, 18, 19) all reproduce the parent topology.
 
 ### Per slide
 
 ```{r}
-#| label: umap-slide
+#| label: umap-05-slide
 #| fig-width: 10
 #| column: page
 
-# Side-by-side UMAPs per slide; the failure mode we test against is any residual cluster that lives on only one slide.
-DimPlot(xen, split.by = "slide", cols = colorines) + NoLegend()
+# Side-by-side UMAPs per slide; failure mode is any residual cluster that lives on only one slide.
+DimPlot(xen, group.by = "clusters_res05", split.by = "slide", cols = colorines_05) + NoLegend()
 ```
 
-**Result.** The two slides now populate the same cluster geometry across the whole UMAP. Every island that carried cells on the parent build still does so on both slides, with comparable densities in the large basins (oligodendrocytes at the bottom, microglia mid-left, astrocytes centre, excitatory neurons upper-right). The slide imbalance the parent build still showed at the bottom-centre lobe is no longer visible after the cluster-20 / cluster-25 removal. The one residual asymmetry is the top-centre satellite (cluster 16, ciliated/ependymal per Ccdc153 / Tmem212 / Dnah11 in the violin panel below), which sits clearly denser on Slide2 than on Slide1; the markers are anatomically plausible (ependyma lines the ventricles, which sample differently between the two slides), so we treat this as a sampling effect rather than a normalization residual and leave it in place.
+**Result.** Slide totals are Slide1 ≈ 140k cells vs Slide2 ≈ 277k.  
+ The baseline Slide2 : Slide1 ratio is ~2:1 and any cluster ratio more than ~2x off that baseline could be slide-imbalanced. Two clusters stand out:
+
+1. **Cluster 9 (mature OL with lower-FC values) is Slide1-specific:** 17,865 cells on Slide1 vs 468 on Slide2 (ratio 0.03:1; ~75x off the baseline). The marker set is identical to cluster 0 (Mag / Aspa / Mog / Gatm / Ermn / Cldn11) but the FCs collapse from ~3.7 to ~2.6-3.3. 
+
+Proportionally the two slides actually carry similar OL fractions: Slide1 (0 + 9) = 25,596 / ~140k cells = 18.3 % and Slide2 (0 + 9) = 45,832 / ~277k cells = 16.5 %. The Slide1 OL pool splits between a high-FC core (cluster 0) and a lower-FC twin (cluster 9), while the Slide2 OL pool concentrates almost entirely in the high-FC cluster. Two candidate explanations remain open at this point in the analysis:
+
+  * **Technical (normalization residual).** Slide2 carries +25 % transcripts / cell vs Slide1. SpaNorm corrects per section but is not guaranteed to fully equalize a transcript-yield gap of this size. 
+  * **Biological (regional or maturation state).** The two FC tiers could reflect different anatomical OL pools (e.g. corpus callosum vs cerebellar / brainstem white matter) sampled differently across the two slides, or two maturation states of mature OLs.
+
+2. **Cluster 23 (low-FC multi-lineage doublets, Slc32a1+/Mbp+/Cldn11+) is almost pure Slide2:** 7 cells on Slide1 vs 993 on Slide2 (ratio 142:1). Top markers are inhibitory-vesicular (Slc32a1) and myelin (Mbp / Cldn11 / Mog) at FCs ≤ 1.1; this is a small segmentation-doublet cluster between GABAergic neurons and adjacent OLs that materialises only where the GABAergic / white-matter interface is sampled densely (Slide2 sections 4s2_F2 and 4s2_F3 carry it).
+
+3. **Five further clusters carry a moderate Slide2 over-representation** (cluster 13 Pou3f1+ stressed neurons at 4.66:1, cluster 24 T cells at 4.66:1, cluster 2 microglia at 3.07:1, cluster 19 Tshz2+ deep/hippocampal at 3.19:1, cluster 0 OL high-FC at 5.87:1) but they all reach > 90 cells on Slide1 and are not slide-private. 
+
+4. The remaining 18 clusters sit within a 1.5-2.5x window of the 2:1 baseline.
 
 ### Per sample
 
 ```{r}
-#| label: umap-sample
+#| label: umap-05-sample
 #| fig-width: 14
 #| fig-height: 12
 #| column: page
 
-# Per-sample facets; 4s2M_F2 (partial section) is still expected to contribute fewer cells than the other six.
-DimPlot(xen, split.by = "sample_id", ncol = 3, cols = colorines) + NoLegend()
+# Per-sample facets; 4s2M_F2 (partial section) still expected to contribute fewer cells than the others.
+DimPlot(xen, group.by = "clusters_res05", split.by = "sample_id", ncol = 3, cols = colorines_05) + NoLegend()
 ```
 
-**Result.** All six complete sections (4s2_F1, F2, F3 and 4s2M_F1, F3, F4) reproduce the 22-cluster landscape with similar proportions. 4s2M_F2 contributes fewer cells, as expected for the partial section, but its cells land in the same basins as the matched complete sections with no new sample-only island. The cluster-16 satellite (ependymal) shows the same Slide1-versus-Slide2 split flagged above: it is absent from 4s2_F1, 4s2M_F1, and 4s2M_F2 (all Slide1) and clearly populated in 4s2_F2, 4s2_F3, 4s2M_F3, and 4s2M_F4 (all Slide2), consistent with a tissue-sampling effect on ventricle-adjacent ependymal cells rather than a normalization artefact.
+**Result.** Six of the seven samples reproduce the 25-cluster landscape with comparable proportions; 4s2M_F2 is sparser everywhere, as expected for the partial section. Three sample-level patterns warrant flagging because they explain the slide imbalances above:
 
-## Find all markers
+- **Cluster 9 (Slide1 OL twin) lives almost entirely in three samples:** 4s2_F1 (6,760), 4s2M_F1 (6,697) and 4s2M_F2 (4,408). The four Slide2 samples contribute ≤ 213 cells each. This is the cell-count breakdown behind the slide-level cluster-9 split; whether it reflects regional sampling or a transcript-yield residual remains open (see Per slide above).
+- **Cluster 23 (Slide2 doublet cluster) lives in 4s2_F2 (493) and 4s2_F3 (262)** and is absent or near-absent everywhere else. A two-sample artefact, not a slide-wide phenomenon.
+- **Cluster 13 (Pou3f1+ stressed neurons) is dominated by 4s2M_F3 (4,272)** and contributes < 2,300 cells in every other complete section. The Slide2 over-representation of this cluster is mostly one animal, not a slide-wide pattern.
+
+Everything else (microglia, astrocytes, endothelial, neuronal subclasses, T cells) populates every complete section and balances across the genotype contrast.
+
+### Find all markers
 
 ```{r}
-#| label: find-all-markers
+#| label: find-all-markers-05
 #| eval: false
 
 # devtools::install_github('immunogenomics/presto')
 # presto gives a far faster Wilcoxon Rank Sum implementation than Seurat's default.
 library(presto)
 
-# FindAllMarkers needs cluster identities as the active Idents().
-Idents(xen) <- "seurat_clusters"
-spanorm_markers <- FindAllMarkers(xen, only.pos = TRUE, densify = TRUE)
+# FindAllMarkers needs cluster identities as the active Idents(); set from the named column.
+Idents(xen) <- "clusters_res05"
+spanorm_markers_05 <- FindAllMarkers(xen, only.pos = TRUE, densify = TRUE)
 
- write_csv(spanorm_markers, file = "results/20260516-find_all_markers_spanorm_p025_clean_res05.csv")
+write_csv(spanorm_markers_05, file = "results/20260516-find_all_markers_spanorm_p025_clean_res05.csv")
 ```
 
-
 ```{r}
-#| label: markers-table
+#| label: markers-table-05
 
-# Reload the cached marker table so the table chunk renders without rerunning FindAllMarkers.
-spanorm_markers <- read_csv("results/20260516-find_all_markers_spanorm_p025_clean_res05.csv")
+# Reload the cached marker table so this chunk renders without rerunning FindAllMarkers.
+spanorm_markers_05 <- read_csv("results/20260516-find_all_markers_spanorm_p025_clean_res05.csv")
 
-# Top 10 markers per cluster, sorted by avg_log2FC inside each cluster.
-spanorm_markers <- spanorm_markers |>
+# Top 10 markers per cluster, sorted by avg_log2FC within cluster.
+spanorm_markers_05 <- spanorm_markers_05 |>
   select(cluster, gene, avg_log2FC, p_val_adj) |>
   group_by(cluster) |>
   arrange(desc(avg_log2FC), .by_group = TRUE)
 
-
-kbl(spanorm_markers |> slice_head(n = 10)) |>
+kbl(spanorm_markers_05 |> slice_head(n = 10)) |>
   kable_styling("striped") |>
   scroll_box(height = "500px")
-
 ```
 
 ```{r}
-#| label: markers-violin
+#| label: markers-violin-05
 #| column: page
 #| fig-height: 25
 #| fig-width: 12
 
 # Top 5 markers per cluster feed fiddle(); the SpaNorm assay carries the log-scale normalized values.
-top_5_genes_spanorm <- spanorm_markers |>
+top_5_genes_05 <- spanorm_markers_05 |>
   slice_head(n = 5) |>
   pull(gene) |>
   unique()
 
 fiddle(xen,
-       genes_of_interest = top_5_genes_spanorm,
-       classification_col = "seurat_clusters",
+       genes_of_interest = top_5_genes_05,
+       classification_col = "clusters_res05",
        assay = "SpaNorm")
 ```
 
+#### Cluster composition (resolution 0.5)
 
-## Reclustering at higher Louvain resolution (0.7)
+Cell-type calls per cluster, read off the top-10 FindAllMarkers entries above; ordered by lineage rather than by cluster id.
 
-The cell-type assignment table for the 22-cluster, resolution-0.5 decomposition (`notes/20260516-cluster_celltype_assignments_spanorm_clean.md`) flags two regressions against the parent build: the discrete cytotoxic-T-cell cluster (parent 24: Cd3d / Gzmb / Nkg7 / Itk) is gone, and the parent's Sst+, Vip+, and Lamp5+/Lypd1+ inhibitory subclasses collapse into one mixed GABAergic cluster. Both look like under-clustering rather than a true loss of signal: lymphocyte markers redistribute into the VLMC / perivascular cluster at pct.1 ≤ 0.03, and the merged inhibitory cluster carries Vip + Sst + Lhx6 + Pvalb together in its top-10. We re-run `FindClusters` at resolution 0.7 on the same clean PCA / SNN graph to test whether the higher resolution recovers the T cells and re-splits the inhibitory subclasses without disturbing the rest of the landscape.
+| Lineage | Cluster | Cell type | Top markers |
+|---|---|---|---|
+| Oligodendrocyte | 0 | Mature OL, high-FC | Mag / Aspa / Mog / Gatm / Ermn / Cldn11 |
+| Oligodendrocyte | 9 | Mature OL, lower-FC twin (Slide1-restricted) | Mag / Aspa / Mog / Gatm / Ermn / Cldn11 (FCs 2.6-3.3) |
+| Oligodendrocyte | 12 | OPCs | Pdgfra / Tnr / Plpp4 / Gpt2 / Chst11 / Dpyd |
+| Astrocyte | 4 | Gray-matter Aqp4+/Gja1+ | Plpp3 / Htra1 / Gja1 / Prodh / Aqp4 / Slc7a10 |
+| Astrocyte | 8 | Agt+ subtype | Agt / Slc7a10 / Gja1 / Aqp4 / Pla2g7 |
+| Microglia | 2 | Mixed homeostatic + DAM | Cx3cr1 / Gpr34 / Hexb / P2ry12 / Tmem119 / Siglech (Cst7 / Cd14 / Trem2 in tail) |
+| Vascular | 5 | Endothelial cells (BBB) | Cldn5 / Cxcl12 / Flt1 / Emcn / Clec2d / Klf4 |
+| Vascular | 7 | VLMC + perivascular macrophages | Tagln / Slc47a1 / Mrc1 / Lum / Col1a2 / Mgp |
+| Vascular | 15 | Pericytes / mural | Kcnj8 / Atp13a5 / Vtn / Bgn |
+| Ventricular | 17 | Ependymal | Ccdc153 / Tmem212 / Dnah11 |
+| Ventricular | 18 | Choroid plexus + MHC-II | Car12 / Ltc4s / Adh1 / Tgfbi / H2-Eb1 |
+| Excitatory | 1 | Deep-layer Fezf2+ | Fezf2 / Slc17a7 / Syt6 / Oprk1 / Egr1 |
+| Excitatory | 3 | Calb2+/Nts+/Tac1+ mixed | Gck / Nts / Calb2 / Tac1 / Slc17a6 |
+| Excitatory | 6 | Cux2+/Lamp5+ upper-layer (IEG-rich) | Lamp5 / Pparg / Rspo1 / Tcap / Egr1 / Calb1 / Cux2 |
+| Excitatory | 10 | Vglut2+/Rorb+ thalamic relay | Slc17a6 / Plcb4 / Calb2 / Rorb |
+| Excitatory | 19 | Tshz2+ deep / hippocampal | Tshz2 / Dpp4 / Nts / Rspo1 |
+| Excitatory | 21 | Wif1+/Syt6+ | Wif1 / Syt6 / Calb2 / Sncg |
+| Excitatory | 13 | Pou3f1+ stressed neurons | Pou3f1 / Grin2a / Chst1 / Grin2b / Opcml |
+| GABAergic | 11 | Sst+/Lhx6+ MGE-derived | Lhx6 / Sst / Reln / Gad1 / Ndnf |
+| GABAergic | 14 | Striatal-flavored Tac1+/Adcy5+/Pax6+ | Ido1 / Otof / Tac1 / Adcy5 / Pax6 |
+| GABAergic | 20 | Vip+/Crh+ CGE-derived | Vip / Crh / Pthlh / Cnr1 / Gad1 |
+| GABAergic | 22 | Pvalb+/Trh+ | Trh / Pvalb / Gad1 / Spp1 |
+| Small / atypical | 16 | Lypd1+/Trh+/Slc17a7+ neuron-like | Lypd1 / Trh / Otof / Tshz2 / Slc17a7 |
+| Small / atypical | 23 | Multi-lineage doublets (Slide2-private) | Slc32a1 / Mbp / Cldn11 (FCs ≤ 1.1) |
+| Immune | 24 | T cells / cytotoxic lymphocytes | Ccl5 / Cd3d / Itk / Nkg7 / Ms4a4b / Gzmb |
 
-```{r}
-#| label: cluster-07
+## Louvain at resolution 0.7
 
-
-
-# Same SNN graph, higher Louvain resolution; this overwrites seurat_clusters with the 0.7 labels.
-# The 0.5 labels remain accessible in xen$SpaNorm_snn_res.0.5 if needed for a side-by-side check.
-xen <- FindClusters(xen, resolution = 0.7, algorithm = 1, verbose = FALSE)
-
-
-```
+The 0.7 labels live in `xen$clusters_res07` and were written by the build chunk; we re-color the plots and re-derive markers from that column without rerunning `FindClusters`.
 
 ```{r}
 #| label: palette-07
-# Re-size the palette to the new cluster count produced at resolution 0.7.
-colorines_07 <- scCustomize_Palette(num_groups = n_distinct(xen$seurat_clusters), ggplot_default_colors = FALSE)
+# Re-size the palette to the cluster count produced at resolution 0.7.
+colorines_07 <- scCustomize_Palette(num_groups = n_distinct(xen$clusters_res07), ggplot_default_colors = FALSE)
 ```
 
 ### UMAP
@@ -282,20 +338,17 @@ colorines_07 <- scCustomize_Palette(num_groups = n_distinct(xen$seurat_clusters)
 ```{r}
 #| label: umap-07
 # Same UMAP coordinates as the 0.5 panel; only the cluster colors / boundaries change.
-DimPlot(xen, cols = colorines_07, label = TRUE, label.size = 5) + NoLegend()
+DimPlot(xen, group.by = "clusters_res07", cols = colorines_07, label = TRUE, label.size = 5) + NoLegend()
 ```
 
-**Result.** Resolution 0.7 produces 30 clusters, up from 22 at resolution 0.5. The two regressions flagged in the cell-type assignment table are recovered:
+**Result.** 27 clusters at Louvain 0.7, two more than the 25 at 0.5. The full cell-type table sits after the violin panel below. The differences vs the 0.5 cut:
 
-1. **T cells reappear as a discrete cluster (28).** Cd3d at FC 7.52 (pct.1 0.72), Ccl5 at 7.37, Itk at 6.57, Nkg7 at 6.15, Ms4a4b at 5.73, Tnf at 4.94, Gzmb at 4.93. The signal is at least as strong as in the parent SpaNorm cluster 24 and sits as a discrete small island at the right edge of the UMAP.
-2. **GABAergic subclasses re-split.** Cluster 17 carries Lhx6 (5.81) + Sst (5.46) + Gad1 (3.44), cluster 21 carries Vip (8.50) + Crh (6.08) + Ndnf (4.60) + Reln (4.26), and cluster 26 carries Pvalb (5.71) + Trh (6.64) + Gad1 (4.40). The mixed inhibitory cluster from 0.5 is gone.
+- **Microglia split into homeostatic (cluster 11: Tmem119 / P2ry12 / Selplg / Siglech / Il1a / Cx3cr1) and DAM (cluster 5: Cst7 / Ccl3 / Clec7a / Itgax / Ch25h / Lyz2 / Trem2)**. At 0.5 these share one cluster (2). This split is the load-bearing 0.7 gain for the E4-vs-E2 contrast.
+- **A third oligodendrocyte state separates** as cluster 20 (Aspa / Mag / Mog / Gatm / Pllp / Cldn11 at FCs 1.5-1.7), on top of cluster 0 (mature high-FC) and cluster 7 (the Slide1-restricted lower-FC twin).
+- The Slide2-private multi-lineage doublet cluster (res05 23) is absorbed into other clusters and disappears as a discrete island.
+- The T-cell cluster reproduces at 0.7 (cluster 26) with the same identity and absolute counts as at 0.5.
 
-Two further gains come from the higher resolution that the 0.5 build also missed:
-
-3. **Microglia split into homeostatic and DAM.** Cluster 12 is homeostatic microglia (Tmem119 5.43, P2ry12 5.20, Selplg 4.62, Siglech 4.58, Cx3cr1 4.50). Cluster 6 is DAM (Cst7 6.37, Ccl3 6.02, Itgax 5.57, Clec7a 5.57, Ch25h 5.35, Lyz2 5.28, Bcl2a1b 5.09, Cd14 4.97, Trem2 4.80). This split was not visible in either the parent SpaNorm build or the 0.5 clean build; both held microglia as a single mixed cluster.
-4. **Three excitatory neuron subpopulations resolved.** Cluster 24 recovers the parent's Tshz2+ neurons (Tshz2 4.22, Dpp4 3.44). Cluster 25 is a Wif1+/Syt6+/Calb2+/Sncg+ excitatory population (Wif1 5.80, Syt6 5.13). Cluster 29 is a Nts+/Fezf2+/Pou3f1+ deep-layer cluster (Nts 5.89, Fezf2 3.64).
-
-The large basins (oligodendrocyte at cluster 0, mature OL low-FC twin at 9, OPCs at 13, astrocyte at 2 and 8, endothelial at 4, pericyte at 18, VLMC at 7, ependymal at 20, choroid plexus at 22) keep their identity and only fragment internally where biologically warranted (microglia 6/12; new third OL state at 19). The 0.7 decomposition is the working scaffold for the E4-vs-E2 DE.
+All other identities map one-to-one between the two resolutions; see the cluster-composition table after the violin panel for the mapping.
 
 ### Per slide
 
@@ -304,11 +357,20 @@ The large basins (oligodendrocyte at cluster 0, mature OL low-FC twin at 9, OPCs
 #| fig-width: 10
 #| column: page
 
-# Slide split at the new resolution; we re-check that no recovered subcluster is slide-specific.
-DimPlot(xen, split.by = "slide", cols = colorines_07) + NoLegend()
+# Slide split at the higher resolution; re-check that no recovered sub-cluster is slide-specific.
+DimPlot(xen, group.by = "clusters_res07", split.by = "slide", cols = colorines_07) + NoLegend()
 ```
 
-**Result.** Both slides span the same UMAP footprint and populate every basin at comparable densities. The recovered T-cell island (cluster 28, right edge) appears on both slides. The recovered Vip+ (21), Sst/Lhx6+ (17), and Pvalb/Trh+ (26) inhibitory subclusters all populate Slide1 and Slide2 alike. The only residual asymmetry is the ependymal cluster (20, top-centre satellite), which stays enriched on Slide2 for the same ventricle-sampling reason flagged at resolution 0.5. The higher Louvain resolution does not introduce any new slide-specific cluster.
+**Result.** The slide pattern at 0.7 matches the 0.5 pattern almost exactly because the slide-imbalanced clusters survive the higher-resolution split intact:
+
+- **Cluster 7 (Slide1 OL lower-FC twin) is Slide1-private:** 19,758 cells on Slide1 vs 1,194 on Slide2 (ratio 0.06:1, ~33x off the 2:1 baseline). Same identity as cluster 9 at 0.5; Louvain at 0.7 did not redistribute these cells.
+- **Cluster 0 (mature OL high-FC) is Slide2-enriched:** 3,409 on Slide1 vs 42,113 on Slide2 (ratio 12.35:1, ~6x over baseline). Stronger Slide2 dominance than at 0.5 because the third OL state (cluster 20 here) carved 5,337 balanced cells out of the high-FC pool.
+- The DAM cluster (5) is Slide2-enriched at 4.78:1 (3,657 vs 17,486), ~2.4x over baseline. I read this as slide-correlated DAM load: Slide2 captures more amyloid-proximal microglia in absolute numbers, not as a slide-effect on the DAM signature itself.
+- The Pou3f1+ stressed-neuron cluster (15) is Slide2-enriched at 4.68:1 (2,193 vs 10,264), driven by one sample (see below).
+- The T-cell cluster (26) is Slide2-enriched at 4.68:1 (94 vs 440); same ratio and same absolute counts as at 0.5. The cluster reproduces on both slides.
+- Every other cluster sits within a 1.0-2.9x window of baseline. No 0.7 split introduces a new slide-private cluster.
+
+The Slide2-private doublet cluster (res05 cluster 23) is absorbed at 0.7 and stops being a discrete island; the 0.7 cut gets rid of the smallest slide-private fragment from the 0.5 build for free.
 
 ### Per sample
 
@@ -319,12 +381,16 @@ DimPlot(xen, split.by = "slide", cols = colorines_07) + NoLegend()
 #| column: page
 
 # Per-sample facets; 4s2M_F2 still expected to be sparse.
-DimPlot(xen, split.by = "sample_id", ncol = 3, cols = colorines_07) + NoLegend()
+DimPlot(xen, group.by = "clusters_res07", split.by = "sample_id", ncol = 3, cols = colorines_07) + NoLegend()
 ```
 
-**Result.** All six complete sections (4s2_F1, F2, F3 and 4s2M_F1, F3, F4) reproduce the 30-cluster landscape with comparable proportions. 4s2M_F2 contributes fewer cells, as expected for the partial section, but the cells it does contribute land in the shared basins with no new sample-only island. The recovered T-cell cluster (28) and the three inhibitory subclusters (17 Sst+/Lhx6+, 21 Vip+, 26 Pvalb+) all appear in every complete section, so neither recovery is driven by one sample. The DAM microglia cluster (6) and the homeostatic microglia cluster (12) also populate every complete section, which means the homeostatic-DAM split is not an artefact of one animal's plaque load.
+**Result.** The per-sample pattern at 0.7 reproduces the 0.5 pattern.  
 
-### Find all markers (resolution 0.7)
+* Cluster 7 (Slide1 OL twin) lives in 4s2_F1 (7,436), 4s2M_F1 (7,566) and 4s2M_F2 (4,756) and is near-absent on the four Slide2 samples (≤ 599 cells each).  
+* Cluster 15 (Pou3f1+ stressed neurons) is dominated by 4s2M_F3 (4,274) and stays under 2,225 cells in every other complete section. 4s2M_F2 is sparser across all clusters as expected for the partial section.  
+* The two new biological splits (microglia DAM-vs-homeostatic clusters 5 and 11; third OL state cluster 20) appear in every complete sample, so neither split is driven by one animal.
+
+### Find all markers
 
 ```{r}
 #| label: find-all-markers-07
@@ -332,7 +398,7 @@ DimPlot(xen, split.by = "sample_id", ncol = 3, cols = colorines_07) + NoLegend()
 
 # presto-backed Wilcoxon; identical setup to the 0.5 chunk above.
 library(presto)
-Idents(xen) <- "seurat_clusters"
+Idents(xen) <- "clusters_res07"
 spanorm_markers_07 <- FindAllMarkers(xen, only.pos = TRUE, densify = TRUE)
 
 write_csv(spanorm_markers_07, file = "results/20260516-find_all_markers_spanorm_p025_clean_res07.csv")
@@ -341,10 +407,9 @@ write_csv(spanorm_markers_07, file = "results/20260516-find_all_markers_spanorm_
 ```{r}
 #| label: markers-table-07
 
-# Reload the cached resolution-0.7 marker table so the table renders without rerunning FindAllMarkers.
+# Reload the cached resolution-0.7 marker table.
 spanorm_markers_07 <- read_csv("results/20260516-find_all_markers_spanorm_p025_clean_res07.csv")
 
-# Top 10 markers per cluster at resolution 0.7, sorted by avg_log2FC inside each cluster.
 spanorm_markers_07 <- spanorm_markers_07 |>
   select(cluster, gene, avg_log2FC, p_val_adj) |>
   group_by(cluster) |>
@@ -362,25 +427,58 @@ kbl(spanorm_markers_07 |> slice_head(n = 10)) |>
 #| fig-width: 12
 
 # Top 5 markers per cluster at resolution 0.7 feed fiddle().
-top_5_genes_spanorm_07 <- spanorm_markers_07 |>
+top_5_genes_07 <- spanorm_markers_07 |>
   slice_head(n = 5) |>
   pull(gene) |>
   unique()
 
 fiddle(xen,
-       genes_of_interest = top_5_genes_spanorm_07,
-       classification_col = "seurat_clusters",
+       genes_of_interest = top_5_genes_07,
+       classification_col = "clusters_res07",
        assay = "SpaNorm")
 ```
 
+#### Cluster composition (resolution 0.7)
 
-## Summary
+Cell-type calls per cluster, read off the top-10 FindAllMarkers entries above; ordered by lineage. The right-most column carries the matched cluster id at resolution 0.5 for cross-reference.
 
-Re-fitting per-sample SpaNorm at `sample.p = 0.25` after dropping the cluster-20 cells from the promoted build yields 22 clusters at Louvain 0.5 and 30 clusters at Louvain 0.7. Per-slide balance improves at both resolutions; the only residual asymmetry is the ciliated/ependymal cluster (Ccdc153 / Tmem212 / Dnah11) enriched on Slide2, which we attribute to ventricle sampling rather than a slide effect on normalization. The 0.5 decomposition preserves the biological backbone (oligodendrocytes, astrocytes, microglia, endothelial, neurons) but loses the discrete cytotoxic-T-cell cluster from the parent build (parent 24) and collapses the parent's Sst+/Vip+/Lamp5+ inhibitory subclasses into one mixed GABAergic cluster. Raising Louvain to 0.7 on the same clean PCA / SNN graph fully recovers the T cells as cluster 28 (Cd3d FC 7.52, Ccl5 7.37, Itk 6.57, Nkg7 6.15, Tnf 4.94, Gzmb 4.93), re-splits the inhibitory subclasses into Sst+/Lhx6+ (17), Vip+/Crh+ (21), and Pvalb+/Trh+ (26), and as a bonus splits microglia into homeostatic (12: Tmem119 / P2ry12 / Selplg / Siglech / Cx3cr1) and DAM (6: Cst7 / Ccl3 / Itgax / Clec7a / Ch25h / Trem2 / Cd14). The DAM split is a new finding that neither the parent SpaNorm build nor the 0.5 clean build resolved. We promote the 0.7 clean decomposition as the working SpaNorm scaffold and re-run the cell-type assignment table against the 30-cluster set before starting the E4-vs-E2 DE.
+| Lineage | Cluster | Cell type | Top markers | ↔ res 0.5 |
+|---|---|---|---|---|
+| Oligodendrocyte | 0 | Mature OL, high-FC | Mag / Aspa / Gatm / Mog / Ermn / Cldn11 | 0 |
+| Oligodendrocyte | 7 | Mature OL, lower-FC twin (Slide1-restricted) | Cldn11 / Ermn / Apod / Mog / Aspa / Plin4 | 9 |
+| Oligodendrocyte | 20 | Third OL state, low-FC (NEW at 0.7) | Aspa / Mag / Mog / Gatm / Pllp / Cldn11 (FCs 1.5-1.8) | (merged into 9 at 0.5) |
+| Oligodendrocyte | 14 | OPCs | Pdgfra / Tnr / Plpp4 / Gpt2 / Chst11 | 12 |
+| Astrocyte | 2 | Gray-matter Aqp4+/Gja1+ | Plpp3 / Htra1 / Gja1 / Prodh / Aqp4 / Slc7a10 | 4 |
+| Astrocyte | 8 | Agt+ subtype | Agt / Slc7a10 / Gja1 / Aqp4 / Pla2g7 | 8 |
+| Microglia | 5 | **DAM microglia (NEW at 0.7)** | Cst7 / Ccl3 / Clec7a / Itgax / Ch25h / Lyz2 / Trem2 | (merged with 11 into 2 at 0.5) |
+| Microglia | 11 | **Homeostatic microglia (NEW at 0.7)** | Tmem119 / P2ry12 / Selplg / Siglech / Il1a / Cx3cr1 | (merged with 5 into 2 at 0.5) |
+| Vascular | 4 | Endothelial cells (BBB) | Cldn5 / Cxcl12 / Flt1 / Emcn / Clec2d / Klf4 | 5 |
+| Vascular | 6 | VLMC + perivascular macrophages | Tagln / Slc47a1 / Mrc1 / Lum / Col1a2 / Mgp | 7 |
+| Vascular | 18 | Pericytes / mural | Kcnj8 / Atp13a5 / Vtn / Bgn | 15 |
+| Ventricular | 19 | Ependymal | Ccdc153 / Tmem212 / Dnah11 | 17 |
+| Ventricular | 21 | Choroid plexus + MHC-II | Car12 / Ltc4s / Adh1 / Tgfbi / H2-Eb1 | 18 |
+| Excitatory | 1 | Deep-layer Fezf2+ | Fezf2 / Syt6 / Slc17a7 / Oprk1 / Egr1 | 1 |
+| Excitatory | 3 | Calb2+/Nts+/Tac1+ mixed | Gck / Nts / Calb2 / Tac1 / Slc17a6 | 3 |
+| Excitatory | 9 | Cux2+/Lamp5+ upper-layer | Lamp5 / Pparg / Stard8 / Otof / Calb1 / Cux2 | 6 (partial) |
+| Excitatory | 17 | Rspo1+/Tcap+/IEG-rich | Rspo1 / Tcap / Egr1 / Rorb / Whrn | 6 (partial) |
+| Excitatory | 10 | Vglut2+/Rorb+ thalamic relay | Slc17a6 / Plcb4 / Calb2 / Rorb | 10 |
+| Excitatory | 22 | Tshz2+ deep / hippocampal | Tshz2 / Dpp4 / Rspo1 / Pparg / Htr2c | 19 |
+| Excitatory | 24 | Wif1+/Syt6+ | Wif1 / Syt6 / Calb2 / Sncg / Tac1 | 21 |
+| Excitatory | 15 | Pou3f1+ stressed neurons | Pou3f1 / Grin2a / Chst1 / Grin2b / Opcml | 13 |
+| GABAergic | 13 | Sst+/Lhx6+ MGE-derived | Lhx6 / Sst / Reln / Gad1 / Ndnf | 11 |
+| GABAergic | 16 | Striatal-flavored Tac1+/Adcy5+ | Ido1 / Otof / Tac1 / Adcy5 / Cd36 | 14 |
+| GABAergic | 23 | Vip+/Crh+ CGE-derived | Vip / Crh / Pthlh / Cnr1 / Gad1 | 20 |
+| GABAergic | 25 | Pvalb+/Trh+ | Trh / Pvalb / Gad1 / Spp1 | 22 |
+| Small / atypical | 12 | Lypd1+/Slc17a7+ neuron-like | Lypd1 / Slc17a7 / Reln / Trh / Plpp4 | 16 |
+| Immune | 26 | T cells / cytotoxic lymphocytes | Ccl5 / Cd3d / Itk / Nkg7 / Ms4a4b / Gzmb | 24 |
+
+
+
+
 
 ## References
 
 - Salim A et al. "SpaNorm: spatially-aware normalization for spatial transcriptomics data." Genome Biology, 2025. DOI: 10.1186/s13059-025-03565-y.
 - SpaNorm vignette: https://bhuvad.github.io/SpaNorm/articles/SpaNorm.html.
+- Allen Brain Atlas, mouse: https://mouse.brain-map.org.
 - Parent notebook: `20260513_SpaNorm_samplep025.qmd`.
-
