@@ -1,0 +1,219 @@
+---
+title: "APOE allele probe validation "
+date: last-modified
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+---
+
+
+
+The mBrain_480g Xenium panel carries **four** rs-prefixed probes covering the two SNPs that define the human APOE alleles. 
+
+
+Every cell in both groups expresses **APOE4/APOE4** in the genomic background. The only departure from that background is in 4s2M microglia, where tamoxifen-induced microglia-restricted Cre activation switches APOE E4/E4 to E2/E2.
+
+
+
+---
+**APOE allele probes.**
+
+| Probe | Variant at SNP | Present in alleles | Expected in 4s2 (all E4) | Expected in 4s2M microglia (E2) |
+|---|---|---|---|---|
+| `rs429358-WT-228` | T at rs429358 | E2, E3 | 0 | high (only allele carrying T at rs429358 after switch) |
+| `rs429358-ALT-228:C` | C at rs429358 | E4 | high (every cell carries C) | low (switched microglia lost C) |
+| `rs7412-WT-226` | C at rs7412 | E3, E4 | high (every cell carries C) | slightly lower (microglia lost C) |
+| `rs7412-ALT-226:T` | T at rs7412 | E2 | 0 | high (microglia gained T at rs7412 after switch) |
+
+The three classical human alleles are resolved by the (rs429358, rs7412) genotype: E2 = (T, T), E3 = (T, C), E4 = (C, C). This model has only E4 and E2 alleles.
+
+
+
+
+
+```{r}
+#| label: setup
+
+library(Seurat)
+library(tidyverse)
+library(qs2)
+library(DESeq2)
+library(EnhancedVolcano)
+library(patchwork)
+library(gridExtra)
+library(kableExtra)
+# pROC drives the AUC, DeLong AUC-difference test, bootstrap CI, and threshold selection for the
+# combined-score E2 call below.
+library(pROC)
+
+source("R/20260514-helper_functions.R")
+set.seed(1)
+
+mg <- qs_read("data/20260517_microglia_subcluster.qs2")
+DefaultAssay(mg) <- "Xenium"
+```
+
+## Per-probe counts
+
+```{r}
+#| label: probe-pull
+
+# Pull per-cell raw counts of the four probes (both SNPs carry a WT and an ALT variant); reused by
+# the histogram chunk below, the summary table that follows, and the ROC fit further down.
+probes <- c("rs429358-WT-228", "rs429358-ALT-228:C", "rs7412-WT-226", "rs7412-ALT-226:T")
+stopifnot(all(probes %in% rownames(mg[["Xenium"]])))
+mm <- as.matrix(GetAssayData(mg, assay = "Xenium", layer = "counts")[probes, ])
+
+# Attach per-cell probe counts to the Seurat object so the ROC fit and the spatial / DE chunks below
+# can pull them straight from mg@meta.data without re-extracting the count matrix.
+mg$rs429358_wt  <- as.integer(mm["rs429358-WT-228", ])
+mg$rs429358_alt <- as.integer(mm["rs429358-ALT-228:C", ])
+mg$rs7412_wt    <- as.integer(mm["rs7412-WT-226", ])
+mg$rs7412_alt   <- as.integer(mm["rs7412-ALT-226:T", ])
+```
+
+### Reads per cell per probe
+
+```{r}
+#| label: probe-histograms
+#| column: page
+#| fig-width: 11
+#| fig-height: 6
+
+# Long-format count table aligned to per-cell condition; t(mm) puts cells in rows and probes in cols
+# so the bound condition vector and the pivot stay straight.
+probe_long <- as_tibble(t(mm)) |>
+  mutate(condition = mg$condition) |>
+  pivot_longer(-condition, names_to = "probe", values_to = "count")
+
+# Log10 y-axis so the 0-read bin stays visible without flattening the small positive tail; bin width 1
+# matches the integer count grid. Facet x-scales are free because the four probes have different tails.
+probe_long |>
+  ggplot(aes(x = count, fill = condition)) +
+  geom_histogram(binwidth = 1, position = "identity", alpha = 0.55) +
+  scale_y_log10() +
+  scale_fill_manual(values = c(control = "firebrick", switched = "steelblue")) +
+  facet_wrap(~ probe, scales = "free_x") +
+  labs(x = "Reads per cell", y = "Cell count (log10)",
+       title = "Per-cell read distribution for each APOE allele probe",
+       subtitle = "Control (4s2, E4/E4 everywhere) vs switched (4s2M, microglia E2/E2)") +
+  theme_minimal(base_size = 14)
+```
+
+### Summary table
+
+```{r}
+#| label: probe-validation
+
+# Per-probe summary: how many cells have >= 1 read, mean count per condition.
+# The expected_ctrl column records what we should see under the E4/E4 background.
+tibble(
+  probe              = probes,
+  #snp    = c("T at rs429358 (E2/E3)", "C at rs429358 (E4)",
+  #                       "C at rs7412 (E3/E4)", "T at rs7412 (E2)"),
+  expected_in_4s2    = c("0", "high (E4 everywhere)",
+                         "high (E4 everywhere)", "0"),
+  # n_cells_ge1        = rowSums(mm >= 1),
+  # n_cells_ge2        = rowSums(mm >= 2),
+  # n_cells_ge3        = rowSums(mm >= 3),
+  mean_ctrl          = round(rowMeans(mm[, mg$condition == "control"]),  3),
+  mean_sw            = round(rowMeans(mm[, mg$condition == "switched"]), 3),
+  ratio_sw_ctrl      = round(rowMeans(mm[, mg$condition == "switched"]) /
+                             pmax(rowMeans(mm[, mg$condition == "control"]), 1e-3), 2)) |>
+  kbl(caption = "Per-probe counts (35,700 cells, microglia subset object).") |>
+  kable_styling("striped", full_width = FALSE)
+```
+
+**Column legend.**
+
+- `probe`: probe ID exactly as named on the mBrain_480g panel.
+- `expected_in_4s2`: prediction under the E4/E4 background, where every cell in the 4s2 control arm is homozygous E4. `0` means the probe should fire in no cell; `high` means it should fire in every cell.
+- `mean_ctrl`: mean per-cell count of the probe in the 4s2 control arm.
+- `mean_switch`: mean per-cell count of the probe in the 4s2M switched arm.
+- `ratio`: `mean_switch / mean_ctrl`. Values above 1 mean the probe rises in the switched arm, values below 1 mean it falls. 
+
+
+
+
+### APOE E2 module score on the microglia UMAP
+
+The Seurat `AddModuleScore()` averages the per-cell expression of the two E2-evidence probes (rs429358-WT-228 + rs7412-ALT-226:T)
+
+```{r}
+#| label: module-score
+#| column: page
+#| fig-width: 12
+#| fig-height: 5
+
+
+# from the same expression bin; the 480-gene panel gives plenty of background controls. We score on
+# the per-sample-refit SpaNorm assay (single consolidated data layer) rather than the Xenium counts
+# assay (per-sample split layers, which AddModuleScore cannot iterate over in Seurat v5).
+# nbin = 10 and ctrl = 30 are tuned for the 480-gene panel; the Seurat defaults (nbin = 24, ctrl = 100)
+# overfill each expression bin and trigger a sample-without-replacement error on a panel this small.
+mg <- AddModuleScore(mg,
+                     features = list(c("rs429358-WT-228", "rs7412-ALT-226:T")),
+                     name     = "apoe_E2_module",
+                     assay    = "SpaNorm",
+                     nbin     = 10,
+                     ctrl     = 30)
+
+# AddModuleScore appends a numeric suffix; the metadata column lands as "apoe_E2_module1".
+# Split the FeaturePlot by condition so the within-control noise floor and the within-switched
+# shift are visible side-by-side. q20 / q95 clipping keeps the colour scale legible against outliers.
+FeaturePlot(mg,
+            features   = "apoe_E2_module1",
+            pt.size= 0.8,
+            reduction  = "umap",
+            split.by   = "condition",
+            cols       = c("grey90", "red"),
+            order      = TRUE,
+            min.cutoff = "q20",
+            max.cutoff = "q98") 
+  
+```
+
+
+```{r}
+#| label: module-score-sample
+#| fig-width: 12
+#| fig-height: 15
+#| column: page
+
+# FeaturePlot ignores `ncol` when `split.by` is set (it only honours ncol with multiple features).
+# Use combine = FALSE to get a list of one panel per sample, then patchwork::wrap_plots(ncol = 2)
+# to lay them out on a 2-column grid.
+FeaturePlot(mg,
+            features   = "apoe_E2_module1",
+            pt.size    = 0.8,
+            cols       = c("grey90", "red"),
+            reduction  = "umap",
+            split.by   = "sample_id",
+            order      = TRUE,
+            min.cutoff = "q20",
+            max.cutoff = "q98",
+            combine    = FALSE) |>
+  patchwork::wrap_plots(ncol = 2)
+```
+
+
+
+es.
+
+## Caveat
+
+- **Only two of the four panel probes are usable for per-cell calling.** `rs429358-ALT-228:C` is insensitive in this assay and `rs7412-WT-226` does not separate arms; both are excluded from the score. `rs7412-ALT-226:T` is cross-reactive but its delta between conditions still carries E2 information once combined with `rs429358-WT-228`.
+
+
+## References
+
+
+- Parent pseudobulk DE notebook: `20260518_microglia_pseudobulk_DE.qmd`.
+- 10x Genomics Xenium custom panel design documentation (panel: mBrain_480g).
+
