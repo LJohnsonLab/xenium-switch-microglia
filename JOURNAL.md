@@ -46,3 +46,13 @@
 **Unresolved.** Pseudobulk E4-vs-E2 DE on cleaned microglia 0 / 1 / 6 at 0.3. Sub-cluster consolidated DAM to recover Stage-1 vs Stage-2 (visible at 0.5 as cluster 4 Spp1 / Gpnmb / H2-Eb1 / Cd74 vs 0 Lyz2 / Cst7 / Ccl3 / Lpl). Spatially inspect IRM cluster near plaques. Sub-cluster astrocyte pair (clean-0.7 clusters 2, 8) for DAA signature. Cross-validate APOE probe per-cell calls against genotype.
 
 **Token Budget:** ~340 tokens.
+
+## 2026-05-19 — Microglia pseudobulk DE, corrected APOE probe labels, and per-cell ROC-tuned E2 call
+
+**Context & changes.** Extended `20260518_microglia_pseudobulk_DE.qmd` with a full-microglia pool DE section (clusters 0, 2, 4, 6, 10 merged) ahead of the per-state loop, plus per-cluster interpretive commentary that splits each volcano's top-5 hits into expected microglial biology (IFN / DAM / homeostatic / E2-probe signals) and likely segmentation contamination (neuronal Cnr1 / Slc17a7 / Plcb4 / Tunar, OPC Pdgfra, T-cell Ms4a4b). Built and committed the new `20260518_microglia_APOE_per_cell_call.qmd`: probe-validation histograms + summary table against the E4/E4 background, then a logistic-regression score on the two T-allele E2-evidence probes (rs429358-WT-228 + rs7412-ALT-226:T) trained on a per-cell proxy E2-vs-E4 label (4s2M true microglia vs 4s2 true microglia), with pROC AUC + DeLong + bootstrap CI, three operating points (Youden / FPR=5% / FPR=1%), per-cell `e2_call` attached to the microglia object, a genotype-on-cell pseudobulk DE, and an `AddModuleScore`-based E2 UMAP split by condition and by sample.
+
+**Key correction.** Confirmed with JM that `rs429358-WT-228` hybridizes to the T allele at codon 112, so it detects E2 (not E4 as previously labelled across CLAUDE.md, the pseudobulk DE notebook, and the JOURNAL). Both custom E2-evidence probes are now T-allele readouts; the "unexpected E4 signal in switched arm" mystery dissolved. Corrected the labels across all three files and saved a project memory.
+
+**Unresolved.** Sub-cluster the consolidated DAM at higher Louvain (Stage-1 vs Stage-2 split visible at 0.5 cluster 4 Spp1 / Gpnmb / H2-Eb1 / Cd74 vs cluster 0 Lyz2 / Cst7 / Ccl3 / Lpl). Spatially inspect the IRM cluster near amyloid plaques. Sub-cluster the SpaNorm astrocyte pair (clean-0.7 clusters 2, 8) for an IFN-responsive DAA signature. Cross-check the genotype-on-cell DE top hits against the parent five-state DE; recurrent hits across the two designs are the most robust candidates.
+
+**Token Budget:** ~250 tokens.
