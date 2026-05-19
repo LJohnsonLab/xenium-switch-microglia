@@ -18,20 +18,10 @@ Differential expression on the microglia sub-cluster build (`data/20260517_micro
 
 Pseudobulk per sample (7 sections: three 4s2 control sections, four 4s2M switched sections). Pseudobulk aggregation collapses each sub-cluster's cells per sample into a single sample-level count vector before DESeq2. The unit of replication becomes the biological sample (n = 3 control, n = 4 switched).
 
-**Subclusters considered**:
-
-- Cluster 0: DAM Stage-1, Trem2-dependent core (Lyz2 / Ccl3 / Ccl4 / Cst7 / Clec7a / Ctsb / Lpl). 6,919 cells.
-- Cluster 4: DAM Stage-2, antigen-presenting late-stage (Spp1 / Apoc4 / Gpnmb / H2-Eb1 / Lgals3 / H2-Ab1 / Cd74 / Itgax). 2,962 cells. **Carries the custom APOE rs429358-WT-228 probe (E3/E4 allele) in its top-10.**
-- Cluster 2: Canonical homeostatic microglia (Tmem119 / P2ry12 / Maf / Ltc4s / Pnp / Htra1 / Selplg). 5,123 cells.
-- Cluster 6: Low-FC homeostatic boundary / CP-adjacent subset (Tmem119 / Cd68 / Ptgs1 / Gpr34 / P2ry12 / Mertk). 2,082 cells. **Carries the custom APOE rs7412-ALT-226:T probe (E2 allele) in its top-10.**
-- Cluster 10: IRM + proliferating microglia (Cxcl10 / Mki67 / Ccl2 / Ccl12 / Ifit1 / Ifit2 / Ifitm3 / Plac8). 399 cells; power-limited.
 
 
 
-_The other six likely contaminated clusters (1 inhib + glut neuron, 3 cortical exc neuron, 5 reactive astrocyte, 7 vascular, 8 oligodendrocyte, 9 multi-lineage doublet pool) are excluded from this DE._
 
-
-## Cells per cluster per sample
 
 
 ```{r}
@@ -60,9 +50,134 @@ set.seed(1)
 
 # Reload the microglia sub-cluster checkpoint built by 20260517_microglia_subcluster.qmd.
 mg <- qs_read("data/20260517_microglia_subcluster.qs2")
+
+# AggregateExpression pulls from the DefaultAssay's counts layer; we want the raw Xenium counts,
+# not the SpaNorm log-residuals that are the analysis-default assay on this object.
+DefaultAssay(mg) <- "Xenium"
 ```
 
+
+
+## Pseudobulk DE on the full microglia object
+
+> Merge every bona fide microglia sub-cluster (0, 2, 4, 6, 10) and the likely-contaminated clusters (1, 3, 5, 7, 8, 9) into a single sample-level pseudobulk contrast.  
+
+Positive log2FC means up in the E2-switched arm.
+
+```{r}
+#| label: pseudobulk-full-microglia
+#| fig-width: 14
+#| fig-height: 6
+
+# Pool the five bona fide microglia clusters; drop the contamination clusters so the per-sample pseudobulks
+# are not contaminated by neuronal / astrocyte / OL / vascular transcripts segmented into microglia masks.
+# mg_pool <- subset(mg, clusters_res05 %in% c("0", "2", "4", "6", "10"))
+
+
+# Uses the full microglia object
+mg_pool <- mg
+
+# Aggregate raw Xenium counts per sample; the resulting Seurat object has one column per biological sample.
+bulk_pool <- AggregateExpression(mg_pool,
+                                 assays        = "Xenium",
+                                 group.by      = "sample_id",
+                                 return.seurat = TRUE)
+
+# AggregateExpression rewrites sample IDs ("4s2_F1" -> "g4s2-F1"); rebuild the lookup so condition attaches.
+sample_meta_pool <- mg_pool@meta.data |>
+  distinct(sample_id, condition) |>
+  mutate(bulk_id = paste0("g", gsub("_", "-", sample_id)))
+
+bulk_pool$condition <- sample_meta_pool$condition[match(colnames(bulk_pool), sample_meta_pool$bulk_id)]
+stopifnot(!any(is.na(bulk_pool$condition)))
+Idents(bulk_pool) <- "condition"
+
+# Run DESeq2 through anayet() with the same thresholds as the per-state loop, for like-for-like comparison.
+res_pool <- anayet(bulk_pool,
+                   ident1          = "switched",
+                   ident2          = "control",
+                   test_method     = "DESeq2",
+                   p_adj_threshold = 0.1,
+                   min_pct         = 0.3,
+                   plot_title      = "Pseudobulk DE (full microglia pool)",
+                   print_plot      = FALSE)
+
+# Always label the 5 lowest-p genes (blue) plus any FDR < 0.1 hits (red), mirroring the per-state plots so
+# the volcano stays readable even when no gene clears FDR.
+top5_p_pool    <- res_pool$all_results |> as_tibble(rownames = "gene") |> slice_min(p_val, n = 5, with_ties = FALSE) |> pull(gene)
+sig_genes_pool <- rownames(res_pool$significant_results)
+lab_genes_pool <- union(sig_genes_pool, top5_p_pool)
+
+keyvals_pool <- rep("grey60", nrow(res_pool$all_results))
+names(keyvals_pool) <- rownames(res_pool$all_results)
+keyvals_pool[top5_p_pool]    <- "royalblue"
+keyvals_pool[sig_genes_pool] <- "red2"
+
+fc_range_pool <- range(res_pool$all_results$avg_log2FC, na.rm = TRUE)
+y_max_pool    <- max(-log10(res_pool$all_results$p_val), na.rm = TRUE)
+
+res_pool$volcano_plot <- EnhancedVolcano(res_pool$all_results,
+                                         lab            = rownames(res_pool$all_results),
+                                         selectLab      = lab_genes_pool,
+                                         x              = "avg_log2FC",
+                                         y              = "p_val",
+                                         title          = "Pseudobulk DE (full microglia)",
+                                         subtitle       = "switched (E2) vs. control (E4)",
+                                         caption        = "BLUE: 5 lowest-p genes (FDR>0.1)\nRED: FDR < 0.1, min_pct = 0.3",
+                                         labFace        = "italic",
+                                         pCutoff        = 1,
+                                         FCcutoff       = 0.001,
+                                         colCustom      = keyvals_pool,
+                                         legendPosition = "none",
+                                         drawConnectors = TRUE,
+                                         directionConnectors = "both",
+                                         max.overlaps   = Inf,
+                                         xlim           = c(floor(fc_range_pool[1]), ceiling(fc_range_pool[2])),
+                                         ylim           = c(0, max(ceiling(y_max_pool * 1.05), 1)))
+
+# Fall back to the 5 lowest-p genes when no gene clears FDR < 0.1, so the side table is never empty.
+if (nrow(res_pool$significant_results) > 0) {
+  table_pool <- res_pool$significant_results |>
+    as_tibble(rownames = "gene") |>
+    select(gene, p_val, avg_log2FC, p_val_adj) |>
+    mutate(across(where(is.numeric), \(x) signif(x, 3))) |>
+    arrange(p_val_adj)
+} else {
+  table_pool <- res_pool$all_results |>
+    as_tibble(rownames = "gene") |>
+    slice_min(p_val, n = 5, with_ties = FALSE) |>
+    select(gene, p_val, avg_log2FC, p_val_adj) |>
+    mutate(across(where(is.numeric), \(x) signif(x, 3)))
+}
+table_grob_pool <- tableGrob(table_pool, theme = ttheme_minimal(base_size = 12), rows = NULL)
+
+# 3:4 width ratio matches the per-state combined panels.
+res_pool$volcano_plot + wrap_elements(table_grob_pool) +
+  plot_layout(widths = c(3, 4))
+```
+
+No gene clears FDR < 0.1 on the full microglia object.  
+The five lowest-p genes split into two readings. The expected biology comes from `Ccl5` (+0.91, p = 4.3e-3), `Ifit1` (+0.76, p = 1.0e-2), and `Cxcl10` (+0.88, p = 1.9e-2). All three carry positive log2FC and all three are Type-I IFN / inflammatory chemokines. 
+
+The other two top hits are likely segmentation contamination. `Plcb4` (-0.56, p = 1.3e-2) is a phospholipase C beta isoform expressed in cerebellar Purkinje cells and cortical projection neurons, not in microglia. `Tunar` (-0.40, p = 1.7e-2) is a long non-coding RNA enriched in neuronal lineages and absent from canonical microglia signatures.
+
+
 ## Pseudobulk DE per microglia state
+
+
+**Subclusters considered**:
+
+- Cluster 0: DAM Stage-1, Trem2-dependent core (Lyz2 / Ccl3 / Ccl4 / Cst7 / Clec7a / Ctsb / Lpl). 6,919 cells.
+- Cluster 4: DAM Stage-2, antigen-presenting late-stage (Spp1 / Apoc4 / Gpnmb / H2-Eb1 / Lgals3 / H2-Ab1 / Cd74 / Itgax). 2,962 cells. **Carries the custom APOE rs429358-WT-228 probe (E2 allele, T at codon 112) in its top-10.**
+- Cluster 2: Canonical homeostatic microglia (Tmem119 / P2ry12 / Maf / Ltc4s / Pnp / Htra1 / Selplg). 5,123 cells.
+- Cluster 6: Low-FC homeostatic boundary / CP-adjacent subset (Tmem119 / Cd68 / Ptgs1 / Gpr34 / P2ry12 / Mertk). 2,082 cells. **Carries the custom APOE rs7412-ALT-226:T probe (E2 allele) in its top-10.**
+- Cluster 10: IRM + proliferating microglia (Cxcl10 / Mki67 / Ccl2 / Ccl12 / Ifit1 / Ifit2 / Ifitm3 / Plac8). only 399 cells.
+
+
+
+_The other six likely contaminated clusters (1 inhib + glut neuron, 3 cortical exc neuron, 5 reactive astrocyte, 7 vascular, 8 oligodendrocyte, 9 multi-lineage doublet pool) are excluded from this DE._
+
+
 
 ```{r}
 #| label: pre-DE-checks
@@ -79,17 +194,15 @@ mg@meta.data |>
     clusters_res05 == "10"  ~ "IRM + proliferating (cluster 10)")) |>
   dplyr::count(state, sample_id, condition) |>
   pivot_wider(names_from = condition, values_from = n, values_fill = 0L) |>
-  arrange(state, sample_id) |> 
-  kbl() |> kable_styling(full_width = FALSE, "striped") |> 
+  arrange(state, sample_id) |>
+  kbl() |> kable_styling(full_width = FALSE, "striped") |>
   scroll_box(height = "500px")
 
 
-# AggregateExpression pulls from the DefaultAssay's counts layer; we want the raw Xenium counts,
-# not the SpaNorm log-residuals that are the analysis-default assay on this object.
-DefaultAssay(mg) <- "Xenium"
+
 ```
 
-
+---
 
 The code iterates over the five microglia states.  Positive log2FC means up in the E2-switched microglia.
 
@@ -99,13 +212,55 @@ The code iterates over the five microglia states.  Positive log2FC means up in t
 #| fig-width: 14
 #| fig-height: 6
 
-# Map each microglia state to the cluster id it covers. 
+# Map each microglia state to the cluster id it covers.
 microglia_states <- list(
   "DAM Stage-1 (cluster 0)"                     = "0",
   "DAM Stage-2 (cluster 4)"                     = "4",
   "Homeostatic canonical (cluster 2)"           = "2",
   "Homeostatic low-FC / CP-adjacent (cluster 6)" = "6",
   "IRM + proliferating (cluster 10)"            = "10")
+
+# Per-cluster interpretive commentary, keyed by cluster id and emitted under each volcano. Each block
+# splits the top-5 hits into expected microglial biology and likely segmentation contamination. Numbers
+# match the per-state DESeq2 tables; keep this in sync with the rendered Results section above.
+cluster_commentary <- list(
+  "0" = paste(
+    "All five top-5 hits carry positive log2FC. `Lgals3bp` (+0.49),",
+    "`Ccl12` (+0.67), `Ifit2` (+0.39), and `Cd74` (+0.42) are bona fide microglial",
+    "inflammatory / IFN / antigen-presenting genes; the fifth hit is the E2-allele",
+    "APOE probe `rs7412-ALT-226:T` (+0.97). Expected biology dominates: the E2-switched",
+    "group shows a coordinated IFN / DAM activation signature plus detectable E2 transcript.",
+    "No neuronal, astrocytic, or OL marker enters the top-5, so I read this cluster as",
+    "the cleanest of the five; the contamination hypothesis is not needed to explain any",
+    "of the labelled hits."),
+  "4" = paste(
+    "Expected biology comes from `Lgals3bp` (+0.51), `Ccl12` (+0.87), and the E2",
+    "probe `rs7412-ALT-226:T` (+1.03), reproducing the cluster-0 pattern. Likely",
+    "contamination comes from `Cnr1` (+1.04) and `Slc17a7` (+0.44). `Cnr1` is the",
+    "cannabinoid receptor 1 and `Slc17a7` is VGLUT1; both are neuronal markers, not",
+    "microglial. DAM Stage-2 cells sit near amyloid plaques where neuronal processes"),
+  "2" = paste(
+    "Expected biology dominates. `Tmem119` (-0.37) declines in the E2-switched arm",
+    "(homeostatic marker) and `Csf1` (+0.34) rises. Both custom APOE probes",
+    "hybridize to T alleles and therefore both detect the E2 transcript in this model; both rise",
+    " in the switched arm: `rs429358-WT-228` (+0.94, p = 3.7e-3; T at codon 112) and",
+    " `rs7412-ALT-226:T` (+0.70, p = 1.9e-2; T at codon 158). The single likely contamination hit is",
+    "`Pdgfra` (-0.40), an oligodendrocyte-progenitor marker, not microglial;",
+    "its appearance fits segmentation bleed from OPC neighbors."),
+  "6" = paste(
+    "Expected biology comes from `Tmem119` (-0.47) declining and `Lgals3bp` (+0.62)",
+    "rising in the E2-switched arm, plus the E2-allele probe",
+    "`rs429358-WT-228` (+1.58, p = 1.6e-2; T at codon 112) becoming detectable.",
+    "Likely contamination comes from `Ms4a4b` (+1.02), a T-cell / lymphocyte marker",
+    "not microglial, and `Gstm1` (-0.64), broadly expressed across cell types."),
+  "10" = paste(
+    "The only cluster that clears FDR. `Ccl12` (+1.32, FDR 3.0e-5),",
+    "`Lgals3bp` (+0.86, FDR 5.9e-3), and `Ifit2` (+1.91, FDR 9.2e-2) line up with",
+    "the IFN / inflammatory shift seen across the other states; `Mki67` (-1.00,",
+    "FDR 9.6e-3) drops, so the switched arm shifts away from proliferation. The four",
+    "FDR hits read as expected biology. `rs429358-WT-228` (+1.86, p = 6.2e-4) appears",
+    "as the fifth lowest-p but does not clear FDR; the E2-allele probe (T at codon 112)",
+    "rising in the switched arm is consistent with E2 transcript becoming detectable."))
 
 de_results <- imap(microglia_states, \(cluster_ids, label) {
   # Subset to the cells of one microglia state; %in% accepts both single ids and bound id-vectors.
@@ -163,7 +318,7 @@ de_results <- imap(microglia_states, \(cluster_ids, label) {
                                       y              = "p_val",
                                       title          = paste("Pseudobulk DE in", label),
                                       subtitle       = "switched (E2) vs. control (E4)",
-                                      caption        = "labels: 5 lowest-p genes (blue) + FDR < 0.1 hits (red) | anayet thresholds: p_adj_threshold = 0.1, min_pct = 0.3",
+                                      caption        = "BLUE: 5 lowest-p genes (FDR>0.1)\nRED: FDR < 0.1, min_pct = 0.3",
                                       labFace         = "italic",
                                       pCutoff        = 1,
                                       FCcutoff       = 0.001,
@@ -207,6 +362,10 @@ de_results <- imap(microglia_states, \(cluster_ids, label) {
     plot_layout(widths = c(3, 4))
   print(combined)
 
+  # Emit the per-cluster expected-biology vs contamination commentary below the panel; results: asis renders
+  # the cat'd markdown verbatim.
+  cat("\n\n", cluster_commentary[[cluster_ids]], "\n\n", sep = "")
+
   res
 })
 ```
@@ -215,6 +374,11 @@ de_results <- imap(microglia_states, \(cluster_ids, label) {
 #| label: save-tables
 #| eval: false
 
+
+# Persist the pooled-microglia DESeq2 table alongside the per-state tables.
+res_pool$all_results |>
+  as_tibble(rownames = "gene") |>
+  write_csv("results/20260518-pseudobulk_DE_microglia_full_pool_switched_vs_control.csv")
 
 # Persist the full DESeq2 result tables (all genes, not just significant) per microglia state.
 # Filename slug pulls the cluster id(s) from the label (e.g. "clusters 2 + 6" -> "2_6", "cluster 0" -> "0").
@@ -255,9 +419,14 @@ The four IRM + proliferating DEGs at FDR < 0.1:
 
 **Top-5-by-raw-p-value across all states.** Although only cluster 10 clears FDR, the top-5-by-p genes per state (labelled blue on each volcano) share a recurrent signature: `Ccl12`, `Lgals3bp`, and `Ifit2` appear in the top-5 of three or four of the five states and always with positive log2FC, consistent with a coordinated IFN / inflammatory shift in the switched arm at sub-FDR levels. `Tmem119` (homeostatic marker) appears in the top-5 of both homeostatic states (2 and 6) with negative log2FC.
 
-**APOE allele probes.** The custom probes `rs7412-ALT-226:T` (E2 allele) and `rs429358-WT-228` (E4 allele) are both on the panel and were tested as ordinary genes:
+**APOE allele probes.** Both custom probes on the panel hybridize to the T allele of their respective SNP and therefore both detect the **E2** transcript in this model:
 
-| State | rs7412-ALT-226:T (E2) | rs429358-WT-228 (E4) |
+- `rs429358-WT-228`: T allele at codon 112 (Cys112). The model has no E3, so the T allele uniquely marks E2.
+- `rs7412-ALT-226:T`: T allele at codon 158 (Cys158). Defines E2.
+
+Per-state log2FC and raw p-value:
+
+| State | rs7412-ALT-226:T (E2) | rs429358-WT-228 (E2) |
 |---|---|---|
 | DAM Stage-1 (0) | +0.97 (p 4.5e-3) | not in top-5 |
 | DAM Stage-2 (4) | +1.03 (p 1.2e-2) | not in top-5 |
@@ -265,19 +434,16 @@ The four IRM + proliferating DEGs at FDR < 0.1:
 | Homeostatic low-FC (6) | not in top-5 | +1.58 (p 1.6e-2) |
 | IRM + proliferating (10) | not in top-5 | +1.86 (p 6.2e-4) |
 
-> The E2 probe (`rs7412-ALT-226:T`) is positive in every state where it lands in the top-5, consistent with E2-allele transcript becoming detectable in the 4s2M-switched arm. The E4 probe (`rs429358-WT-228`) is also positive in the four states where it appears, which is **not** what a clean E4 → E2 switch at the per-cell level would predict (a true switch should reduce, not raise, E4 transcript in 4s2M cells). None of the APOE probes clear FDR < 0.1 in any state.
 
-Three candidate explanations for the unexpected positive E4 signal in the switched arm:
 
-1. **Non-microglial contamination .** The 4s2 → 4s2M switch is microglia-specific (Cre-driven, microglia-restricted); every other cell type in the 4s2M brain still carries E4/E4. APOE is strongly expressed in astrocytes (Aqp4+ / Agt+ clusters in the parent build) and to a lesser extent in choroid plexus and reactive ependyma.  
-Xenium segmentation is known to bleed transcripts across adjacent cells, especially at cell boundaries with high transcript density, and any astrocyte-microglia or CP-microglia segmentation overlap would dump E4 reads onto microglia masks in the 4s2M arm. DAM microglia (cluster 4) sit near amyloid plaques where reactive astrocytes and neuronal processes also pile up, so DAM cells have more high-APOE neighbours to bleed from than homeostatic microglia. The cluster-6 boundary leaks (Ttr / Ermn / Apod in its top-10 per the assignment note) already flag this exact mechanism. This explanation predicts asymmetric noise: spurious E4 reads (from many non-microglia neighbours) should outnumber spurious E2 reads (from microglia neighbours only) in the 4s2M arm; the current pseudobulk pattern (E4 positive in 4 states, E2 positive in 3) is consistent with that asymmetry.
-2. **Incomplete switching at the per-cell level.** A fraction of 4s2M microglia may still express E4 transcript because the Cre / floxed switch did not fire in those cells. Pseudobulk aggregation would then carry that residual E4 signal as a positive mean.
-3. **Pseudobulk aggregation effects.** A small fraction of unswitched microglia per sample with high APOE transcript per cell could dominate the per-sample mean even when most cells did switch.
-4. **Lack of statistical power.** Pseudobulk DE on a 480-gene panel with n = 3 vs 4 samples is underpowered. FDR adjustment over 480 tests is stringent and the seven samples are at the lower limit DESeq2 can fit dispersion against. Only cluster 10 (with the strongest IRM / proliferation contrast) produces FDR-significant hits, and three of its four DEGs survive Bonferroni / Benjamini-Hochberg only because their p-values are extreme (≤ 2e-5). 
+**Likely segmentation contamination in non-APOE hits.** Several top-5 lowest-p genes across states are not microglial: `Cnr1` and `Slc17a7` (excitatory neurons) in cluster 4; `Pdgfra` (OPC) in cluster 2; `Ms4a4b` (T cells) in cluster 6; `Plcb4` and `Tunar` (neurons) in the full microglia pool. Xenium boundary-stain segmentation bleeds transcripts across adjacent cells, especially at boundaries with high transcript density, and DAM microglia near amyloid plaques carry more high-transcript neuronal neighbors than homeostatic microglia. The cluster-6 boundary leaks (Ttr / Ermn / Apod in its top-10 per the assignment note) already flag this mechanism. A per-cell `AddModuleScore()` filter against the seven contamination-marker sets is the proper next step before treating any of these non-microglial hits as biology.
 
-## Other caveat 
 
-- **Cluster 10 (IRM + proliferating) is sparse on three Slide1 samples.** 4s2_F1 contributes 11 cells, 4s2M_F1 contributes 23 cells, and 4s2M_F2 contributes 23 cells; the per-sample pseudobulk counts in those three replicates will be low and DESeq2 dispersion estimates may be unstable. 4s2M_F3 carries 139 of 399 cluster-10 cells (35 %), so a single sample drives a disproportionate fraction of the switched-arm signal. Treat cluster-10 DEGs as exploratory.
+
+## Caveats
+
+- **Cluster 10 (IRM + proliferating) is sparse on three Slide1 samples.** 4s2_F1 contributes 11 cells, 4s2M_F1 contributes 23 cells, and 4s2M_F2 contributes 23 cells; the per-sample pseudobulk counts in those three replicates will be low and DESeq2 dispersion estimates may be unstable. 4s2M_F3 carries 139 of 399 cluster-10 cells (35 %), so a single sample drives a disproportionate fraction of the switched-arm signal. 
+- **lack of statistical power.** Pseudobulk DE on a 480-gene panel with n = 3 vs 4 samples is underpowered. FDR adjustment over 480 tests is stringent and the seven samples are at the lower limit DESeq2 can fit dispersion against. Only cluster 10 (with the strongest IRM / proliferation contrast) produces FDR-significant hits, and three of its four DEGs survive Benjamini-Hochberg only because their p-values are extreme (≤ 2e-5).
 
 
 ## References
