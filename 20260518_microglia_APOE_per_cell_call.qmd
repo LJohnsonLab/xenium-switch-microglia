@@ -48,9 +48,6 @@ library(EnhancedVolcano)
 library(patchwork)
 library(gridExtra)
 library(kableExtra)
-# pROC drives the AUC, DeLong AUC-difference test, bootstrap CI, and threshold selection for the
-# combined-score E2 call below.
-library(pROC)
 
 source("R/20260514-helper_functions.R")
 set.seed(1)
@@ -204,11 +201,9 @@ FeaturePlot(mg,
 
 
 
-es.
-
 ## Caveat
 
-- **Only two of the four panel probes are usable for per-cell calling.** `rs429358-ALT-228:C` is insensitive in this assay and `rs7412-WT-226` does not separate arms; both are excluded from the score. `rs7412-ALT-226:T` is cross-reactive but its delta between conditions still carries E2 information once combined with `rs429358-WT-228`.
+- **Only two of the four panel probes carry usable E2 evidence.** `rs429358-ALT-228:C` is insensitive in this assay and `rs7412-WT-226` does not separate arms; both are excluded from the module score. `rs7412-ALT-226:T` is cross-reactive but its delta between conditions still carries E2 information once combined with `rs429358-WT-228`.
 
 
 ## References
