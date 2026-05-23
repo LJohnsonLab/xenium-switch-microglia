@@ -56,3 +56,13 @@
 **Unresolved.** Build the per-cell E2 / E4 call (binary or continuous) and feed it into a genotype-on-cell DE; the ROC scaffold was drafted but the user pulled it out. Sub-cluster the consolidated DAM at higher Louvain (Stage-1 vs Stage-2 split visible at 0.5 cluster 4 Spp1 / Gpnmb / H2-Eb1 / Cd74 vs cluster 0 Lyz2 / Cst7 / Ccl3 / Lpl). Spatially inspect the IRM cluster near amyloid plaques. Sub-cluster the SpaNorm astrocyte pair (clean-0.7 clusters 2, 8) for an IFN-responsive DAA signature.
 
 **Token Budget:** ~270 tokens.
+
+## 2026-05-23 — Per-cell APOE switch call + DE; QC notebook restructured
+
+**Context & changes.** Extended `20260518_microglia_APOE_per_cell_call.qmd` with a binary per-cell switch+ / switch- call. Threshold `K_raw` is the smallest integer K with `P(rs429358_wt + rs7412_alt >= K | 4s2) <= 0.05`; this render gives `K_raw = 6`, FP = 3.0 %. Parallel `T_module = 0.762` (95th pct of `apoe_E2_module1` on 4s2) cross-checks. Added per-sample switch+ table, UMAP and white-background spatial QC, and two pseudobulk DE contrasts via `anayet()`: (a) within-4s2M switch+ vs switch-, (b) E4-vs-E2 sensitivity restricted to switch+ in 4s2M. CSVs at `results/20260523-pseudobulk_DE_microglia_switchplus_vs_switchminus.csv` and `results/20260523-pseudobulk_DE_microglia_E4vsE2_switchplus_only.csv`. Restructured `20260512_QC.qmd` into a biologist-readable schema (slide-level + density, sample QC, scaled-deviation, white-bg spatial, per-cell control rates with mean-per-sample bar chart replacing zero-inflated boxplots, final summary). Added `results/README.md` listing every CSV with generator + consumer.
+
+**Key findings.** **No 4s2M sample crosses the 30 % soft floor**: F1 (4.2 %) and F3 (3.3 %) sit at the 4s2 noise floor (~3 %) and recombination failed; F2 (16.8 %) and F4 (21.2 %) are partial. The boss's concern is confirmed. The restricted-to-switch+ E4-vs-E2 contrast recovers a DAM Stage-2 / IRM signature (Ifit1, Ifit2, Cst7, Cd74, H2-Eb1, Itgax, Csf1, Lgals3bp at FDR < 0.01) that the original full-pool contrast had diluted away.
+
+**Unresolved.** Re-run the seven contamination `AddModuleScore` panels on the microglia sub-cluster before quoting absolute switch+ percentages externally (purity affects absolute numbers, not sample ordering). Build the deferred neighbor / spatial-context DE and the continuous E2-ness covariate notebook. Sub-cluster the consolidated DAM at Louvain > 0.5 to recover Stage-1 / Stage-2 split; sub-cluster SpaNorm astrocytes (clean-0.7 clusters 2, 8) for IFN-responsive DAA.
+
+**Token Budget:** ~290 tokens.
