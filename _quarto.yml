@@ -1,0 +1,52 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "*.qmd"
+
+website:
+  title: "Microglia APOE Switch"
+  navbar:
+    left:
+      - text: Home
+        href: index.qmd
+      - text: QC
+        href: 20260512_QC.qmd
+      - text: Normalization
+        menu:
+          - text: SCT (no regression)
+            href: 20260512_SCT_no_regression.qmd
+          - text: SCT (regressed by slide)
+            href: 20260512_SCT_regressed_by_slide.qmd
+          - text: "---"
+          - text: SpaNorm (sample.p 0.05)
+            href: 20260512_SpaNorm_sample005.qmd
+          - text: SpaNorm (sample.p 0.25, default)
+            href: 20260513_SpaNorm_samplep025.qmd
+          - text: SpaNorm clean (default scaffold)
+            href: 20260516_SpaNorm_samplep025_clean.qmd
+      - text: Microglia
+        menu:
+          - text: Sub-cluster
+            href: 20260517_microglia_subcluster.qmd
+          - text: Pseudobulk DE
+            href: 20260518_microglia_pseudobulk_DE.qmd
+          - text: APOE switch call
+            href: 20260518_microglia_APOE_per_cell_call.qmd
+
+format:
+  html:
+    theme: cosmo
+    code-fold: true
+    number-sections: false
+    toc: true
+    toc-depth: 2
+    df-print: paged
+
+knitr:
+  opts_chunk:
+    dev: png
+
+execute:
+  message: false
+  warning: false
