@@ -1,17 +1,14 @@
 ---
 title: "Microglia APOE switch on a 5XFAD background: spatial transcriptomics"
+subtitle: ""
 date: last-modified
-format:
-  html:
-    toc: true
-    toc-depth: 2
-    df-print: paged
-    embed-resources: true
 ---
 
 ## Goal
 
-We extend the microglia-specific APOE allelic switch model of Nolt and colleagues to a 5XFAD amyloid background and read it out with Xenium in situ spatial transcriptomics. The parent paper showed that replacing the E4 allele with E2 in microglia alone improves remyelination, lessens microgliosis, and reduces astrocytic lipid-droplet load after cuprizone demyelination, even when every other CNS cell still expresses E4 ([Nolt et al., *J Neuroinflammation* 2025, DOI 10.1186/s12974-025-03639-5](https://doi.org/10.1186/s12974-025-03639-5)). We ask whether the same microglia-only E4 to E2 switch reshapes the spatial cellular response to amyloid pathology in 5XFAD mice.
+We extend the microglia-specific APOE allelic switch model of Nolt and colleagues to a 5XFAD amyloid background and read it out with Xenium in situ spatial transcriptomics.  
+The parent paper showed that replacing the E4 allele with E2 in microglia alone improves remyelination, lessens microgliosis, and reduces astrocytic lipid-droplet load after cuprizone demyelination, even when every other CNS cell still expresses E4 ([Nolt et al., *J Neuroinflammation* 2025, DOI 10.1186/s12974-025-03639-5](https://doi.org/10.1186/s12974-025-03639-5)).  
+We ask whether the same microglia-only E4 to E2 switch reshapes the spatial cellular response to amyloid pathology in 5XFAD mice.
 
 ## Model
 
@@ -20,6 +17,12 @@ All mice are 5XFAD. The genetic axis is microglia-specific APOE state, not amylo
 - `4s2_Fn`: 5XFAD control; microglia express E4.
 - `4s2M_Fn`: 5XFAD tamoxifen-induced switch; microglia express E2 while the rest of the CNS continues to express E4.
 
-Numbering is continuous across slides within a genotype. Seven samples sit on two Xenium slides (`0022474`, `0069080`), intermixed with sections from unrelated experiments. The mBrain_480g panel includes two custom probes that read out the APOE genotype directly at the single-cell level: `rs429358-WT-228` marks the E3 / E4 allele and `rs7412-ALT-226:T` marks the E2 allele.
+Numbering is continuous across slides within a genotype. Seven samples sit on two Xenium slides (`0022474`, `0069080`), intermixed with sections from unrelated experiments.   
+The mBrain_480g panel carries four custom APOE allele probes that read out the genotype at the single-cell level. We call the E2 switch from the two T-allele probes: `rs429358-WT-228` detects T at codon 112 (Cys112) and `rs7412-ALT-226:T` detects T at codon 158 (Cys158). 
+
+## Data
+
+We profiled fresh-frozen mouse brain on the Xenium platform with the targeted 480-gene `mBrain_480g` panel.  
+The two slides ran on different instrument software releases, which imposes a measurable slide effect that the QC notebook quantifies and that the normalization step corrects for. We isolate the seven project samples from the rest of each slide with hand-drawn ROI masks using Xenium Explorer.
 
 
