@@ -14,8 +14,6 @@ Bibliography for this notebook:
 
 - Salim et al., "SpaNorm: spatially-aware normalization for spatial transcriptomics data," Genome Biology, 2025. DOI: 10.1186/s13059-025-03565-y.
 - SpaNorm package vignette: https://bhuvad.github.io/SpaNorm/articles/SpaNorm.html.
-- Cached NotebookLM read-through: `notebookLM/2026-05-12_spanorm-background.md`.
-
 ## Setup
 
 ```{r}
@@ -265,4 +263,3 @@ Per-sample SpaNorm at `sample.p = 0.25` produces the same 25-cluster decompositi
 
 - Salim A et al. "SpaNorm: spatially-aware normalization for spatial transcriptomics data." Genome Biology, 2025. DOI: 10.1186/s13059-025-03565-y.
 - SpaNorm vignette: https://bhuvad.github.io/SpaNorm/articles/SpaNorm.html.
-- Cached NotebookLM read-through: `notebookLM/2026-05-12_spanorm-background.md`.
