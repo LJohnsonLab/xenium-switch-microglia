@@ -1,15 +1,7 @@
 ---
-title: "APOE allele probe validation "
+title: "APOE allele probe validation"
+subtitle: ""
 date: last-modified
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    code-fold: true
-    embed-resources: true
-execute:
-  warning: false
-  message: false
 ---
 
 

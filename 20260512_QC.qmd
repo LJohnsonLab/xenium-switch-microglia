@@ -1,16 +1,7 @@
 ---
 title: "QC: sample and slide diagnostics"
+subtitle: ""
 date: last-modified
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    code-fold: true
-    df-print: paged
-    embed-resources: true
-execute:
-  warning: false
-  message: false
 ---
 
 ## Concerns

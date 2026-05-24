@@ -2,16 +2,6 @@
 title: "Microglia sub-cluster on the clean SpaNorm build"
 subtitle: "seurat_clusters == 2 from the Louvain-0.5 clean object"
 date: last-modified
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    code-fold: true
-    df-print: paged
-    embed-resources: true
-execute:
-  warning: false
-  message: false
 ---
 
 ## Why this notebook

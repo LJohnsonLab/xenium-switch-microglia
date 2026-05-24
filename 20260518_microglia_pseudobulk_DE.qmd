@@ -2,15 +2,6 @@
 title: "Microglia pseudobulk DE: control (E4) vs switched (E2)"
 subtitle: "On the microglia sub-cluster object at Louvain 0.5"
 date: last-modified
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    code-fold: true
-    embed-resources: true
-execute:
-  warning: false
-  message: false
 ---
 
 

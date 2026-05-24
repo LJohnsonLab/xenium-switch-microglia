@@ -2,16 +2,6 @@
 title: "SCT"
 subtitle: "Run SCTransform with **no** covariate regressed"
 date: last-modified
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    code-fold: true
-    df-print: paged
-    embed-resources: true
-execute:
-  warning: false
-  message: false
 ---
 
 We build a baseline single-cell clustering for the microglia_switch dataset. We apply `SCTransform` without regressing out any covariate, then run the standard graph-based clustering pipeline (PCA → KNN → Louvain). 

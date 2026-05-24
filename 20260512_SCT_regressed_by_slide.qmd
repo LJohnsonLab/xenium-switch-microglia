@@ -1,16 +1,7 @@
 ---
 title: "SCT: regressed by slide"
+subtitle: ""
 date: last-modified
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    code-fold: true
-    df-print: paged
-    embed-resources: true
-execute:
-  warning: false
-  message: false
 ---
 
 We build a baseline single-cell clustering for the microglia_switch dataset. We apply `SCTransform` __regressing by slide__, then run the standard graph-based clustering pipeline (PCA → KNN → Louvain). 
