@@ -1,0 +1,3742 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-05-24">
+
+<title>QC: sample and slide diagnostics – Microglia APOE Switch</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Microglia APOE Switch</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./20260512_QC.html" aria-current="page"> 
+<span class="menu-text">QC</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-normalization" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Normalization</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-normalization">    
+        <li>
+    <a class="dropdown-item" href="./20260512_SCT_no_regression.html">
+ <span class="dropdown-text">SCT (no regression)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./20260512_SCT_regressed_by_slide.html">
+ <span class="dropdown-text">SCT (regressed by slide)</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./20260512_SpaNorm_sample005.html">
+ <span class="dropdown-text">SpaNorm (sample.p 0.05)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./20260513_SpaNorm_samplep025.html">
+ <span class="dropdown-text">SpaNorm (sample.p 0.25, default)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./20260516_SpaNorm_samplep025_clean.html">
+ <span class="dropdown-text">SpaNorm clean (default scaffold)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-microglia" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Microglia</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-microglia">    
+        <li>
+    <a class="dropdown-item" href="./20260517_microglia_subcluster.html">
+ <span class="dropdown-text">Sub-cluster</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./20260518_microglia_pseudobulk_DE.html">
+ <span class="dropdown-text">Pseudobulk DE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./20260518_microglia_APOE_per_cell_call.html">
+ <span class="dropdown-text">APOE switch call</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#concerns" id="toc-concerns" class="nav-link active" data-scroll-target="#concerns">Concerns</a></li>
+  <li><a href="#slide-level-summary" id="toc-slide-level-summary" class="nav-link" data-scroll-target="#slide-level-summary">Slide-level summary</a></li>
+  <li><a href="#sample-qc" id="toc-sample-qc" class="nav-link" data-scroll-target="#sample-qc">Sample QC</a></li>
+  <li><a href="#sample-scaled-deviation" id="toc-sample-scaled-deviation" class="nav-link" data-scroll-target="#sample-scaled-deviation">Sample scaled-deviation</a></li>
+  <li><a href="#spatial-qc" id="toc-spatial-qc" class="nav-link" data-scroll-target="#spatial-qc">Spatial QC</a></li>
+  <li><a href="#per-cell-control-rates" id="toc-per-cell-control-rates" class="nav-link" data-scroll-target="#per-cell-control-rates">Per-cell control rates</a></li>
+  <li><a href="#final-summary" id="toc-final-summary" class="nav-link" data-scroll-target="#final-summary">Final summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">QC: sample and slide diagnostics</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 24, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="concerns" class="level2">
+<h2 class="anchored" data-anchor-id="concerns">Concerns</h2>
+<ol type="1">
+<li>Is <code>4s2M_F2</code> an outlier? Only a fragment of tissue survived on the slide for this sample.</li>
+<li>Is there a slide effect? Slide <code>0022474</code> was processed with Xenium Onboard Analysis (XOA) v3.2.0.7 and slide <code>0069080</code> with XOA v3.3.0.1, one year apart.</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qs2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fs)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>slide_dirs <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Slide1_0022474 =</span> <span class="st">"xenium_rawData/Slide1_output-XETG00118__0022474__Region_1__20250418__203103"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">Slide2_0069080 =</span> <span class="st">"xenium_rawData/output-XETG00118__0069080__Region_1__20260417__210507"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>sample_id, <span class="sc">~</span>slide,            <span class="sc">~</span>condition,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4s2_F1"</span>,   <span class="st">"Slide1_0022474"</span>,  <span class="st">"control"</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4s2M_F1"</span>,  <span class="st">"Slide1_0022474"</span>,  <span class="st">"switched"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4s2M_F2"</span>,  <span class="st">"Slide1_0022474"</span>,  <span class="st">"switched"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4s2_F2"</span>,   <span class="st">"Slide2_0069080"</span>,  <span class="st">"control"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4s2_F3"</span>,   <span class="st">"Slide2_0069080"</span>,  <span class="st">"control"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4s2M_F3"</span>,  <span class="st">"Slide2_0069080"</span>,  <span class="st">"switched"</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4s2M_F4"</span>,  <span class="st">"Slide2_0069080"</span>,  <span class="st">"switched"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>sample_levels <span class="ot">&lt;-</span> samples <span class="sc">|&gt;</span> <span class="fu">arrange</span>(condition, sample_id) <span class="sc">|&gt;</span> <span class="fu">pull</span>(sample_id)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>qc_metrics    <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"nCount_Xenium"</span>, <span class="st">"nFeature_Xenium"</span>, <span class="st">"cell_area"</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"median_qv"</span>,     <span class="st">"nCount_raw"</span>,      <span class="st">"nFeature_raw"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>xen <span class="ot">&lt;-</span> <span class="fu">qs_read</span>(<span class="st">"data/20260512_microglia_switch_original_seurat.qs2"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> xen<span class="sc">@</span>meta.data <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">"cell"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sample_id =</span> <span class="fu">factor</span>(sample_id, <span class="at">levels =</span> sample_levels))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"cells:"</span>, <span class="fu">nrow</span>(meta), <span class="st">"  features:"</span>, <span class="fu">nrow</span>(xen), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>cells: 429980   features: 480 </code></pre>
+</div>
+</div>
+</section>
+<section id="slide-level-summary" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="slide-level-summary">Slide-level summary</h2>
+<p>We compare slides on three layers: 1) run metadata, 2) the slide-level QC metrics that the Xenium instrument reports, and 3) the per-cell distributions on both slides.</p>
+<p><strong>Segmentation method.</strong>. Both slides report <code>segmented_cell_nuc_expansion_frac = 1</code>. Every cell on every slide is defined by a 5 micrometer dilation of the segmented nucleus. XOA has used this as the default cell definition since v2.0 (March 2024). The two XOA versions on our slides (v3.2.0.7 vs v3.3.0.1) do not differ on this nuclear-expansion path according to the public <a href="https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/release-notes/release-notes-for-xoa">release notes</a>.</p>
+<p>The instrument firmware also differed across runs (v3.2.1.2 vs v3.4.1.0) and may contribute independently.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull the four metrics 10x reports per slide; manifest carries the run timestamp and the XOA version.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>read_slide_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(slide_dir, slide_label) {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  manifest <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">path</span>(slide_dir, <span class="st">"experiment.xenium"</span>))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  metrics  <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">path</span>(slide_dir, <span class="st">"metrics_summary.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(num_cells_detected,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>           cells_per_100um2,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>           fraction_transcripts_decoded_q20,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>           fraction_transcripts_assigned,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>           median_transcripts_per_cell,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>           median_genes_per_cell,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>           adjusted_negative_control_probe_rate,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>           adjusted_negative_control_codeword_rate)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">slide                =</span> slide_label,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">analysis_sw_version  =</span> manifest<span class="sc">$</span>analysis_sw_version,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">run_start_time       =</span> manifest<span class="sc">$</span>run_start_time) <span class="sc">|&gt;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(metrics)}</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>slide_summary <span class="ot">&lt;-</span> <span class="fu">imap</span>(slide_dirs, read_slide_summary) <span class="sc">|&gt;</span> <span class="fu">list_rbind</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compact run-metadata block: which samples ran on which slide, when, with which XOA version.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>slide_samples <span class="ot">&lt;-</span> samples <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">samples =</span> <span class="fu">paste</span>(sample_id, <span class="at">collapse =</span> <span class="st">", "</span>), <span class="at">.by =</span> slide)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>slide_meta <span class="ot">&lt;-</span> slide_summary <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(slide, run_start_time, analysis_sw_version) <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(slide_samples, <span class="at">by =</span> <span class="st">"slide"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>slide_meta <span class="sc">|&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>(<span class="at">rowname_col =</span> <span class="st">"slide"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"Run metadata"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(<span class="at">run_start_time      =</span> <span class="st">"run start"</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">analysis_sw_version =</span> <span class="st">"XOA version"</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">samples             =</span> <span class="st">"samples on slide"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">table.font.size =</span> <span class="fu">px</span>(<span class="dv">12</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="lgjbalpcac" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lgjbalpcac table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#lgjbalpcac thead, #lgjbalpcac tbody, #lgjbalpcac tfoot, #lgjbalpcac tr, #lgjbalpcac td, #lgjbalpcac th {
+  border-style: none;
+}
+
+#lgjbalpcac p {
+  margin: 0;
+  padding: 0;
+}
+
+#lgjbalpcac .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#lgjbalpcac .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#lgjbalpcac .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#lgjbalpcac .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#lgjbalpcac .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#lgjbalpcac .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lgjbalpcac .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#lgjbalpcac .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#lgjbalpcac .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#lgjbalpcac .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#lgjbalpcac .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#lgjbalpcac .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#lgjbalpcac .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#lgjbalpcac .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#lgjbalpcac .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#lgjbalpcac .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#lgjbalpcac .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#lgjbalpcac .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#lgjbalpcac .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lgjbalpcac .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#lgjbalpcac .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#lgjbalpcac .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#lgjbalpcac .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lgjbalpcac .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#lgjbalpcac .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#lgjbalpcac .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lgjbalpcac .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lgjbalpcac .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#lgjbalpcac .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lgjbalpcac .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#lgjbalpcac .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lgjbalpcac .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#lgjbalpcac .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lgjbalpcac .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#lgjbalpcac .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lgjbalpcac .gt_left {
+  text-align: left;
+}
+
+#lgjbalpcac .gt_center {
+  text-align: center;
+}
+
+#lgjbalpcac .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#lgjbalpcac .gt_font_normal {
+  font-weight: normal;
+}
+
+#lgjbalpcac .gt_font_bold {
+  font-weight: bold;
+}
+
+#lgjbalpcac .gt_font_italic {
+  font-style: italic;
+}
+
+#lgjbalpcac .gt_super {
+  font-size: 65%;
+}
+
+#lgjbalpcac .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#lgjbalpcac .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#lgjbalpcac .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#lgjbalpcac .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#lgjbalpcac .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#lgjbalpcac .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#lgjbalpcac .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#lgjbalpcac .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#lgjbalpcac div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border">Run metadata</td>
+</tr>
+<tr class="gt_col_headings even">
+<th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="run_start_time" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">run start</th>
+<th id="analysis_sw_version" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">XOA version</th>
+<th id="samples" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">samples on slide</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<th id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Slide1_0022474</th>
+<td class="gt_row gt_left" headers="stub_1_1 run_start_time">2025-04-18T20:30:52Z</td>
+<td class="gt_row gt_left" headers="stub_1_1 analysis_sw_version">xenium-3.2.0.7</td>
+<td class="gt_row gt_left" headers="stub_1_1 samples">4s2_F1, 4s2M_F1, 4s2M_F2</td>
+</tr>
+<tr class="even">
+<th id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Slide2_0069080</th>
+<td class="gt_row gt_left" headers="stub_1_2 run_start_time">2026-04-17T21:04:57Z</td>
+<td class="gt_row gt_left" headers="stub_1_2 analysis_sw_version">xenium-3.3.0.1</td>
+<td class="gt_row gt_left" headers="stub_1_2 samples">4s2_F2, 4s2_F3, 4s2M_F3, 4s2M_F4</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bold any metric whose Slide2/Slide1 ratio exceeds 20 % drift; bidirectional steelblue-firebrick scale.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>slide_numeric <span class="ot">&lt;-</span> slide_summary <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">any_of</span>(<span class="fu">c</span>(<span class="st">"analysis_sw_version"</span>, <span class="st">"run_start_time"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>slide, <span class="at">names_to =</span> <span class="st">"metric"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> slide, <span class="at">values_from =</span> value) <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ratio =</span> Slide2_0069080 <span class="sc">/</span> Slide1_0022474,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">flagged =</span> <span class="sc">!</span><span class="fu">is.na</span>(ratio) <span class="sc">&amp;</span> (ratio <span class="sc">&gt;</span> <span class="fl">1.2</span> <span class="sc">|</span> ratio <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fl">1.2</span>))</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>slide_numeric <span class="sc">|&gt;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>(<span class="at">rowname_col =</span> <span class="st">"metric"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">c</span>(Slide1_0022474, Slide2_0069080, ratio), <span class="at">n_sigfig =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sub_missing</span>(<span class="at">columns =</span> ratio, <span class="at">missing_text =</span> <span class="st">"-"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_color</span>(<span class="at">columns =</span> ratio,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">colors =</span> scales<span class="sc">::</span><span class="fu">col_numeric</span>(<span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"white"</span>, <span class="st">"firebrick"</span>),</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">domain  =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">2.0</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(<span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">"bold"</span>),</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">rows =</span> flagged)) <span class="sc">|&gt;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_hide</span>(<span class="at">columns =</span> flagged) <span class="sc">|&gt;</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"Slide-level Xenium metrics"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">table.font.size =</span> <span class="fu">px</span>(<span class="dv">12</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="isrxunxzgk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#isrxunxzgk table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#isrxunxzgk thead, #isrxunxzgk tbody, #isrxunxzgk tfoot, #isrxunxzgk tr, #isrxunxzgk td, #isrxunxzgk th {
+  border-style: none;
+}
+
+#isrxunxzgk p {
+  margin: 0;
+  padding: 0;
+}
+
+#isrxunxzgk .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#isrxunxzgk .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#isrxunxzgk .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#isrxunxzgk .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#isrxunxzgk .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#isrxunxzgk .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#isrxunxzgk .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#isrxunxzgk .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#isrxunxzgk .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#isrxunxzgk .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#isrxunxzgk .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#isrxunxzgk .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#isrxunxzgk .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#isrxunxzgk .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#isrxunxzgk .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#isrxunxzgk .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#isrxunxzgk .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#isrxunxzgk .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#isrxunxzgk .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#isrxunxzgk .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#isrxunxzgk .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#isrxunxzgk .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#isrxunxzgk .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#isrxunxzgk .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#isrxunxzgk .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#isrxunxzgk .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#isrxunxzgk .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#isrxunxzgk .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#isrxunxzgk .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#isrxunxzgk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#isrxunxzgk .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#isrxunxzgk .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#isrxunxzgk .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#isrxunxzgk .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#isrxunxzgk .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#isrxunxzgk .gt_left {
+  text-align: left;
+}
+
+#isrxunxzgk .gt_center {
+  text-align: center;
+}
+
+#isrxunxzgk .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#isrxunxzgk .gt_font_normal {
+  font-weight: normal;
+}
+
+#isrxunxzgk .gt_font_bold {
+  font-weight: bold;
+}
+
+#isrxunxzgk .gt_font_italic {
+  font-style: italic;
+}
+
+#isrxunxzgk .gt_super {
+  font-size: 65%;
+}
+
+#isrxunxzgk .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#isrxunxzgk .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#isrxunxzgk .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#isrxunxzgk .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#isrxunxzgk .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#isrxunxzgk .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#isrxunxzgk .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#isrxunxzgk .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#isrxunxzgk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border">Slide-level Xenium metrics</td>
+</tr>
+<tr class="gt_col_headings even">
+<th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="Slide1_0022474" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Slide1_0022474</th>
+<th id="Slide2_0069080" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Slide2_0069080</th>
+<th id="ratio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">ratio</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<th id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">num_cells_detected</th>
+<td class="gt_row gt_right" headers="stub_1_1 Slide1_0022474" style="font-weight: bold">307,000</td>
+<td class="gt_row gt_right" headers="stub_1_1 Slide2_0069080" style="font-weight: bold">415,000</td>
+<td class="gt_row gt_right" headers="stub_1_1 ratio" style="background-color: #FAE1DD; color: #000000; font-weight: bold">1.35</td>
+</tr>
+<tr class="even">
+<th id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">cells_per_100um2</th>
+<td class="gt_row gt_right" headers="stub_1_2 Slide1_0022474">0.186</td>
+<td class="gt_row gt_right" headers="stub_1_2 Slide2_0069080">0.192</td>
+<td class="gt_row gt_right" headers="stub_1_2 ratio" style="background-color: #CDDAE9; color: #000000">1.04</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">fraction_transcripts_decoded_q20</th>
+<td class="gt_row gt_right" headers="stub_1_3 Slide1_0022474">0.809</td>
+<td class="gt_row gt_right" headers="stub_1_3 Slide2_0069080">0.808</td>
+<td class="gt_row gt_right" headers="stub_1_3 ratio" style="background-color: #C4D3E6; color: #000000">1.00</td>
+</tr>
+<tr class="even">
+<th id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">fraction_transcripts_assigned</th>
+<td class="gt_row gt_right" headers="stub_1_4 Slide1_0022474">0.712</td>
+<td class="gt_row gt_right" headers="stub_1_4 Slide2_0069080">0.662</td>
+<td class="gt_row gt_right" headers="stub_1_4 ratio" style="background-color: #B4C7DF; color: #000000">0.929</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">median_transcripts_per_cell</th>
+<td class="gt_row gt_right" headers="stub_1_5 Slide1_0022474" style="font-weight: bold">677</td>
+<td class="gt_row gt_right" headers="stub_1_5 Slide2_0069080" style="font-weight: bold">843</td>
+<td class="gt_row gt_right" headers="stub_1_5 ratio" style="background-color: #FEFEFF; color: #000000; font-weight: bold">1.25</td>
+</tr>
+<tr class="even">
+<th id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">median_genes_per_cell</th>
+<td class="gt_row gt_right" headers="stub_1_6 Slide1_0022474">183</td>
+<td class="gt_row gt_right" headers="stub_1_6 Slide2_0069080">201</td>
+<td class="gt_row gt_right" headers="stub_1_6 ratio" style="background-color: #DCE4F0; color: #000000">1.10</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_7" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">adjusted_negative_control_probe_rate</th>
+<td class="gt_row gt_right" headers="stub_1_7 Slide1_0022474" style="font-weight: bold">0.00406</td>
+<td class="gt_row gt_right" headers="stub_1_7 Slide2_0069080" style="font-weight: bold">0.00540</td>
+<td class="gt_row gt_right" headers="stub_1_7 ratio" style="background-color: #FCE8E5; color: #000000; font-weight: bold">1.33</td>
+</tr>
+<tr class="even">
+<th id="stub_1_8" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">adjusted_negative_control_codeword_rate</th>
+<td class="gt_row gt_right" headers="stub_1_8 Slide1_0022474">0.000998</td>
+<td class="gt_row gt_right" headers="stub_1_8 Slide2_0069080">0.000968</td>
+<td class="gt_row gt_right" headers="stub_1_8 ratio" style="background-color: #BECEE3; color: #000000">0.970</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<ul>
+<li>Slide2 returns 1.35-fold more cells than Slide1 (415,000 vs 307,000), but cells per 100 micrometer^2 are essentially identical (0.192 vs 0.186). Slide2 simply images a larger area of tissue.</li>
+<li>Cells on Slide2 are richer. Median transcripts per cell rise 1.25-fold (843 vs 677) and median genes per cell rise 1.10-fold (201 vs 183). Decoder quality is unchanged (<code>fraction_transcripts_decoded_q20 = 0.808</code> on both slides).</li>
+<li>The fraction of transcripts assigned to a cell falls to 0.662 from 0.712 (ratio 0.93); more transcripts therefore sit outside the nuclear-expansion mask.</li>
+<li>The adjusted negative-control probe rate rises 1.33-fold (0.00540 vs 0.00406).</li>
+<li>The negative-control codeword rate is flat (ratio 0.97); the decoder false-positive rate has not changed.</li>
+</ul>
+<section id="per-cell-distributions-across-slides" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="per-cell-distributions-across-slides">Per-cell distributions across slides</h3>
+<p>We overlay the per-cell QC densities of both slides on the same axes. The dashed vertical line in each panel marks the per-slide median.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Long-form per-cell metadata; reused in this section and in Sample QC below.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>meta_long <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cell, sample_id, slide, condition, partial_section, <span class="fu">all_of</span>(qc_metrics)) <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">all_of</span>(qc_metrics), <span class="at">names_to =</span> <span class="st">"metric"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>cohort_medians <span class="ot">&lt;-</span> meta_long <span class="sc">|&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">cohort_median =</span> <span class="fu">median</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.by =</span> metric)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell page-columns page-full">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>slide_medians <span class="ot">&lt;-</span> meta_long <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">slide_median =</span> <span class="fu">median</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.by =</span> <span class="fu">c</span>(metric, slide))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>plot_metric_by_slide <span class="ot">&lt;-</span> <span class="cf">function</span>(metric_name) {</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> meta_long <span class="sc">|&gt;</span> <span class="fu">filter</span>(metric <span class="sc">==</span> metric_name)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  meds <span class="ot">&lt;-</span> slide_medians <span class="sc">|&gt;</span> <span class="fu">filter</span>(metric <span class="sc">==</span> metric_name)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">|&gt;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(value, <span class="at">colour =</span> slide, <span class="at">fill =</span> slide)) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.25</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">data =</span> meds, <span class="fu">aes</span>(<span class="at">xintercept =</span> slide_median, <span class="at">colour =</span> slide),</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">Slide1_0022474 =</span> <span class="st">"#1f78b4"</span>, <span class="at">Slide2_0069080 =</span> <span class="st">"#e31a1c"</span>)) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values   =</span> <span class="fu">c</span>(<span class="at">Slide1_0022474 =</span> <span class="st">"#1f78b4"</span>, <span class="at">Slide2_0069080 =</span> <span class="st">"#e31a1c"</span>)) <span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> metric_name, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"density"</span>) <span class="sc">+</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">11</span>)}</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(<span class="fu">map</span>(qc_metrics, plot_metric_by_slide), <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">&amp;</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="20260512_QC_files/figure-html/slide-density-1.png" class="img-fluid figure-img column-page" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Slide2 shifts the per-cell distributions to the right on <code>nCount_Xenium</code>, <code>nFeature_Xenium</code>, <code>cell_area</code>, <code>nCount_raw</code>, and <code>nFeature_raw</code>. The two slides share the same bimodal <code>median_qv</code> distribution, with peaks near 29 and 40; decoding quality is not differentially affected.</p>
+</section>
+</section>
+<section id="sample-qc" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="sample-qc">Sample QC</h2>
+<p>We compare the seven samples side by side on each per-cell QC metric. Control samples (E4, prefix <code>4s2_</code>) sit on the left, switched samples (E2, prefix <code>4s2M_</code>) on the right.</p>
+<p>The partial section <code>4s2M_F2</code> carries a black outline; the dashed line marks the cohort median across all cells.</p>
+<div class="cell page-columns page-full">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plot_metric_by_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(metric_name) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> meta_long <span class="sc">|&gt;</span> <span class="fu">filter</span>(metric <span class="sc">==</span> metric_name)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  hline <span class="ot">&lt;-</span> cohort_medians <span class="sc">|&gt;</span> <span class="fu">filter</span>(metric <span class="sc">==</span> metric_name) <span class="sc">|&gt;</span> <span class="fu">pull</span>(cohort_median)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(sample_id, value, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_violin</span>(<span class="at">scale =</span> <span class="st">"width"</span>, <span class="at">linewidth =</span> <span class="fl">0.2</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">colour =</span> partial_section)) <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">outlier.size =</span> <span class="fl">0.2</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> hline, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey40"</span>) <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"black"</span>, <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="cn">NA</span>), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">control =</span> <span class="st">"#7FB3D5"</span>, <span class="at">switched =</span> <span class="st">"#e9ccc9db"</span>)) <span class="sc">+</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> metric_name, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.position =</span> <span class="st">"none"</span>)}</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(<span class="fu">map</span>(qc_metrics, plot_metric_by_sample), <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">"Per-cell QC metrics by sample"</span>,</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>                  <span class="at">subtitle =</span> <span class="st">"Dashed line = cohort median; black outline = partial section (4s2M_F2)"</span>) <span class="sc">+</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="20260512_QC_files/figure-html/sample-violin-1.png" class="img-fluid figure-img column-page" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Distributions overlap across the seven samples for every metric. <code>4s2M_F2</code> sits inside the cohort range on every panel and shows no visual outlier behavior. The dominant structure is slide of origin: the three Slide1 samples (<code>4s2_F1</code>, <code>4s2M_F1</code>, <code>4s2M_F2</code>) sit below the four Slide2 samples on <code>nCount_Xenium</code>, <code>nFeature_Xenium</code>, and <code>cell_area</code>, reproducing the slide-level shift.</p>
+</section>
+<section id="sample-scaled-deviation" class="level2">
+<h2 class="anchored" data-anchor-id="sample-scaled-deviation">Sample scaled-deviation</h2>
+<p>We summarize each sample by the median of every per-cell metric, then z-score the seven sample medians against their own mean and SD.<br>
+Cells with |z| &gt; 2 are bolded, the color scale runs from blue (low) to red (high). A z-score above zero means the sample sits above the cohort average for that metric, and vice versa.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sample_medians <span class="ot">&lt;-</span> meta_long <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">sample_median =</span> <span class="fu">median</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> <span class="fu">c</span>(metric, sample_id, condition, slide))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>sample_z <span class="ot">&lt;-</span> sample_medians <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">z =</span> (sample_median <span class="sc">-</span> <span class="fu">mean</span>(sample_median)) <span class="sc">/</span> <span class="fu">sd</span>(sample_median),</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">.by =</span> metric)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>z_wide <span class="ot">&lt;-</span> sample_z <span class="sc">|&gt;</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample_id, condition, slide, metric, z) <span class="sc">|&gt;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> metric, <span class="at">values_from =</span> z) <span class="sc">|&gt;</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(condition, sample_id)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>flag_cells <span class="ot">&lt;-</span> <span class="cf">function</span>(gt_obj, col) {</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  gt_obj <span class="sc">|&gt;</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_style</span>(<span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">"bold"</span>),</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">columns =</span> <span class="fu">all_of</span>(col),</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">rows =</span> <span class="fu">abs</span>(.data[[col]]) <span class="sc">&gt;</span> <span class="dv">2</span>))}</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>z_gt <span class="ot">&lt;-</span> z_wide <span class="sc">|&gt;</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>(<span class="at">rowname_col =</span> <span class="st">"sample_id"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"z-score of per-sample medians"</span>,</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>             <span class="at">subtitle =</span> <span class="st">"z = (sample_median - mean) / sd across the 7 samples; |z| &gt; 2 = bold"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">all_of</span>(qc_metrics), <span class="at">decimals =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_color</span>(<span class="at">columns =</span> <span class="fu">all_of</span>(qc_metrics),</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>             <span class="at">colors =</span> scales<span class="sc">::</span><span class="fu">col_numeric</span>(<span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"white"</span>, <span class="st">"firebrick"</span>),</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">domain  =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">table.font.size =</span> <span class="fu">px</span>(<span class="dv">12</span>))</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="fu">reduce</span>(qc_metrics, flag_cells, <span class="at">.init =</span> z_gt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="isimqryclp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#isimqryclp table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#isimqryclp thead, #isimqryclp tbody, #isimqryclp tfoot, #isimqryclp tr, #isimqryclp td, #isimqryclp th {
+  border-style: none;
+}
+
+#isimqryclp p {
+  margin: 0;
+  padding: 0;
+}
+
+#isimqryclp .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#isimqryclp .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#isimqryclp .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#isimqryclp .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#isimqryclp .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#isimqryclp .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#isimqryclp .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#isimqryclp .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#isimqryclp .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#isimqryclp .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#isimqryclp .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#isimqryclp .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#isimqryclp .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#isimqryclp .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#isimqryclp .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#isimqryclp .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#isimqryclp .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#isimqryclp .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#isimqryclp .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#isimqryclp .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#isimqryclp .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#isimqryclp .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#isimqryclp .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#isimqryclp .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#isimqryclp .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#isimqryclp .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#isimqryclp .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#isimqryclp .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#isimqryclp .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#isimqryclp .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#isimqryclp .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#isimqryclp .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#isimqryclp .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#isimqryclp .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#isimqryclp .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#isimqryclp .gt_left {
+  text-align: left;
+}
+
+#isimqryclp .gt_center {
+  text-align: center;
+}
+
+#isimqryclp .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#isimqryclp .gt_font_normal {
+  font-weight: normal;
+}
+
+#isimqryclp .gt_font_bold {
+  font-weight: bold;
+}
+
+#isimqryclp .gt_font_italic {
+  font-style: italic;
+}
+
+#isimqryclp .gt_super {
+  font-size: 65%;
+}
+
+#isimqryclp .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#isimqryclp .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#isimqryclp .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#isimqryclp .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#isimqryclp .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#isimqryclp .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#isimqryclp .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#isimqryclp .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#isimqryclp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="9" class="gt_heading gt_title gt_font_normal">z-score of per-sample medians</td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="9" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">z = (sample_median - mean) / sd across the 7 samples; |z| &gt; 2 = bold</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="condition" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">condition</th>
+<th id="slide" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">slide</th>
+<th id="nCount_Xenium" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">nCount_Xenium</th>
+<th id="nFeature_Xenium" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">nFeature_Xenium</th>
+<th id="cell_area" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">cell_area</th>
+<th id="median_qv" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">median_qv</th>
+<th id="nCount_raw" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">nCount_raw</th>
+<th id="nFeature_raw" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">nFeature_raw</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<th id="stub_1_1" class="gt_row gt_center gt_stub" data-quarto-table-cell-role="th" scope="row">4s2_F1</th>
+<td class="gt_row gt_left" headers="stub_1_1 condition">control</td>
+<td class="gt_row gt_left" headers="stub_1_1 slide">Slide1_0022474</td>
+<td class="gt_row gt_right" headers="stub_1_1 nCount_Xenium" style="background-color: #98B4D3; color: #000000">−1.76</td>
+<td class="gt_row gt_right" headers="stub_1_1 nFeature_Xenium" style="background-color: #94B1D1; color: #000000">−1.83</td>
+<td class="gt_row gt_right" headers="stub_1_1 cell_area" style="background-color: #B3C7DE; color: #000000">−1.30</td>
+<td class="gt_row gt_right" headers="stub_1_1 median_qv" style="background-color: #D26A5C; color: #FFFFFF; font-weight: bold">2.13</td>
+<td class="gt_row gt_right" headers="stub_1_1 nCount_raw" style="background-color: #95B2D2; color: #000000">−1.80</td>
+<td class="gt_row gt_right" headers="stub_1_1 nFeature_raw" style="background-color: #8FADCF; color: #000000">−1.91</td>
+</tr>
+<tr class="even">
+<th id="stub_1_2" class="gt_row gt_center gt_stub" data-quarto-table-cell-role="th" scope="row">4s2_F2</th>
+<td class="gt_row gt_left" headers="stub_1_2 condition">control</td>
+<td class="gt_row gt_left" headers="stub_1_2 slide">Slide2_0069080</td>
+<td class="gt_row gt_right" headers="stub_1_2 nCount_Xenium" style="background-color: #F3C3BB; color: #000000">0.85</td>
+<td class="gt_row gt_right" headers="stub_1_2 nFeature_Xenium" style="background-color: #F2C1B9; color: #000000">0.88</td>
+<td class="gt_row gt_right" headers="stub_1_2 cell_area" style="background-color: #EDAEA4; color: #000000">1.15</td>
+<td class="gt_row gt_right" headers="stub_1_2 median_qv" style="background-color: #E0E8F2; color: #000000">−0.53</td>
+<td class="gt_row gt_right" headers="stub_1_2 nCount_raw" style="background-color: #F4C5BD; color: #000000">0.82</td>
+<td class="gt_row gt_right" headers="stub_1_2 nFeature_raw" style="background-color: #F3C2BA; color: #000000">0.86</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_3" class="gt_row gt_center gt_stub" data-quarto-table-cell-role="th" scope="row">4s2_F3</th>
+<td class="gt_row gt_left" headers="stub_1_3 condition">control</td>
+<td class="gt_row gt_left" headers="stub_1_3 slide">Slide2_0069080</td>
+<td class="gt_row gt_right" headers="stub_1_3 nCount_Xenium" style="background-color: #F0B9AF; color: #000000">1.00</td>
+<td class="gt_row gt_right" headers="stub_1_3 nFeature_Xenium" style="background-color: #F1BBB2; color: #000000">0.96</td>
+<td class="gt_row gt_right" headers="stub_1_3 cell_area" style="background-color: #FADFDA; color: #000000">0.46</td>
+<td class="gt_row gt_right" headers="stub_1_3 median_qv" style="background-color: #E0E8F2; color: #000000">−0.53</td>
+<td class="gt_row gt_right" headers="stub_1_3 nCount_raw" style="background-color: #F0B9AF; color: #000000">0.99</td>
+<td class="gt_row gt_right" headers="stub_1_3 nFeature_raw" style="background-color: #F1BDB4; color: #000000">0.93</td>
+</tr>
+<tr class="even">
+<th id="stub_1_4" class="gt_row gt_center gt_stub" data-quarto-table-cell-role="th" scope="row">4s2M_F1</th>
+<td class="gt_row gt_left" headers="stub_1_4 condition">switched</td>
+<td class="gt_row gt_left" headers="stub_1_4 slide">Slide1_0022474</td>
+<td class="gt_row gt_right" headers="stub_1_4 nCount_Xenium" style="background-color: #DDE5F0; color: #000000">−0.58</td>
+<td class="gt_row gt_right" headers="stub_1_4 nFeature_Xenium" style="background-color: #EAF0F6; color: #000000">−0.35</td>
+<td class="gt_row gt_right" headers="stub_1_4 cell_area" style="background-color: #DAE3EF; color: #000000">−0.64</td>
+<td class="gt_row gt_right" headers="stub_1_4 median_qv" style="background-color: #FCEAE7; color: #000000">0.29</td>
+<td class="gt_row gt_right" headers="stub_1_4 nCount_raw" style="background-color: #D9E3EF; color: #000000">−0.64</td>
+<td class="gt_row gt_right" headers="stub_1_4 nFeature_raw" style="background-color: #E4EBF4; color: #000000">−0.46</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_5" class="gt_row gt_center gt_stub" data-quarto-table-cell-role="th" scope="row">4s2M_F2</th>
+<td class="gt_row gt_left" headers="stub_1_5 condition">switched</td>
+<td class="gt_row gt_left" headers="stub_1_5 slide">Slide1_0022474</td>
+<td class="gt_row gt_right" headers="stub_1_5 nCount_Xenium" style="background-color: #E1E9F2; color: #000000">−0.51</td>
+<td class="gt_row gt_right" headers="stub_1_5 nFeature_Xenium" style="background-color: #DCE5F0; color: #000000">−0.60</td>
+<td class="gt_row gt_right" headers="stub_1_5 cell_area" style="background-color: #BDCEE2; color: #000000">−1.14</td>
+<td class="gt_row gt_right" headers="stub_1_5 median_qv" style="background-color: #D4DFED; color: #000000">−0.73</td>
+<td class="gt_row gt_right" headers="stub_1_5 nCount_raw" style="background-color: #EBF0F7; color: #000000">−0.34</td>
+<td class="gt_row gt_right" headers="stub_1_5 nFeature_raw" style="background-color: #ECF1F7; color: #000000">−0.32</td>
+</tr>
+<tr class="even">
+<th id="stub_1_6" class="gt_row gt_center gt_stub" data-quarto-table-cell-role="th" scope="row">4s2M_F3</th>
+<td class="gt_row gt_left" headers="stub_1_6 condition">switched</td>
+<td class="gt_row gt_left" headers="stub_1_6 slide">Slide2_0069080</td>
+<td class="gt_row gt_right" headers="stub_1_6 nCount_Xenium" style="background-color: #FCEBE7; color: #000000">0.29</td>
+<td class="gt_row gt_right" headers="stub_1_6 nFeature_Xenium" style="background-color: #FCE9E6; color: #000000">0.30</td>
+<td class="gt_row gt_right" headers="stub_1_6 cell_area" style="background-color: #F4C9C1; color: #000000">0.77</td>
+<td class="gt_row gt_right" headers="stub_1_6 median_qv" style="background-color: #F8FAFC; color: #000000">−0.12</td>
+<td class="gt_row gt_right" headers="stub_1_6 nCount_raw" style="background-color: #FCEBE8; color: #000000">0.28</td>
+<td class="gt_row gt_right" headers="stub_1_6 nFeature_raw" style="background-color: #FCE9E6; color: #000000">0.31</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_7" class="gt_row gt_center gt_stub" data-quarto-table-cell-role="th" scope="row">4s2M_F4</th>
+<td class="gt_row gt_left" headers="stub_1_7 condition">switched</td>
+<td class="gt_row gt_left" headers="stub_1_7 slide">Slide2_0069080</td>
+<td class="gt_row gt_right" headers="stub_1_7 nCount_Xenium" style="background-color: #F5CDC5; color: #000000">0.71</td>
+<td class="gt_row gt_right" headers="stub_1_7 nFeature_Xenium" style="background-color: #F7D2CC; color: #000000">0.63</td>
+<td class="gt_row gt_right" headers="stub_1_7 cell_area" style="background-color: #F6CDC6; color: #000000">0.71</td>
+<td class="gt_row gt_right" headers="stub_1_7 median_qv" style="background-color: #E0E8F2; color: #000000">−0.53</td>
+<td class="gt_row gt_right" headers="stub_1_7 nCount_raw" style="background-color: #F6CEC8; color: #000000">0.69</td>
+<td class="gt_row gt_right" headers="stub_1_7 nFeature_raw" style="background-color: #F8D6D0; color: #000000">0.58</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>flagged <span class="ot">&lt;-</span> sample_z <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(z) <span class="sc">&gt;</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">direction =</span> <span class="fu">if_else</span>(z <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"high"</span>, <span class="st">"low"</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">note      =</span> <span class="fu">sprintf</span>(<span class="st">"%s: %s (z = %+0.2f)"</span>, metric, direction, z))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(flagged) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"No sample flags any metric at |z| &gt; 2.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  flagged <span class="sc">|&gt;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">metrics =</span> <span class="fu">paste</span>(note, <span class="at">collapse =</span> <span class="st">"; "</span>), <span class="at">.by =</span> sample_id) <span class="sc">|&gt;</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    glue<span class="sc">::</span><span class="fu">glue_data</span>(<span class="st">"- **{sample_id}** flagged on: {metrics}"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>()}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>- **4s2_F1** flagged on: median_qv: high (z = +2.13)</code></pre>
+</div>
+</div>
+<p>The z-score table confirms the visual reading. Only <code>4s2_F1</code> crosses |z| &gt; 2, and it does so on <code>median_qv</code> (z = +2.13). <em>A higher median QV means cleaner decoding</em>.</p>
+<p>The sign of each z-score reproduces the slide structure. Every Slide1 sample carries a negative z on <code>nCount_Xenium</code>, <code>nFeature_Xenium</code>, and <code>cell_area</code>; every Slide2 sample carries a positive z.</p>
+</section>
+<section id="spatial-qc" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="spatial-qc">Spatial QC</h2>
+<p>We map <code>nCount_Xenium</code> and <code>nFeature_Xenium</code> onto each slide’s tissue coordinates. A reference panel above each metric panel colors cells by <code>sample_id</code>; the right-hand legend maps color to sample. All spatial panels use a white background so tissue-edge boundaries stay readable.</p>
+<section id="spatial-layout" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="spatial-layout">Spatial layout</h3>
+<p>After merge, <code>LoadXenium</code> names the slides’ FOVs <code>fov</code> (Slide1) and <code>fov.2</code> (Slide2). Passing both to <code>ImageFeaturePlot(fov = c("fov", "fov.2"))</code> returns a patchwork with the two slides side by side.</p>
+<div class="cell page-columns page-full">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Color cells by sample_id and rely on the right-hand legend to map color to sample. Overlay labels</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># were drifting off-tissue across Seurat versions; the legend is the reliable identifier.</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ref_panel <span class="ot">&lt;-</span> <span class="cf">function</span>(fov_name, slide_name) {</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ImageDimPlot</span>(xen, <span class="at">fov =</span> fov_name, <span class="at">group.by =</span> <span class="st">"sample_id"</span>, <span class="at">size =</span> <span class="fl">0.3</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">dark.background =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(slide_name) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ref_panel</span>(<span class="st">"fov"</span>, <span class="st">"Slide1_0022474"</span>) <span class="sc">+</span> <span class="fu">ref_panel</span>(<span class="st">"fov.2"</span>, <span class="st">"Slide2_0069080"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="20260512_QC_files/figure-html/spatial-sample-ref-1.png" class="img-fluid figure-img column-page" width="1344"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="spatial-ncount-and-nfeature" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="spatial-ncount-and-nfeature">Spatial nCount and nFeature</h3>
+<div class="cell page-columns page-full">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Quantile clipping (q05-q95) prevents a handful of high-count cells from flattening the gradient.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ImageFeaturePlot</span>(xen, <span class="at">fov =</span> <span class="fu">c</span>(<span class="st">"fov"</span>, <span class="st">"fov.2"</span>),</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">features =</span> <span class="st">"nCount_Xenium"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">min.cutoff =</span> <span class="st">"q05"</span>, <span class="at">max.cutoff =</span> <span class="st">"q95"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">size =</span> <span class="fl">0.3</span>, <span class="at">dark.background =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">"nCount_Xenium"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="20260512_QC_files/figure-html/spatial-ncount-1.png" class="img-fluid figure-img column-page" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell page-columns page-full">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Same view, gene diversity instead of total counts; nFeature saturates faster than counts and so</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># reflects boundary purity rather than depth.</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ImageFeaturePlot</span>(xen, <span class="at">fov =</span> <span class="fu">c</span>(<span class="st">"fov"</span>, <span class="st">"fov.2"</span>),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">features =</span> <span class="st">"nFeature_Xenium"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">min.cutoff =</span> <span class="st">"q05"</span>, <span class="at">max.cutoff =</span> <span class="st">"q95"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">size =</span> <span class="fl">0.3</span>, <span class="at">dark.background =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">"nFeature_Xenium"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="20260512_QC_files/figure-html/spatial-nfeature-1.png" class="img-fluid figure-img column-page" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The Slide2 shift is uniform across all four Slide2 samples:</p>
+<p>Per-sample medians of <code>nCount_Xenium</code> on Slide1 are 573 (<code>4s2_F1</code>), 697 (<code>4s2M_F1</code>), 705 (<code>4s2M_F2</code>), on Slide2 they are 789 (<code>4s2M_F3</code>), 834 (<code>4s2M_F4</code>), 848 (<code>4s2_F2</code>), 864 (<code>4s2_F3</code>). <em>Every sample in Slide2 has larger nCounts than any sample in Slide1 sample</em>, so the 1.29-fold slide-median shift is not driven by one outlier. <code>nFeature_Xenium</code> reproduces the same ordering with medians of 169 / 187 / 184 on Slide1 against 195 / 199 / 202 / 203 on Slide2.</p>
+<blockquote class="blockquote">
+<p>The partial section <code>4s2M_F2</code> shows no per-cell density anomaly. Its <code>nCount_Xenium</code> median (705) and <code>nFeature_Xenium</code> median (184) sit within the Slide1 range; the surviving tissue behaves like the rest of Slide1.</p>
+</blockquote>
+</section>
+</section>
+<section id="per-cell-control-rates" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="per-cell-control-rates">Per-cell control rates</h2>
+<p>Each Xenium run carries two built-in negative controls.</p>
+<ul>
+<li><strong>Control codewords</strong> are barcodes that no probe in the panel can produce. If the decoder calls a control codeword, that call is a false positive. The codeword rate therefore reads out decoder noise.</li>
+<li><strong>Control probes</strong> are physical probes designed against non-mammalian sequences (e.g.&nbsp;bacterial). If a control probe lights up inside a cell, the cell either pulled in stray molecules from a neighboring cell (segmentation leakage) or the probe is non-specific. The probe rate therefore reads out segmentation and assay specificity.</li>
+</ul>
+<p>10x does not publish per-cell thresholds. We report relative numbers stratified by sample and by slide. We use four metadata columns that <code>LoadXenium</code> auto-populates per cell: <code>nCount_ControlCodeword</code>, <code>nFeature_ControlCodeword</code>, <code>nCount_ControlProbe</code>, <code>nFeature_ControlProbe</code>. See the <a href="https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/algorithms-overview/xoa-algorithms">XOA algorithms overview</a> for the formal definitions.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Per-cell control rate = fraction of total transcripts in the ControlCodeword / ControlProbe assays.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>total_counts <span class="ot">&lt;-</span> meta<span class="sc">$</span>nCount_Xenium</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>ctrl_counts  <span class="ot">&lt;-</span> <span class="fu">map_dfc</span>(<span class="fu">c</span>(<span class="at">ControlCodeword =</span> <span class="st">"ControlCodeword"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">ControlProbe    =</span> <span class="st">"ControlProbe"</span>),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                        \(assay_name) <span class="fu">colSums</span>(<span class="fu">GetAssayData</span>(xen, <span class="at">assay =</span> assay_name, <span class="at">layer =</span> <span class="st">"counts"</span>)))</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>ctrl_rates <span class="ot">&lt;-</span> ctrl_counts <span class="sc">|&gt;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), \(x) x <span class="sc">/</span> total_counts)) <span class="sc">|&gt;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">ControlCodeword_rate =</span> ControlCodeword,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">ControlProbe_rate    =</span> ControlProbe) <span class="sc">|&gt;</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(meta <span class="sc">|&gt;</span> <span class="fu">select</span>(cell, sample_id, slide, condition, partial_section))</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>ctrl_long <span class="ot">&lt;-</span> ctrl_rates <span class="sc">|&gt;</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(ControlCodeword_rate, ControlProbe_rate),</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"metric"</span>, <span class="at">values_to =</span> <span class="st">"rate"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bar chart of per-sample mean rate. Resolves the zero-inflation problem by reading the sub-integer</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># rate at the cohort level rather than per cell.</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>ctrl_sample_mean <span class="ot">&lt;-</span> ctrl_long <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_rate =</span> <span class="fu">mean</span>(rate), <span class="at">.by =</span> <span class="fu">c</span>(sample_id, condition, slide, metric))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>slide_lines <span class="ot">&lt;-</span> ctrl_long <span class="sc">|&gt;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">slide_mean =</span> <span class="fu">mean</span>(rate), <span class="at">.by =</span> <span class="fu">c</span>(slide, metric))</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>ctrl_sample_mean <span class="sc">|&gt;</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(sample_id, mean_rate, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">data =</span> slide_lines,</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">yintercept =</span> slide_mean, <span class="at">linetype =</span> slide),</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"grey30"</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> metric, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">control =</span> <span class="st">"#7FB3D5"</span>, <span class="at">switched =</span> <span class="st">"#F1948A"</span>)) <span class="sc">+</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">Slide1_0022474 =</span> <span class="st">"dashed"</span>, <span class="at">Slide2_0069080 =</span> <span class="st">"dotted"</span>)) <span class="sc">+</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Per-cell control transcript rate, mean per sample"</span>,</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Dashed = Slide1 mean; dotted = Slide2 mean"</span>,</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"mean fraction of transcripts"</span>) <span class="sc">+</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="20260512_QC_files/figure-html/control-mean-bar-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Absolute per-cell counts (4 metadata columns); used in the per-sample and per-slide tables below.</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>control_metrics <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"nCount_ControlCodeword"</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"nCount_ControlProbe"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>control_long <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cell, sample_id, slide, condition, partial_section,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>         <span class="fu">all_of</span>(control_metrics)) <span class="sc">|&gt;</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">all_of</span>(control_metrics), <span class="at">names_to =</span> <span class="st">"metric"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Per-sample MEAN, not median: medians collapse to 0 because most cells carry no control molecules.</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>control_cohort_mean <span class="ot">&lt;-</span> control_long <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">cohort_mean =</span> <span class="fu">mean</span>(value), <span class="at">.by =</span> metric)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>control_sample_mean <span class="ot">&lt;-</span> control_long <span class="sc">|&gt;</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(value),</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by  =</span> <span class="fu">c</span>(metric, sample_id, condition, slide)) <span class="sc">|&gt;</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(condition, sample_id)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>control_wide <span class="ot">&lt;-</span> control_sample_mean <span class="sc">|&gt;</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample_id, condition, slide, metric, mean) <span class="sc">|&gt;</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> metric, <span class="at">values_from =</span> mean)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Bold cells whose per-sample mean exceeds twice the cohort mean (relative-outlier rule).</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>flag_control_cells <span class="ot">&lt;-</span> <span class="cf">function</span>(gt_obj, col) {</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  thr <span class="ot">&lt;-</span> control_cohort_mean<span class="sc">$</span>cohort_mean[control_cohort_mean<span class="sc">$</span>metric <span class="sc">==</span> col] <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  gt_obj <span class="sc">|&gt;</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_style</span>(<span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">"bold"</span>),</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>              <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">columns =</span> <span class="fu">all_of</span>(col),</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">rows    =</span> .data[[col]] <span class="sc">&gt;</span> thr))</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>ctrl_gt <span class="ot">&lt;-</span> control_wide <span class="sc">|&gt;</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>(<span class="at">rowname_col =</span> <span class="st">"sample_id"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title    =</span> <span class="st">"Per-sample mean of control counts"</span>,</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>             <span class="at">subtitle =</span> <span class="st">"Bold cells &gt; 2 x cohort mean; medians collapse to 0 (zero-inflated)"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">all_of</span>(control_metrics), <span class="at">decimals =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_color</span>(<span class="at">columns =</span> <span class="fu">all_of</span>(control_metrics),</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>             <span class="at">colors  =</span> scales<span class="sc">::</span><span class="fu">col_numeric</span>(<span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"white"</span>, <span class="st">"firebrick"</span>),</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">domain  =</span> <span class="cn">NULL</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">table.font.size =</span> <span class="fu">px</span>(<span class="dv">12</span>))</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="fu">reduce</span>(control_metrics, flag_control_cells, <span class="at">.init =</span> ctrl_gt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="qlxzcdahpb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qlxzcdahpb table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#qlxzcdahpb thead, #qlxzcdahpb tbody, #qlxzcdahpb tfoot, #qlxzcdahpb tr, #qlxzcdahpb td, #qlxzcdahpb th {
+  border-style: none;
+}
+
+#qlxzcdahpb p {
+  margin: 0;
+  padding: 0;
+}
+
+#qlxzcdahpb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#qlxzcdahpb .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#qlxzcdahpb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#qlxzcdahpb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#qlxzcdahpb .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qlxzcdahpb .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qlxzcdahpb .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qlxzcdahpb .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#qlxzcdahpb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#qlxzcdahpb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#qlxzcdahpb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#qlxzcdahpb .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#qlxzcdahpb .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#qlxzcdahpb .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#qlxzcdahpb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qlxzcdahpb .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#qlxzcdahpb .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#qlxzcdahpb .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#qlxzcdahpb .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qlxzcdahpb .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#qlxzcdahpb .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#qlxzcdahpb .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#qlxzcdahpb .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qlxzcdahpb .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#qlxzcdahpb .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#qlxzcdahpb .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qlxzcdahpb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qlxzcdahpb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#qlxzcdahpb .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qlxzcdahpb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#qlxzcdahpb .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qlxzcdahpb .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qlxzcdahpb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qlxzcdahpb .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qlxzcdahpb .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qlxzcdahpb .gt_left {
+  text-align: left;
+}
+
+#qlxzcdahpb .gt_center {
+  text-align: center;
+}
+
+#qlxzcdahpb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#qlxzcdahpb .gt_font_normal {
+  font-weight: normal;
+}
+
+#qlxzcdahpb .gt_font_bold {
+  font-weight: bold;
+}
+
+#qlxzcdahpb .gt_font_italic {
+  font-style: italic;
+}
+
+#qlxzcdahpb .gt_super {
+  font-size: 65%;
+}
+
+#qlxzcdahpb .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#qlxzcdahpb .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#qlxzcdahpb .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#qlxzcdahpb .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#qlxzcdahpb .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#qlxzcdahpb .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#qlxzcdahpb .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#qlxzcdahpb .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#qlxzcdahpb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="5" class="gt_heading gt_title gt_font_normal">Per-sample mean of control counts</td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Bold cells &gt; 2 x cohort mean; medians collapse to 0 (zero-inflated)</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="condition" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">condition</th>
+<th id="slide" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">slide</th>
+<th id="nCount_ControlCodeword" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">nCount_ControlCodeword</th>
+<th id="nCount_ControlProbe" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">nCount_ControlProbe</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<th id="stub_1_1" class="gt_row gt_center gt_stub" data-quarto-table-cell-role="th" scope="row">4s2_F1</th>
+<td class="gt_row gt_left" headers="stub_1_1 condition">control</td>
+<td class="gt_row gt_left" headers="stub_1_1 slide">Slide1_0022474</td>
+<td class="gt_row gt_right" headers="stub_1_1 nCount_ControlCodeword" style="background-color: #FFFFFF; color: #000000">0.040</td>
+<td class="gt_row gt_right" headers="stub_1_1 nCount_ControlProbe" style="background-color: #FFFFFF; color: #000000">0.076</td>
+</tr>
+<tr class="even">
+<th id="stub_1_2" class="gt_row gt_center gt_stub" data-quarto-table-cell-role="th" scope="row">4s2_F2</th>
+<td class="gt_row gt_left" headers="stub_1_2 condition">control</td>
+<td class="gt_row gt_left" headers="stub_1_2 slide">Slide2_0069080</td>
+<td class="gt_row gt_right" headers="stub_1_2 nCount_ControlCodeword" style="background-color: #CD6153; color: #FFFFFF">0.100</td>
+<td class="gt_row gt_right" headers="stub_1_2 nCount_ControlProbe" style="background-color: #D26A5C; color: #FFFFFF">0.146</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_3" class="gt_row gt_center gt_stub" data-quarto-table-cell-role="th" scope="row">4s2_F3</th>
+<td class="gt_row gt_left" headers="stub_1_3 condition">control</td>
+<td class="gt_row gt_left" headers="stub_1_3 slide">Slide2_0069080</td>
+<td class="gt_row gt_right" headers="stub_1_3 nCount_ControlCodeword" style="background-color: #CC5D50; color: #FFFFFF">0.101</td>
+<td class="gt_row gt_right" headers="stub_1_3 nCount_ControlProbe" style="background-color: #C75346; color: #FFFFFF">0.157</td>
+</tr>
+<tr class="even">
+<th id="stub_1_4" class="gt_row gt_center gt_stub" data-quarto-table-cell-role="th" scope="row">4s2M_F1</th>
+<td class="gt_row gt_left" headers="stub_1_4 condition">switched</td>
+<td class="gt_row gt_left" headers="stub_1_4 slide">Slide1_0022474</td>
+<td class="gt_row gt_right" headers="stub_1_4 nCount_ControlCodeword" style="background-color: #F3C2BA; color: #000000">0.063</td>
+<td class="gt_row gt_right" headers="stub_1_4 nCount_ControlProbe" style="background-color: #E18E81; color: #000000">0.129</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_5" class="gt_row gt_center gt_stub" data-quarto-table-cell-role="th" scope="row">4s2M_F2</th>
+<td class="gt_row gt_left" headers="stub_1_5 condition">switched</td>
+<td class="gt_row gt_left" headers="stub_1_5 slide">Slide1_0022474</td>
+<td class="gt_row gt_right" headers="stub_1_5 nCount_ControlCodeword" style="background-color: #B22222; color: #FFFFFF">0.119</td>
+<td class="gt_row gt_right" headers="stub_1_5 nCount_ControlProbe" style="background-color: #FADED9; color: #000000">0.091</td>
+</tr>
+<tr class="even">
+<th id="stub_1_6" class="gt_row gt_center gt_stub" data-quarto-table-cell-role="th" scope="row">4s2M_F3</th>
+<td class="gt_row gt_left" headers="stub_1_6 condition">switched</td>
+<td class="gt_row gt_left" headers="stub_1_6 slide">Slide2_0069080</td>
+<td class="gt_row gt_right" headers="stub_1_6 nCount_ControlCodeword" style="background-color: #DC8274; color: #FFFFFF">0.087</td>
+<td class="gt_row gt_right" headers="stub_1_6 nCount_ControlProbe" style="background-color: #C2473D; color: #FFFFFF">0.161</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_7" class="gt_row gt_center gt_stub" data-quarto-table-cell-role="th" scope="row">4s2M_F4</th>
+<td class="gt_row gt_left" headers="stub_1_7 condition">switched</td>
+<td class="gt_row gt_left" headers="stub_1_7 slide">Slide2_0069080</td>
+<td class="gt_row gt_right" headers="stub_1_7 nCount_ControlCodeword" style="background-color: #D8796B; color: #FFFFFF">0.091</td>
+<td class="gt_row gt_right" headers="stub_1_7 nCount_ControlProbe" style="background-color: #B22222; color: #FFFFFF">0.175</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Slide-level mean + Slide2/Slide1 ratio. Ratio is the per-cell counterpart of the slide-summary</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># adjusted_negative_control_*_rate; &gt; 1.2 or &lt; 1/1.2 is bolded.</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>control_slide <span class="ot">&lt;-</span> control_long <span class="sc">|&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">slide_mean =</span> <span class="fu">mean</span>(value), <span class="at">.by =</span> <span class="fu">c</span>(metric, slide)) <span class="sc">|&gt;</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> slide, <span class="at">values_from =</span> slide_mean) <span class="sc">|&gt;</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(control_cohort_mean, <span class="at">by =</span> <span class="st">"metric"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ratio   =</span> Slide2_0069080 <span class="sc">/</span> Slide1_0022474,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">flagged =</span> <span class="sc">!</span><span class="fu">is.na</span>(ratio) <span class="sc">&amp;</span> (ratio <span class="sc">&gt;</span> <span class="fl">1.2</span> <span class="sc">|</span> ratio <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fl">1.2</span>))</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>control_slide <span class="sc">|&gt;</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>(<span class="at">rowname_col =</span> <span class="st">"metric"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">c</span>(Slide1_0022474, Slide2_0069080, cohort_mean, ratio),</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">decimals =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sub_missing</span>(<span class="at">columns =</span> ratio, <span class="at">missing_text =</span> <span class="st">"-"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_color</span>(<span class="at">columns =</span> ratio,</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">colors  =</span> scales<span class="sc">::</span><span class="fu">col_numeric</span>(<span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"white"</span>, <span class="st">"firebrick"</span>),</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">domain  =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">2.0</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(<span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">"bold"</span>),</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">rows =</span> flagged)) <span class="sc">|&gt;</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_hide</span>(<span class="at">columns =</span> flagged) <span class="sc">|&gt;</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"Per-slide mean of control counts"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">table.font.size =</span> <span class="fu">px</span>(<span class="dv">12</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="skylcjdyev" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#skylcjdyev table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#skylcjdyev thead, #skylcjdyev tbody, #skylcjdyev tfoot, #skylcjdyev tr, #skylcjdyev td, #skylcjdyev th {
+  border-style: none;
+}
+
+#skylcjdyev p {
+  margin: 0;
+  padding: 0;
+}
+
+#skylcjdyev .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#skylcjdyev .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#skylcjdyev .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#skylcjdyev .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#skylcjdyev .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#skylcjdyev .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#skylcjdyev .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#skylcjdyev .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#skylcjdyev .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#skylcjdyev .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#skylcjdyev .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#skylcjdyev .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#skylcjdyev .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#skylcjdyev .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#skylcjdyev .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#skylcjdyev .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#skylcjdyev .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#skylcjdyev .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#skylcjdyev .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#skylcjdyev .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#skylcjdyev .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#skylcjdyev .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#skylcjdyev .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#skylcjdyev .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#skylcjdyev .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#skylcjdyev .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#skylcjdyev .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#skylcjdyev .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#skylcjdyev .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#skylcjdyev .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#skylcjdyev .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#skylcjdyev .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#skylcjdyev .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#skylcjdyev .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#skylcjdyev .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#skylcjdyev .gt_left {
+  text-align: left;
+}
+
+#skylcjdyev .gt_center {
+  text-align: center;
+}
+
+#skylcjdyev .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#skylcjdyev .gt_font_normal {
+  font-weight: normal;
+}
+
+#skylcjdyev .gt_font_bold {
+  font-weight: bold;
+}
+
+#skylcjdyev .gt_font_italic {
+  font-style: italic;
+}
+
+#skylcjdyev .gt_super {
+  font-size: 65%;
+}
+
+#skylcjdyev .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#skylcjdyev .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#skylcjdyev .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#skylcjdyev .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#skylcjdyev .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#skylcjdyev .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#skylcjdyev .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#skylcjdyev .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#skylcjdyev div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="5" class="gt_heading gt_title gt_font_normal gt_bottom_border">Per-slide mean of control counts</td>
+</tr>
+<tr class="gt_col_headings even">
+<th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="Slide1_0022474" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Slide1_0022474</th>
+<th id="Slide2_0069080" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Slide2_0069080</th>
+<th id="cohort_mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">cohort_mean</th>
+<th id="ratio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">ratio</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<th id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">nCount_ControlCodeword</th>
+<td class="gt_row gt_right" headers="stub_1_1 Slide1_0022474" style="font-weight: bold">0.066</td>
+<td class="gt_row gt_right" headers="stub_1_1 Slide2_0069080" style="font-weight: bold">0.095</td>
+<td class="gt_row gt_right" headers="stub_1_1 cohort_mean" style="font-weight: bold">0.085</td>
+<td class="gt_row gt_right" headers="stub_1_1 ratio" style="background-color: #F5C9C1; color: #000000; font-weight: bold">1.442</td>
+</tr>
+<tr class="even">
+<th id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">nCount_ControlProbe</th>
+<td class="gt_row gt_right" headers="stub_1_2 Slide1_0022474" style="font-weight: bold">0.101</td>
+<td class="gt_row gt_right" headers="stub_1_2 Slide2_0069080" style="font-weight: bold">0.159</td>
+<td class="gt_row gt_right" headers="stub_1_2 cohort_mean" style="font-weight: bold">0.140</td>
+<td class="gt_row gt_right" headers="stub_1_2 ratio" style="background-color: #E9A397; color: #000000; font-weight: bold">1.578</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell page-columns page-full">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One ImageFeaturePlot per control metric, both slides combined, white background.</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">walk</span>(control_metrics, \(m) {</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ImageFeaturePlot</span>(xen, <span class="at">fov =</span> <span class="fu">c</span>(<span class="st">"fov"</span>, <span class="st">"fov.2"</span>),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">features  =</span> m,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"grey97"</span>,<span class="st">"red"</span>),</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">min.cutoff =</span> <span class="dv">0</span>, <span class="at">max.cutoff =</span> <span class="st">"q99"</span>,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">dark.background =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="20260512_QC_files/figure-html/control-spatial-1.png" class="img-fluid figure-img column-page" width="1152"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="20260512_QC_files/figure-html/control-spatial-2.png" class="img-fluid figure-img column-page" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Per-cell control counts rise on Slide2 in absolute terms but more slowly than total counts. Slide means are 0.066 vs 0.095 for <code>nCount_ControlCodeword</code> (Slide2/Slide1 = 1.44) and 0.101 vs 0.159 for <code>nCount_ControlProbe</code> (ratio 1.58). Total <code>nCount_Xenium</code> rises 1.29-fold over the same comparison. The codeword false-positive rate per total transcript is therefore essentially flat (1.44 / 1.29 = 1.12), consistent with the slide-summary <code>adjusted_negative_control_codeword_rate</code> ratio of 0.97. The probe-contamination rate per total transcript rises about 1.22-fold (1.58 / 1.29), in the same direction as the slide-summary <code>adjusted_negative_control_probe_rate</code> ratio of 1.33.</p>
+<blockquote class="blockquote">
+<p>The partial section <code>4s2M_F2</code> produces the highest <code>nCount_ControlCodeword</code> mean on Slide1 (0.119 vs 0.063 for <code>4s2M_F1</code> and 0.040 for <code>4s2_F1</code>), but the lowest <code>nCount_ControlProbe</code> mean on Slide1 (0.091 vs 0.129 / 0.076). The codeword excess is two-fold over the next-highest Slide1 sample but stays inside the Slide2 range (0.087-0.101); it does not cross any cohort-wide threshold. We flag it for the cluster-composition cross-check and otherwise keep it.</p>
+</blockquote>
+</section>
+<section id="final-summary" class="level2">
+<h2 class="anchored" data-anchor-id="final-summary">Final summary</h2>
+<p><strong><code>4s2M_F2</code> does not seem to be an outlier.</strong> Every per-cell QC metric on the partial section sits within ±1.2 SD of the cohort mean of sample medians. <code>4s2M_F2</code> is the only Slide1 sample whose <code>nCount_ControlCodeword</code> mean exceeds twice the next-highest Slide1 sample, but that value still sits inside the Slide2 range.</p>
+<p><strong>There is a slide effect</strong> Slide2 cells carry 25 % more transcripts and 10 % more genes than Slide1 cells at essentially identical cell density (0.192 vs 0.186 cells per 100 micrometer^2). The transcript-to-cell assignment fraction drops 7 % on Slide2 and the adjusted negative-control probe rate rises 33 %. Both segmentation-quality signals move together. Decoder quality (<code>fraction_transcripts_decoded_q20 = 0.808</code>) and the negative-control codeword rate are unchanged. The XOA <a href="https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/release-notes/release-notes-for-xoa">release notes</a> for v3.2 -&gt; v3.3 describe only multimodal-segmentation refinements, which do not apply to the nuclear-expansion path used here. We treat the slide as a technical confound driven by acquisition or tissue differences (instrument firmware v3.2.1.2 vs v3.4.1.0, runs one year apart), not by a documented XOA algorithm change.</p>
+<p><strong>Implications for downstream analysis.</strong> Slide and sample identity are not confounded; every Slide2 sample sits above every Slide1 sample on per-cell totals, but slide is not aliased with the E4 / E2 condition. Per-cell control counts rise on Slide2 in absolute terms (<code>nCount_ControlCodeword</code> ratio 1.44, <code>nCount_ControlProbe</code> ratio 1.58) but more slowly than total transcripts; the codeword false-positive rate per transcript stays flat (1.12) and the probe-contamination rate per transcript rises 1.22-fold. No decoder drift between XOA versions is visible at the per-cell level. <code>vars.to.regress = "slide"</code> needs to be tested when <code>SCTransform</code> .</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

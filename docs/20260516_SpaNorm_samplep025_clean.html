@@ -1,0 +1,4642 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-05-24">
+
+<title>SpaNorm clean: sample.p = 0.25 – Microglia APOE Switch</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Microglia APOE Switch</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./20260512_QC.html"> 
+<span class="menu-text">QC</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-normalization" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Normalization</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-normalization">    
+        <li>
+    <a class="dropdown-item" href="./20260512_SCT_no_regression.html">
+ <span class="dropdown-text">SCT (no regression)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./20260512_SCT_regressed_by_slide.html">
+ <span class="dropdown-text">SCT (regressed by slide)</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./20260512_SpaNorm_sample005.html">
+ <span class="dropdown-text">SpaNorm (sample.p 0.05)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./20260513_SpaNorm_samplep025.html">
+ <span class="dropdown-text">SpaNorm (sample.p 0.25, default)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./20260516_SpaNorm_samplep025_clean.html">
+ <span class="dropdown-text">SpaNorm clean (default scaffold)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-microglia" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Microglia</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-microglia">    
+        <li>
+    <a class="dropdown-item" href="./20260517_microglia_subcluster.html">
+ <span class="dropdown-text">Sub-cluster</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./20260518_microglia_pseudobulk_DE.html">
+ <span class="dropdown-text">Pseudobulk DE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./20260518_microglia_APOE_per_cell_call.html">
+ <span class="dropdown-text">APOE switch call</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#why-this-notebook" id="toc-why-this-notebook" class="nav-link active" data-scroll-target="#why-this-notebook">Why this notebook</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#build-the-clean-spanorm-assay-drop-clusters-15-20-re-fit-per-sample-bracket-louvain-0.5-0.7" id="toc-build-the-clean-spanorm-assay-drop-clusters-15-20-re-fit-per-sample-bracket-louvain-0.5-0.7" class="nav-link" data-scroll-target="#build-the-clean-spanorm-assay-drop-clusters-15-20-re-fit-per-sample-bracket-louvain-0.5-0.7">Build the clean SpaNorm assay (drop clusters 15 + 20, re-fit per sample, bracket Louvain 0.5 / 0.7)</a></li>
+  <li><a href="#louvain-at-resolution-0.5" id="toc-louvain-at-resolution-0.5" class="nav-link" data-scroll-target="#louvain-at-resolution-0.5">Louvain at resolution 0.5</a></li>
+  <li><a href="#louvain-at-resolution-0.7" id="toc-louvain-at-resolution-0.7" class="nav-link" data-scroll-target="#louvain-at-resolution-0.7">Louvain at resolution 0.7</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">SpaNorm clean: sample.p = 0.25</h1>
+<p class="subtitle lead">clusters 15 + 20 removed</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 24, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="why-this-notebook" class="level2">
+<h2 class="anchored" data-anchor-id="why-this-notebook">Why this notebook</h2>
+<p>The SpaNorm build at <code>sample.p = 0.25</code> (<code>20260513_SpaNorm_samplep025.qmd</code>) yields 25 clusters at Louvain 0.5. Two of them, <code>seurat_clusters</code> 15 and 20, look like contamination on the per-slide UMAP and carry top markers we read as artefactual rather than biological:</p>
+<ul>
+<li>Cluster 15 (parent annotation: mixed reactive / disease-associated, likely doublets). Top markers: Serpina3n + Gpnmb + Car12 reactive triad mixed with the neuronal markers Grin2a / Grin2b / Gad1 / Dgat2 / Tnr. Read as plaque-microenvironment doublets between reactive microglia / astrocytes and their neuronal neighbors.</li>
+<li>Cluster 20 (parent annotation: excitatory neurons, Calb1+/Tdo2+ of uncertain region). Top markers: Calb1 + Tdo2 + Grin2a / Grin2b + Car12 / Dgat2 / Tnr. Tdo2 and Calb1 mark dentate gyrus, habenula, and cerebellar Purkinje / granule layers (Allen Brain Atlas, mouse), so the cluster is anchored on regionally restricted genes and biases by section coverage rather than by biology shared across the seven samples.</li>
+</ul>
+<p>We re-fit per-sample SpaNorm at <code>sample.p = 0.25</code> on the raw merged object after dropping the cells assigned to those two clusters, and we re-cluster from PCA forward.</p>
+<p>Every other parameter is held fixed against the parent notebook so the before-after comparison is clean: same seven per-sample SpaNorm fits, same <code>sample.p = 0.25</code>, same <code>df.tps = 6</code>, same <code>ScaleData -&gt; PCA(30) -&gt; FindNeighbors -&gt; Louvain -&gt; UMAP</code> chain, same 480-gene variable-feature set. We bracket Louvain at 0.5 and 0.7 on the same PCA / SNN graph and stash each cluster-id vector as a named metadata column (<code>clusters_res05</code> / <code>clusters_res07</code>) on a single saved Seurat object, matching the structure of <code>20260517_microglia_subcluster.qmd</code>.</p>
+<p>Bibliography for this notebook:</p>
+<ul>
+<li>Salim et al., “SpaNorm: spatially-aware normalization for spatial transcriptomics data,” Genome Biology, 2025. DOI: 10.1186/s13059-025-03565-y.</li>
+<li>SpaNorm package vignette: https://bhuvad.github.io/SpaNorm/articles/SpaNorm.html.</li>
+<li>Allen Brain Atlas, mouse, for Tdo2 / Calb1 regional expression: https://mouse.brain-map.org.</li>
+<li>Parent notebook: <code>20260513_SpaNorm_samplep025.qmd</code> (promoted project default).</li>
+</ul>
+</section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seurat v5 holds the merged Xenium object with the per-slide FOV slots we read centroids from.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># qs2 reads the multi-GB checkpoint roughly 10x faster than saveRDS.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qs2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fs)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># SpaNorm is the spatially aware normalization (Salim, Genome Biology, 2025).</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SpaNorm)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># SpatialExperiment is the native input class for SpaNorm; we build one per sample.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SpatialExperiment)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># scCustomize only contributes its categorical palette helper for the UMAP plots.</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scCustomize)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># kableExtra renders the per-cluster top-marker table inside a scroll box.</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Source the shared helper functions; fiddle() draws the per-cluster violin panel.</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/20260514-helper_functions.R"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Seed Louvain and any other stochastic step so cluster labels stay stable across renders.</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Reload the clean SpaNorm checkpoint; the build chunk below writes both clusters_res05</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># and clusters_res07 as named metadata columns on the same object.</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>xen <span class="ot">&lt;-</span> <span class="fu">qs_read</span>(<span class="st">"data/20260516_microglia_switch_spanorm_p025_clean.qs2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="build-the-clean-spanorm-assay-drop-clusters-15-20-re-fit-per-sample-bracket-louvain-0.5-0.7" class="level2">
+<h2 class="anchored" data-anchor-id="build-the-clean-spanorm-assay-drop-clusters-15-20-re-fit-per-sample-bracket-louvain-0.5-0.7">Build the clean SpaNorm assay (drop clusters 15 + 20, re-fit per sample, bracket Louvain 0.5 / 0.7)</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample / slide / condition manifest; matches R/20260512_xenium2seurat.R for self-containment.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>sample_id, <span class="sc">~</span>slide,            <span class="sc">~</span>condition,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4s2_F1"</span>,   <span class="st">"Slide1_0022474"</span>,  <span class="st">"control"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4s2M_F1"</span>,  <span class="st">"Slide1_0022474"</span>,  <span class="st">"switched"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4s2M_F2"</span>,  <span class="st">"Slide1_0022474"</span>,  <span class="st">"switched"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4s2_F2"</span>,   <span class="st">"Slide2_0069080"</span>,  <span class="st">"control"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4s2_F3"</span>,   <span class="st">"Slide2_0069080"</span>,  <span class="st">"control"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4s2M_F3"</span>,  <span class="st">"Slide2_0069080"</span>,  <span class="st">"switched"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4s2M_F4"</span>,  <span class="st">"Slide2_0069080"</span>,  <span class="st">"switched"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Start from the promoted parent build and drop the two contamination clusters before re-fitting.</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># SpaNorm needs raw counts, so we strip the object back to the Xenium assay and drop the stale</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># SpaNorm normalization, PCA / UMAP, and seurat_clusters before re-fitting.</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>xen <span class="ot">&lt;-</span> <span class="fu">qs_read</span>(<span class="st">"data/20260512_microglia_switch_spanorm_p025.qs2"</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">DefaultAssay</span>(xen) <span class="ot">&lt;-</span> <span class="st">"Xenium"</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Confirm both cluster levels are present before subsetting; the previous version of this</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># notebook silently no-oped on a non-existent "25" level (gotcha logged in CLAUDE.md).</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all</span>(<span class="fu">c</span>(<span class="st">"15"</span>, <span class="st">"20"</span>) <span class="sc">%in%</span> <span class="fu">levels</span>(xen<span class="sc">$</span>seurat_clusters)))</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>xen <span class="ot">&lt;-</span> <span class="fu">subset</span>(xen, <span class="at">subset =</span> seurat_clusters <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"15"</span>, <span class="st">"20"</span>), <span class="at">invert =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>xen <span class="ot">&lt;-</span> <span class="fu">DietSeurat</span>(xen, <span class="at">assays =</span> <span class="st">"Xenium"</span>, <span class="at">dimreducs =</span> <span class="cn">NULL</span>, <span class="at">graphs =</span> <span class="cn">NULL</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Literal slide -&gt; FOV map; the merge of the two LoadXenium slides kept the FOVs as fov / fov.2.</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>slide_to_fov <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">Slide1_0022474 =</span> <span class="st">"fov"</span>, <span class="at">Slide2_0069080 =</span> <span class="st">"fov.2"</span>)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>fov_lookup   <span class="ot">&lt;-</span> <span class="fu">set_names</span>(slide_to_fov[samples<span class="sc">$</span>slide], samples<span class="sc">$</span>sample_id)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Run SpaNorm on one sample; SpaNorm's spatial smoothness assumption is per tissue section.</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>spanorm_one_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(s, xen, fov_lookup) {</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># One tissue section at a time; subsetting first keeps the TPS basis fitting only to that section.</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  seu_s  <span class="ot">&lt;-</span> <span class="fu">subset</span>(xen, <span class="at">subset =</span> sample_id <span class="sc">==</span> s)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Centroids from the slide FOV; filter to the cells that survived the per-sample subset.</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  coords <span class="ot">&lt;-</span> <span class="fu">GetTissueCoordinates</span>(seu_s, <span class="at">image =</span> fov_lookup[[s]]) <span class="sc">|&gt;</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(cell <span class="sc">%in%</span> <span class="fu">Cells</span>(seu_s))</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># SpatialExperiment is SpaNorm's native input; raw counts plus the 2D centroids.</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  spe <span class="ot">&lt;-</span> <span class="fu">SpatialExperiment</span>(</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">assays        =</span> <span class="fu">list</span>(<span class="at">counts =</span> <span class="fu">GetAssayData</span>(seu_s, <span class="at">assay =</span> <span class="st">"Xenium"</span>, <span class="at">layer =</span> <span class="st">"counts"</span>)),</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">spatialCoords =</span> <span class="fu">as.matrix</span>(coords[, <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>)]))</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sample.p = 0.25 and df.tps = 6 held identical to the parent build for a like-for-like comparison.</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  spe <span class="ot">&lt;-</span> <span class="fu">SpaNorm</span>(spe,</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                 <span class="at">sample.p   =</span> <span class="fl">0.25</span>,</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>                 <span class="at">df.tps     =</span> <span class="dv">6</span>,</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>                 <span class="at">adj.method =</span> <span class="st">"auto"</span>,</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>                 <span class="at">backend    =</span> <span class="st">"auto"</span>,</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>                 <span class="at">verbose    =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> SummarizedExperiment<span class="sc">::</span><span class="fu">assay</span>(spe, <span class="st">"logcounts"</span>)</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(out) <span class="ot">&lt;-</span> <span class="fu">Cells</span>(seu_s)</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  out}</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Run SpaNorm on each of the seven samples; map keeps the per-sample matrices named for the reduce step.</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>norm_list <span class="ot">&lt;-</span> <span class="fu">map</span>(samples<span class="sc">$</span>sample_id, spanorm_one_sample,</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>                 <span class="at">xen =</span> xen, <span class="at">fov_lookup =</span> fov_lookup) <span class="sc">|&gt;</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_names</span>(samples<span class="sc">$</span>sample_id)</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind the per-sample matrices into one wide normalized matrix; reorder to the merged cell order.</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Qualify reduce() because SpatialExperiment loads IRanges, whose reduce() masks purrr::reduce.</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>norm_mat <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">reduce</span>(norm_list, cbind)</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>norm_mat <span class="ot">&lt;-</span> norm_mat[, <span class="fu">Cells</span>(xen)]</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="co"># Attach as a v5 SpaNorm assay; data layer only because the auto-selected adjustment returns log-residuals.</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="co"># CreateAssay5Object avoids the "counts layer not present" warning that CreateAssayObject (v3) triggers.</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>xen[[<span class="st">"SpaNorm"</span>]] <span class="ot">&lt;-</span> <span class="fu">CreateAssay5Object</span>(<span class="at">data =</span> norm_mat)</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="fu">DefaultAssay</span>(xen) <span class="ot">&lt;-</span> <span class="st">"SpaNorm"</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="co"># All 480 panel genes stay as variable features; FindVariableFeatures("vst") fails on a v5 assay</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="co"># carrying only the data layer, and the targeted Xenium panel is small enough that every gene</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="co"># is informative by design.</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="fu">VariableFeatures</span>(xen) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(xen)</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="co"># A v5 assay carrying only the data layer needs an explicit ScaleData before RunPCA.</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>xen <span class="ot">&lt;-</span> <span class="fu">ScaleData</span>(xen, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="co"># 30 PCs match the parent build; default npcs = 50 is fine.</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>xen <span class="ot">&lt;-</span> <span class="fu">RunPCA</span>(xen, <span class="at">npcs =</span> <span class="dv">30</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the SNN graph once, then run Louvain at both resolutions inside the build.</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Each FindClusters call overwrites seurat_clusters and Idents(xen), so stash each result</span></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="co"># in a named metadata column; downstream chunks switch resolutions via group.by / Idents().</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>xen <span class="ot">&lt;-</span> <span class="fu">FindNeighbors</span>(xen, <span class="at">reduction =</span> <span class="st">"pca"</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>xen <span class="ot">&lt;-</span> <span class="fu">FindClusters</span>(xen, <span class="at">resolution =</span> <span class="fl">0.5</span>, <span class="at">algorithm =</span> <span class="dv">1</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>xen<span class="sc">$</span>clusters_res05 <span class="ot">&lt;-</span> xen<span class="sc">$</span>seurat_clusters</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>xen <span class="ot">&lt;-</span> <span class="fu">FindClusters</span>(xen, <span class="at">resolution =</span> <span class="fl">0.7</span>, <span class="at">algorithm =</span> <span class="dv">1</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>xen<span class="sc">$</span>clusters_res07 <span class="ot">&lt;-</span> xen<span class="sc">$</span>seurat_clusters</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>xen <span class="ot">&lt;-</span> <span class="fu">RunUMAP</span>(xen, <span class="at">reduction =</span> <span class="st">"pca"</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="co"># qs_save(xen, "data/20260516_microglia_switch_spanorm_p025_clean.qs2")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="louvain-at-resolution-0.5" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="louvain-at-resolution-0.5">Louvain at resolution 0.5</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Palette sized to the Louvain-0.5 cluster count; this section uses the clusters_res05 column.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>colorines_05 <span class="ot">&lt;-</span> <span class="fu">scCustomize_Palette</span>(<span class="at">num_groups =</span> <span class="fu">n_distinct</span>(xen<span class="sc">$</span>clusters_res05), <span class="at">ggplot_default_colors =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="pca-per-slide" class="level3">
+<h3 class="anchored" data-anchor-id="pca-per-slide">PCA per slide</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Slide split so any residual slide-driven sub-structure surfaces before the UMAP.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">PCAPlot</span>(xen, <span class="at">group.by =</span> <span class="st">"clusters_res05"</span>, <span class="at">split.by =</span> <span class="st">"slide"</span>, <span class="at">cols =</span> colorines_05)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="20260516_SpaNorm_samplep025_clean_files/figure-html/pca-05-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Result.</strong> Both slides span the same PC1 / PC2 envelope and the major clusters sit in matched positions.</p>
+</section>
+<section id="umap" class="level3">
+<h3 class="anchored" data-anchor-id="umap">UMAP</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># label = TRUE prints the cluster id inside each island so the marker panels below stay legible.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(xen, <span class="at">group.by =</span> <span class="st">"clusters_res05"</span>, <span class="at">cols =</span> colorines_05, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">label.size =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="20260516_SpaNorm_samplep025_clean_files/figure-html/umap-05-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="per-slide" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="per-slide">Per slide</h3>
+<div class="cell page-columns page-full">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Side-by-side UMAPs per slide; failure mode is any residual cluster that lives on only one slide.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(xen, <span class="at">group.by =</span> <span class="st">"clusters_res05"</span>, <span class="at">split.by =</span> <span class="st">"slide"</span>, <span class="at">cols =</span> colorines_05) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="20260516_SpaNorm_samplep025_clean_files/figure-html/umap-05-slide-1.png" class="img-fluid figure-img column-page" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Result.</strong> Slide totals are Slide1 ≈ 140k cells vs Slide2 ≈ 277k.<br>
+The baseline Slide2 : Slide1 ratio is ~2:1 and any cluster ratio more than ~2x off that baseline could be slide-imbalanced. Two clusters stand out:</p>
+<ol type="1">
+<li><strong>Cluster 9 (mature OL with lower-FC values) is Slide1-specific:</strong> 17,865 cells on Slide1 vs 468 on Slide2 (ratio 0.03:1; ~75x off the baseline). The marker set is identical to cluster 0 (Mag / Aspa / Mog / Gatm / Ermn / Cldn11) but the FCs collapse from ~3.7 to ~2.6-3.3.</li>
+</ol>
+<p>Proportionally the two slides actually carry similar OL fractions: Slide1 (0 + 9) = 25,596 / ~140k cells = 18.3 % and Slide2 (0 + 9) = 45,832 / ~277k cells = 16.5 %. The Slide1 OL pool splits between a high-FC core (cluster 0) and a lower-FC twin (cluster 9), while the Slide2 OL pool concentrates almost entirely in the high-FC cluster. Two candidate explanations remain open at this point in the analysis:</p>
+<ul>
+<li><strong>Technical (normalization residual).</strong> Slide2 carries +25 % transcripts / cell vs Slide1. SpaNorm corrects per section but is not guaranteed to fully equalize a transcript-yield gap of this size.</li>
+<li><strong>Biological (regional or maturation state).</strong> The two FC tiers could reflect different anatomical OL pools (e.g.&nbsp;corpus callosum vs cerebellar / brainstem white matter) sampled differently across the two slides, or two maturation states of mature OLs.</li>
+</ul>
+<ol start="2" type="1">
+<li><p><strong>Cluster 23 (low-FC multi-lineage doublets, Slc32a1+/Mbp+/Cldn11+) is almost pure Slide2:</strong> 7 cells on Slide1 vs 993 on Slide2 (ratio 142:1). Top markers are inhibitory-vesicular (Slc32a1) and myelin (Mbp / Cldn11 / Mog) at FCs ≤ 1.1; this is a small segmentation-doublet cluster between GABAergic neurons and adjacent OLs that materialises only where the GABAergic / white-matter interface is sampled densely (Slide2 sections 4s2_F2 and 4s2_F3 carry it).</p></li>
+<li><p><strong>Five further clusters carry a moderate Slide2 over-representation</strong> (cluster 13 Pou3f1+ stressed neurons at 4.66:1, cluster 24 T cells at 4.66:1, cluster 2 microglia at 3.07:1, cluster 19 Tshz2+ deep/hippocampal at 3.19:1, cluster 0 OL high-FC at 5.87:1) but they all reach &gt; 90 cells on Slide1 and are not slide-private.</p></li>
+<li><p>The remaining 18 clusters sit within a 1.5-2.5x window of the 2:1 baseline.</p></li>
+</ol>
+</section>
+<section id="per-sample" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="per-sample">Per sample</h3>
+<div class="cell page-columns page-full">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Per-sample facets; 4s2M_F2 (partial section) still expected to contribute fewer cells than the others.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(xen, <span class="at">group.by =</span> <span class="st">"clusters_res05"</span>, <span class="at">split.by =</span> <span class="st">"sample_id"</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">cols =</span> colorines_05) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="20260516_SpaNorm_samplep025_clean_files/figure-html/umap-05-sample-1.png" class="img-fluid figure-img column-page" width="1344"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Result.</strong> Six of the seven samples reproduce the 25-cluster landscape with comparable proportions; 4s2M_F2 is sparser everywhere, as expected for the partial section. Three sample-level patterns warrant flagging because they explain the slide imbalances above:</p>
+<ul>
+<li><strong>Cluster 9 (Slide1 OL twin) lives almost entirely in three samples:</strong> 4s2_F1 (6,760), 4s2M_F1 (6,697) and 4s2M_F2 (4,408). The four Slide2 samples contribute ≤ 213 cells each. This is the cell-count breakdown behind the slide-level cluster-9 split; whether it reflects regional sampling or a transcript-yield residual remains open (see Per slide above).</li>
+<li><strong>Cluster 23 (Slide2 doublet cluster) lives in 4s2_F2 (493) and 4s2_F3 (262)</strong> and is absent or near-absent everywhere else. A two-sample artefact, not a slide-wide phenomenon.</li>
+<li><strong>Cluster 13 (Pou3f1+ stressed neurons) is dominated by 4s2M_F3 (4,272)</strong> and contributes &lt; 2,300 cells in every other complete section. The Slide2 over-representation of this cluster is mostly one animal, not a slide-wide pattern.</li>
+</ul>
+<p>Everything else (microglia, astrocytes, endothelial, neuronal subclasses, T cells) populates every complete section and balances across the genotype contrast.</p>
+</section>
+<section id="find-all-markers" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="find-all-markers">Find all markers</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># devtools::install_github('immunogenomics/presto')</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># presto gives a far faster Wilcoxon Rank Sum implementation than Seurat's default.</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(presto)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># FindAllMarkers needs cluster identities as the active Idents(); set from the named column.</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">Idents</span>(xen) <span class="ot">&lt;-</span> <span class="st">"clusters_res05"</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>spanorm_markers_05 <span class="ot">&lt;-</span> <span class="fu">FindAllMarkers</span>(xen, <span class="at">only.pos =</span> <span class="cn">TRUE</span>, <span class="at">densify =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(spanorm_markers_05, <span class="at">file =</span> <span class="st">"results/20260516-find_all_markers_spanorm_p025_clean_res05.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reload the cached marker table so this chunk renders without rerunning FindAllMarkers.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>spanorm_markers_05 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"results/20260516-find_all_markers_spanorm_p025_clean_res05.csv"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Top 10 markers per cluster, sorted by avg_log2FC within cluster.</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>spanorm_markers_05 <span class="ot">&lt;-</span> spanorm_markers_05 <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cluster, gene, avg_log2FC, p_val_adj) <span class="sc">|&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cluster) <span class="sc">|&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_log2FC), <span class="at">.by_group =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(spanorm_markers_05 <span class="sc">|&gt;</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">"striped"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">height =</span> <span class="st">"500px"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; ">
+<table class="table table-striped caption-top table-sm small">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">cluster</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">gene</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">avg_log2FC</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">p_val_adj</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Mag</td>
+<td style="text-align: right;">4.6693822</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Aspa</td>
+<td style="text-align: right;">4.0178397</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Mog</td>
+<td style="text-align: right;">3.7736651</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Gatm</td>
+<td style="text-align: right;">3.7027870</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Ermn</td>
+<td style="text-align: right;">3.6169763</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Cldn11</td>
+<td style="text-align: right;">3.5063699</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Pllp</td>
+<td style="text-align: right;">3.3453864</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Mbp</td>
+<td style="text-align: right;">3.1952202</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Plin4</td>
+<td style="text-align: right;">2.6501217</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Cers2</td>
+<td style="text-align: right;">2.4430292</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Fezf2</td>
+<td style="text-align: right;">3.6543478</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Slc17a7</td>
+<td style="text-align: right;">2.4496564</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Syt6</td>
+<td style="text-align: right;">2.3283755</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Hmgcr</td>
+<td style="text-align: right;">2.1841339</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Oprk1</td>
+<td style="text-align: right;">2.1161566</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Fdft1</td>
+<td style="text-align: right;">1.9811168</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Pfkp</td>
+<td style="text-align: right;">1.9023730</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Egr1</td>
+<td style="text-align: right;">1.8886094</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Dgat2</td>
+<td style="text-align: right;">1.8621483</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Ldha</td>
+<td style="text-align: right;">1.7302313</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Cx3cr1</td>
+<td style="text-align: right;">6.1709214</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Gpr34</td>
+<td style="text-align: right;">5.8534517</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Hexb</td>
+<td style="text-align: right;">5.8035253</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">P2ry12</td>
+<td style="text-align: right;">5.7803668</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Tmem119</td>
+<td style="text-align: right;">5.7342085</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Siglech</td>
+<td style="text-align: right;">5.6955424</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Cst7</td>
+<td style="text-align: right;">5.6668479</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Cd14</td>
+<td style="text-align: right;">5.6011335</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">C1qa</td>
+<td style="text-align: right;">5.5457435</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Trem2</td>
+<td style="text-align: right;">5.5447538</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Gck</td>
+<td style="text-align: right;">4.1841676</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Nts</td>
+<td style="text-align: right;">3.9365172</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Calb2</td>
+<td style="text-align: right;">3.0794056</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Tac1</td>
+<td style="text-align: right;">2.7004521</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Slc17a6</td>
+<td style="text-align: right;">2.3240948</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Gaa</td>
+<td style="text-align: right;">2.2806273</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Tox2</td>
+<td style="text-align: right;">2.2700099</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Htr2c</td>
+<td style="text-align: right;">2.2467931</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Oprk1</td>
+<td style="text-align: right;">2.1928143</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Sst</td>
+<td style="text-align: right;">1.8675404</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Plpp3</td>
+<td style="text-align: right;">3.3261082</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Htra1</td>
+<td style="text-align: right;">3.2770572</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Gja1</td>
+<td style="text-align: right;">3.1750664</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Prodh</td>
+<td style="text-align: right;">3.0027099</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aqp4</td>
+<td style="text-align: right;">2.8565559</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Slc7a10</td>
+<td style="text-align: right;">2.6864642</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Mt2</td>
+<td style="text-align: right;">2.6839424</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Cbs</td>
+<td style="text-align: right;">2.6199849</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Pla2g7</td>
+<td style="text-align: right;">2.5762420</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Aldh1l1</td>
+<td style="text-align: right;">2.5232057</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Cldn5</td>
+<td style="text-align: right;">5.4800974</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Cxcl12</td>
+<td style="text-align: right;">5.1912777</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Flt1</td>
+<td style="text-align: right;">4.9790023</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Emcn</td>
+<td style="text-align: right;">4.7252033</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Clec2d</td>
+<td style="text-align: right;">4.4844894</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Klf4</td>
+<td style="text-align: right;">4.3109523</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Slc2a1</td>
+<td style="text-align: right;">3.9432890</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Ocln</td>
+<td style="text-align: right;">3.8613294</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Sgms1</td>
+<td style="text-align: right;">3.7121649</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Ly6g</td>
+<td style="text-align: right;">3.4670574</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Lamp5</td>
+<td style="text-align: right;">3.5533647</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Pparg</td>
+<td style="text-align: right;">3.5252130</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Rspo1</td>
+<td style="text-align: right;">3.3631340</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Tcap</td>
+<td style="text-align: right;">3.2927463</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Egr1</td>
+<td style="text-align: right;">3.0455696</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Hkdc1</td>
+<td style="text-align: right;">2.5941332</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Cux2</td>
+<td style="text-align: right;">2.5525975</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Junb</td>
+<td style="text-align: right;">2.4601762</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Stard8</td>
+<td style="text-align: right;">2.3730470</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Fosb</td>
+<td style="text-align: right;">2.2646865</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Tagln</td>
+<td style="text-align: right;">7.8711308</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Slc47a1</td>
+<td style="text-align: right;">6.8863118</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Mrc1</td>
+<td style="text-align: right;">6.5521963</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Lum</td>
+<td style="text-align: right;">6.4859619</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Col1a2</td>
+<td style="text-align: right;">5.6971181</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Mgp</td>
+<td style="text-align: right;">5.6586574</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Pf4</td>
+<td style="text-align: right;">5.6050805</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Serping1</td>
+<td style="text-align: right;">5.1707574</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Serpinf1</td>
+<td style="text-align: right;">4.9653785</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Osr1</td>
+<td style="text-align: right;">4.7205165</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Agt</td>
+<td style="text-align: right;">4.9646982</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Slc7a10</td>
+<td style="text-align: right;">3.6623173</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Gja1</td>
+<td style="text-align: right;">2.8906001</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Aqp4</td>
+<td style="text-align: right;">2.6991938</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Pla2g7</td>
+<td style="text-align: right;">2.5619100</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Atp1b2</td>
+<td style="text-align: right;">2.5058527</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Cbs</td>
+<td style="text-align: right;">2.4859101</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Plpp3</td>
+<td style="text-align: right;">2.2788282</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Prodh</td>
+<td style="text-align: right;">2.2340247</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Htra1</td>
+<td style="text-align: right;">2.2182223</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Cldn11</td>
+<td style="text-align: right;">3.3087427</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Apod</td>
+<td style="text-align: right;">3.1891835</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Ermn</td>
+<td style="text-align: right;">3.1796417</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Mog</td>
+<td style="text-align: right;">3.1131954</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Aspa</td>
+<td style="text-align: right;">2.6273789</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Plin4</td>
+<td style="text-align: right;">2.6253627</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Gatm</td>
+<td style="text-align: right;">2.2413832</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Pllp</td>
+<td style="text-align: right;">2.1464223</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Mag</td>
+<td style="text-align: right;">1.9609192</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Ptgds</td>
+<td style="text-align: right;">1.9493297</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Slc17a6</td>
+<td style="text-align: right;">4.0594241</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Plcb4</td>
+<td style="text-align: right;">3.4211903</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Calb2</td>
+<td style="text-align: right;">2.9293524</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Tunar</td>
+<td style="text-align: right;">2.8109120</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Rorb</td>
+<td style="text-align: right;">1.7736145</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Abca7</td>
+<td style="text-align: right;">1.7279158</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Calb1</td>
+<td style="text-align: right;">1.6838769</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Ldhb</td>
+<td style="text-align: right;">1.6616756</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Sptlc2</td>
+<td style="text-align: right;">1.4510658</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Got1</td>
+<td style="text-align: right;">1.4260943</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Lhx6</td>
+<td style="text-align: right;">5.4446597</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Sst</td>
+<td style="text-align: right;">4.9472389</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Reln</td>
+<td style="text-align: right;">3.9048576</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Gad1</td>
+<td style="text-align: right;">3.7855679</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Ndnf</td>
+<td style="text-align: right;">3.5616128</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Pthlh</td>
+<td style="text-align: right;">2.9647163</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Pvalb</td>
+<td style="text-align: right;">2.9589098</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Cnr1</td>
+<td style="text-align: right;">2.6776133</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Tcap</td>
+<td style="text-align: right;">2.1515202</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Maf</td>
+<td style="text-align: right;">2.0889604</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Pdgfra</td>
+<td style="text-align: right;">6.3910058</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Tnr</td>
+<td style="text-align: right;">3.9166637</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Plpp4</td>
+<td style="text-align: right;">3.4622093</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Gpt2</td>
+<td style="text-align: right;">2.3966523</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Chst11</td>
+<td style="text-align: right;">2.2764302</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Dpyd</td>
+<td style="text-align: right;">2.1516554</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Pllp</td>
+<td style="text-align: right;">1.9550594</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Mki67</td>
+<td style="text-align: right;">1.8119427</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Gpnmb</td>
+<td style="text-align: right;">1.7226365</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Arsb</td>
+<td style="text-align: right;">1.6593515</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Pou3f1</td>
+<td style="text-align: right;">4.1024373</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Grin2a</td>
+<td style="text-align: right;">3.5608448</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Chst1</td>
+<td style="text-align: right;">2.6974763</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Grin2b</td>
+<td style="text-align: right;">2.6766063</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Opcml</td>
+<td style="text-align: right;">2.6274671</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Slc17a7</td>
+<td style="text-align: right;">2.1787317</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Lpl</td>
+<td style="text-align: right;">2.0615679</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Pfkl</td>
+<td style="text-align: right;">1.9263354</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Sorl1</td>
+<td style="text-align: right;">1.8701981</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Hmgcr</td>
+<td style="text-align: right;">1.8468809</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Ido1</td>
+<td style="text-align: right;">4.5569520</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Otof</td>
+<td style="text-align: right;">4.2347722</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Tac1</td>
+<td style="text-align: right;">4.0590139</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Adcy5</td>
+<td style="text-align: right;">3.2029213</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Cd36</td>
+<td style="text-align: right;">3.1570643</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Pax6</td>
+<td style="text-align: right;">2.5821465</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Gad1</td>
+<td style="text-align: right;">2.0933099</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Csgalnact1</td>
+<td style="text-align: right;">2.0724897</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Fosb</td>
+<td style="text-align: right;">1.9226491</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Syt6</td>
+<td style="text-align: right;">1.8305434</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Kcnj8</td>
+<td style="text-align: right;">7.8314148</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Atp13a5</td>
+<td style="text-align: right;">7.3237616</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Vtn</td>
+<td style="text-align: right;">6.3843948</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Bgn</td>
+<td style="text-align: right;">3.1036669</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Ifitm1</td>
+<td style="text-align: right;">3.0521378</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Stard8</td>
+<td style="text-align: right;">2.7697214</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Mgp</td>
+<td style="text-align: right;">2.4287328</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Axl</td>
+<td style="text-align: right;">2.3463454</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Emcn</td>
+<td style="text-align: right;">2.0156907</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Ifitm2</td>
+<td style="text-align: right;">1.8841714</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Lypd1</td>
+<td style="text-align: right;">5.5043692</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Trh</td>
+<td style="text-align: right;">2.6578486</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Otof</td>
+<td style="text-align: right;">2.6369265</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Tshz2</td>
+<td style="text-align: right;">1.9126611</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Slc17a7</td>
+<td style="text-align: right;">1.8146464</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Grin2b</td>
+<td style="text-align: right;">1.6889032</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Pfkl</td>
+<td style="text-align: right;">1.5085201</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Htr2c</td>
+<td style="text-align: right;">1.4949732</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Chst1</td>
+<td style="text-align: right;">1.4048416</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Dpyd</td>
+<td style="text-align: right;">1.2625492</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Ccdc153</td>
+<td style="text-align: right;">9.0382406</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Tmem212</td>
+<td style="text-align: right;">8.9442971</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Dnah11</td>
+<td style="text-align: right;">7.1235595</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Plin5</td>
+<td style="text-align: right;">5.4540562</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Lgals3</td>
+<td style="text-align: right;">4.6696009</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">C3</td>
+<td style="text-align: right;">4.4429724</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Vim</td>
+<td style="text-align: right;">3.7801194</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Ttr</td>
+<td style="text-align: right;">3.5328754</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Sncg</td>
+<td style="text-align: right;">3.5102590</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Ifitm3</td>
+<td style="text-align: right;">3.1651239</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Car12</td>
+<td style="text-align: right;">7.7503134</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Ltc4s</td>
+<td style="text-align: right;">5.5674807</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Adh1</td>
+<td style="text-align: right;">4.8306188</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Tgfbi</td>
+<td style="text-align: right;">4.7151365</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">H2-Eb1</td>
+<td style="text-align: right;">4.0370437</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Htr2c</td>
+<td style="text-align: right;">3.9753827</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Ttr</td>
+<td style="text-align: right;">3.8993482</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Dnah11</td>
+<td style="text-align: right;">3.5860874</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">H2-Ab1</td>
+<td style="text-align: right;">3.4589238</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Bgn</td>
+<td style="text-align: right;">3.2708158</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Tshz2</td>
+<td style="text-align: right;">4.1197511</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Dpp4</td>
+<td style="text-align: right;">2.7352845</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Nts</td>
+<td style="text-align: right;">2.7062117</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Rspo1</td>
+<td style="text-align: right;">2.5198030</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Htr2c</td>
+<td style="text-align: right;">2.3073643</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Pparg</td>
+<td style="text-align: right;">2.1269695</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Lamp5</td>
+<td style="text-align: right;">1.9411769</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Fut9</td>
+<td style="text-align: right;">1.7821122</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Aldob</td>
+<td style="text-align: right;">1.7511153</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Pou3f1</td>
+<td style="text-align: right;">1.6515380</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Vip</td>
+<td style="text-align: right;">9.9231657</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Crh</td>
+<td style="text-align: right;">6.9980778</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Pthlh</td>
+<td style="text-align: right;">5.1637679</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Cnr1</td>
+<td style="text-align: right;">4.1561846</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Gad1</td>
+<td style="text-align: right;">3.1534586</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Plpp4</td>
+<td style="text-align: right;">2.7770767</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Calb2</td>
+<td style="text-align: right;">2.5569930</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Tph2</td>
+<td style="text-align: right;">2.2018777</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Macc1</td>
+<td style="text-align: right;">2.1510219</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Maf</td>
+<td style="text-align: right;">1.9907503</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Wif1</td>
+<td style="text-align: right;">6.0627413</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Syt6</td>
+<td style="text-align: right;">5.1048491</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Calb2</td>
+<td style="text-align: right;">4.3120194</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Sncg</td>
+<td style="text-align: right;">4.1592475</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Tac1</td>
+<td style="text-align: right;">2.6168570</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Gys2</td>
+<td style="text-align: right;">2.5751213</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Plpp4</td>
+<td style="text-align: right;">1.9293916</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Slc17a6</td>
+<td style="text-align: right;">1.9052847</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">St6galnac4</td>
+<td style="text-align: right;">1.8463585</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Ttr</td>
+<td style="text-align: right;">1.7236247</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Trh</td>
+<td style="text-align: right;">6.6616820</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Pvalb</td>
+<td style="text-align: right;">5.6454692</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Gad1</td>
+<td style="text-align: right;">4.3628980</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Spp1</td>
+<td style="text-align: right;">3.0693573</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Sst</td>
+<td style="text-align: right;">2.6825068</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Whrn</td>
+<td style="text-align: right;">2.5175230</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Slc32a1</td>
+<td style="text-align: right;">2.4747866</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Gpx1</td>
+<td style="text-align: right;">2.3731762</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Oprk1</td>
+<td style="text-align: right;">2.2209429</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Serpinf1</td>
+<td style="text-align: right;">2.1046447</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Slc32a1</td>
+<td style="text-align: right;">1.6815158</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Cldn11</td>
+<td style="text-align: right;">1.1045873</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Mbp</td>
+<td style="text-align: right;">1.0582750</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Pllp</td>
+<td style="text-align: right;">0.7173465</td>
+<td style="text-align: right;">1.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Prdx1</td>
+<td style="text-align: right;">0.5739605</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Adh5</td>
+<td style="text-align: right;">0.5732990</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Hmgcl</td>
+<td style="text-align: right;">0.5424654</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Aldh9a1</td>
+<td style="text-align: right;">0.5104032</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Acadl</td>
+<td style="text-align: right;">0.4342000</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Mog</td>
+<td style="text-align: right;">0.3885274</td>
+<td style="text-align: right;">0.0007789</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Ccl5</td>
+<td style="text-align: right;">7.8876140</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Cd3d</td>
+<td style="text-align: right;">7.6143108</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Itk</td>
+<td style="text-align: right;">6.5026491</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Nkg7</td>
+<td style="text-align: right;">6.2975769</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Ms4a4b</td>
+<td style="text-align: right;">6.0006419</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Gzmb</td>
+<td style="text-align: right;">4.9649971</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Klrb1c</td>
+<td style="text-align: right;">4.8505702</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Tnf</td>
+<td style="text-align: right;">4.6902380</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Cd247</td>
+<td style="text-align: right;">4.5955004</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Cxcl10</td>
+<td style="text-align: right;">4.1791304</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell page-columns page-full">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Top 5 markers per cluster feed fiddle(); the SpaNorm assay carries the log-scale normalized values.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>top_5_genes_05 <span class="ot">&lt;-</span> spanorm_markers_05 <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(gene) <span class="sc">|&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">fiddle</span>(xen,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">genes_of_interest =</span> top_5_genes_05,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">classification_col =</span> <span class="st">"clusters_res05"</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">assay =</span> <span class="st">"SpaNorm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="20260516_SpaNorm_samplep025_clean_files/figure-html/markers-violin-05-1.png" class="img-fluid figure-img column-page" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="cluster-composition-resolution-0.5" class="level4">
+<h4 class="anchored" data-anchor-id="cluster-composition-resolution-0.5">Cluster composition (resolution 0.5)</h4>
+<p>Cell-type calls per cluster, read off the top-10 FindAllMarkers entries above; ordered by lineage rather than by cluster id.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Lineage</th>
+<th>Cluster</th>
+<th>Cell type</th>
+<th>Top markers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Oligodendrocyte</td>
+<td>0</td>
+<td>Mature OL, high-FC</td>
+<td>Mag / Aspa / Mog / Gatm / Ermn / Cldn11</td>
+</tr>
+<tr class="even">
+<td>Oligodendrocyte</td>
+<td>9</td>
+<td>Mature OL, lower-FC twin (Slide1-restricted)</td>
+<td>Mag / Aspa / Mog / Gatm / Ermn / Cldn11 (FCs 2.6-3.3)</td>
+</tr>
+<tr class="odd">
+<td>Oligodendrocyte</td>
+<td>12</td>
+<td>OPCs</td>
+<td>Pdgfra / Tnr / Plpp4 / Gpt2 / Chst11 / Dpyd</td>
+</tr>
+<tr class="even">
+<td>Astrocyte</td>
+<td>4</td>
+<td>Gray-matter Aqp4+/Gja1+</td>
+<td>Plpp3 / Htra1 / Gja1 / Prodh / Aqp4 / Slc7a10</td>
+</tr>
+<tr class="odd">
+<td>Astrocyte</td>
+<td>8</td>
+<td>Agt+ subtype</td>
+<td>Agt / Slc7a10 / Gja1 / Aqp4 / Pla2g7</td>
+</tr>
+<tr class="even">
+<td>Microglia</td>
+<td>2</td>
+<td>Mixed homeostatic + DAM</td>
+<td>Cx3cr1 / Gpr34 / Hexb / P2ry12 / Tmem119 / Siglech (Cst7 / Cd14 / Trem2 in tail)</td>
+</tr>
+<tr class="odd">
+<td>Vascular</td>
+<td>5</td>
+<td>Endothelial cells (BBB)</td>
+<td>Cldn5 / Cxcl12 / Flt1 / Emcn / Clec2d / Klf4</td>
+</tr>
+<tr class="even">
+<td>Vascular</td>
+<td>7</td>
+<td>VLMC + perivascular macrophages</td>
+<td>Tagln / Slc47a1 / Mrc1 / Lum / Col1a2 / Mgp</td>
+</tr>
+<tr class="odd">
+<td>Vascular</td>
+<td>15</td>
+<td>Pericytes / mural</td>
+<td>Kcnj8 / Atp13a5 / Vtn / Bgn</td>
+</tr>
+<tr class="even">
+<td>Ventricular</td>
+<td>17</td>
+<td>Ependymal</td>
+<td>Ccdc153 / Tmem212 / Dnah11</td>
+</tr>
+<tr class="odd">
+<td>Ventricular</td>
+<td>18</td>
+<td>Choroid plexus + MHC-II</td>
+<td>Car12 / Ltc4s / Adh1 / Tgfbi / H2-Eb1</td>
+</tr>
+<tr class="even">
+<td>Excitatory</td>
+<td>1</td>
+<td>Deep-layer Fezf2+</td>
+<td>Fezf2 / Slc17a7 / Syt6 / Oprk1 / Egr1</td>
+</tr>
+<tr class="odd">
+<td>Excitatory</td>
+<td>3</td>
+<td>Calb2+/Nts+/Tac1+ mixed</td>
+<td>Gck / Nts / Calb2 / Tac1 / Slc17a6</td>
+</tr>
+<tr class="even">
+<td>Excitatory</td>
+<td>6</td>
+<td>Cux2+/Lamp5+ upper-layer (IEG-rich)</td>
+<td>Lamp5 / Pparg / Rspo1 / Tcap / Egr1 / Calb1 / Cux2</td>
+</tr>
+<tr class="odd">
+<td>Excitatory</td>
+<td>10</td>
+<td>Vglut2+/Rorb+ thalamic relay</td>
+<td>Slc17a6 / Plcb4 / Calb2 / Rorb</td>
+</tr>
+<tr class="even">
+<td>Excitatory</td>
+<td>19</td>
+<td>Tshz2+ deep / hippocampal</td>
+<td>Tshz2 / Dpp4 / Nts / Rspo1</td>
+</tr>
+<tr class="odd">
+<td>Excitatory</td>
+<td>21</td>
+<td>Wif1+/Syt6+</td>
+<td>Wif1 / Syt6 / Calb2 / Sncg</td>
+</tr>
+<tr class="even">
+<td>Excitatory</td>
+<td>13</td>
+<td>Pou3f1+ stressed neurons</td>
+<td>Pou3f1 / Grin2a / Chst1 / Grin2b / Opcml</td>
+</tr>
+<tr class="odd">
+<td>GABAergic</td>
+<td>11</td>
+<td>Sst+/Lhx6+ MGE-derived</td>
+<td>Lhx6 / Sst / Reln / Gad1 / Ndnf</td>
+</tr>
+<tr class="even">
+<td>GABAergic</td>
+<td>14</td>
+<td>Striatal-flavored Tac1+/Adcy5+/Pax6+</td>
+<td>Ido1 / Otof / Tac1 / Adcy5 / Pax6</td>
+</tr>
+<tr class="odd">
+<td>GABAergic</td>
+<td>20</td>
+<td>Vip+/Crh+ CGE-derived</td>
+<td>Vip / Crh / Pthlh / Cnr1 / Gad1</td>
+</tr>
+<tr class="even">
+<td>GABAergic</td>
+<td>22</td>
+<td>Pvalb+/Trh+</td>
+<td>Trh / Pvalb / Gad1 / Spp1</td>
+</tr>
+<tr class="odd">
+<td>Small / atypical</td>
+<td>16</td>
+<td>Lypd1+/Trh+/Slc17a7+ neuron-like</td>
+<td>Lypd1 / Trh / Otof / Tshz2 / Slc17a7</td>
+</tr>
+<tr class="even">
+<td>Small / atypical</td>
+<td>23</td>
+<td>Multi-lineage doublets (Slide2-private)</td>
+<td>Slc32a1 / Mbp / Cldn11 (FCs ≤ 1.1)</td>
+</tr>
+<tr class="odd">
+<td>Immune</td>
+<td>24</td>
+<td>T cells / cytotoxic lymphocytes</td>
+<td>Ccl5 / Cd3d / Itk / Nkg7 / Ms4a4b / Gzmb</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="louvain-at-resolution-0.7" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="louvain-at-resolution-0.7">Louvain at resolution 0.7</h2>
+<p>The 0.7 labels live in <code>xen$clusters_res07</code> and were written by the build chunk; we re-color the plots and re-derive markers from that column without rerunning <code>FindClusters</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-size the palette to the cluster count produced at resolution 0.7.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>colorines_07 <span class="ot">&lt;-</span> <span class="fu">scCustomize_Palette</span>(<span class="at">num_groups =</span> <span class="fu">n_distinct</span>(xen<span class="sc">$</span>clusters_res07), <span class="at">ggplot_default_colors =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="umap-1" class="level3">
+<h3 class="anchored" data-anchor-id="umap-1">UMAP</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Same UMAP coordinates as the 0.5 panel; only the cluster colors / boundaries change.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(xen, <span class="at">group.by =</span> <span class="st">"clusters_res07"</span>, <span class="at">cols =</span> colorines_07, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">label.size =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="20260516_SpaNorm_samplep025_clean_files/figure-html/umap-07-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Result.</strong> 27 clusters at Louvain 0.7, two more than the 25 at 0.5. The full cell-type table sits after the violin panel below. The differences vs the 0.5 cut:</p>
+<ul>
+<li><strong>Microglia split into homeostatic (cluster 11: Tmem119 / P2ry12 / Selplg / Siglech / Il1a / Cx3cr1) and DAM (cluster 5: Cst7 / Ccl3 / Clec7a / Itgax / Ch25h / Lyz2 / Trem2)</strong>. At 0.5 these share one cluster (2). This split is the load-bearing 0.7 gain for the E4-vs-E2 contrast.</li>
+<li><strong>A third oligodendrocyte state separates</strong> as cluster 20 (Aspa / Mag / Mog / Gatm / Pllp / Cldn11 at FCs 1.5-1.7), on top of cluster 0 (mature high-FC) and cluster 7 (the Slide1-restricted lower-FC twin).</li>
+<li>The Slide2-private multi-lineage doublet cluster (res05 23) is absorbed into other clusters and disappears as a discrete island.</li>
+<li>The T-cell cluster reproduces at 0.7 (cluster 26) with the same identity and absolute counts as at 0.5.</li>
+</ul>
+<p>All other identities map one-to-one between the two resolutions; see the cluster-composition table after the violin panel for the mapping.</p>
+</section>
+<section id="per-slide-1" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="per-slide-1">Per slide</h3>
+<div class="cell page-columns page-full">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Slide split at the higher resolution; re-check that no recovered sub-cluster is slide-specific.</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(xen, <span class="at">group.by =</span> <span class="st">"clusters_res07"</span>, <span class="at">split.by =</span> <span class="st">"slide"</span>, <span class="at">cols =</span> colorines_07) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="20260516_SpaNorm_samplep025_clean_files/figure-html/umap-07-slide-1.png" class="img-fluid figure-img column-page" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Result.</strong> The slide pattern at 0.7 matches the 0.5 pattern almost exactly because the slide-imbalanced clusters survive the higher-resolution split intact:</p>
+<ul>
+<li><strong>Cluster 7 (Slide1 OL lower-FC twin) is Slide1-private:</strong> 19,758 cells on Slide1 vs 1,194 on Slide2 (ratio 0.06:1, ~33x off the 2:1 baseline). Same identity as cluster 9 at 0.5; Louvain at 0.7 did not redistribute these cells.</li>
+<li><strong>Cluster 0 (mature OL high-FC) is Slide2-enriched:</strong> 3,409 on Slide1 vs 42,113 on Slide2 (ratio 12.35:1, ~6x over baseline). Stronger Slide2 dominance than at 0.5 because the third OL state (cluster 20 here) carved 5,337 balanced cells out of the high-FC pool.</li>
+<li>The DAM cluster (5) is Slide2-enriched at 4.78:1 (3,657 vs 17,486), ~2.4x over baseline. I read this as slide-correlated DAM load: Slide2 captures more amyloid-proximal microglia in absolute numbers, not as a slide-effect on the DAM signature itself.</li>
+<li>The Pou3f1+ stressed-neuron cluster (15) is Slide2-enriched at 4.68:1 (2,193 vs 10,264), driven by one sample (see below).</li>
+<li>The T-cell cluster (26) is Slide2-enriched at 4.68:1 (94 vs 440); same ratio and same absolute counts as at 0.5. The cluster reproduces on both slides.</li>
+<li>Every other cluster sits within a 1.0-2.9x window of baseline. No 0.7 split introduces a new slide-private cluster.</li>
+</ul>
+<p>The Slide2-private doublet cluster (res05 cluster 23) is absorbed at 0.7 and stops being a discrete island; the 0.7 cut gets rid of the smallest slide-private fragment from the 0.5 build for free.</p>
+</section>
+<section id="per-sample-1" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="per-sample-1">Per sample</h3>
+<div class="cell page-columns page-full">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Per-sample facets; 4s2M_F2 still expected to be sparse.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(xen, <span class="at">group.by =</span> <span class="st">"clusters_res07"</span>, <span class="at">split.by =</span> <span class="st">"sample_id"</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">cols =</span> colorines_07) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="20260516_SpaNorm_samplep025_clean_files/figure-html/umap-07-sample-1.png" class="img-fluid figure-img column-page" width="1344"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Result.</strong> The per-sample pattern at 0.7 reproduces the 0.5 pattern.</p>
+<ul>
+<li>Cluster 7 (Slide1 OL twin) lives in 4s2_F1 (7,436), 4s2M_F1 (7,566) and 4s2M_F2 (4,756) and is near-absent on the four Slide2 samples (≤ 599 cells each).<br>
+</li>
+<li>Cluster 15 (Pou3f1+ stressed neurons) is dominated by 4s2M_F3 (4,274) and stays under 2,225 cells in every other complete section. 4s2M_F2 is sparser across all clusters as expected for the partial section.<br>
+</li>
+<li>The two new biological splits (microglia DAM-vs-homeostatic clusters 5 and 11; third OL state cluster 20) appear in every complete sample, so neither split is driven by one animal.</li>
+</ul>
+</section>
+<section id="find-all-markers-1" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="find-all-markers-1">Find all markers</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># presto-backed Wilcoxon; identical setup to the 0.5 chunk above.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(presto)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Idents</span>(xen) <span class="ot">&lt;-</span> <span class="st">"clusters_res07"</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>spanorm_markers_07 <span class="ot">&lt;-</span> <span class="fu">FindAllMarkers</span>(xen, <span class="at">only.pos =</span> <span class="cn">TRUE</span>, <span class="at">densify =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(spanorm_markers_07, <span class="at">file =</span> <span class="st">"results/20260516-find_all_markers_spanorm_p025_clean_res07.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reload the cached resolution-0.7 marker table.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>spanorm_markers_07 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"results/20260516-find_all_markers_spanorm_p025_clean_res07.csv"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>spanorm_markers_07 <span class="ot">&lt;-</span> spanorm_markers_07 <span class="sc">|&gt;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cluster, gene, avg_log2FC, p_val_adj) <span class="sc">|&gt;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cluster) <span class="sc">|&gt;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_log2FC), <span class="at">.by_group =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(spanorm_markers_07 <span class="sc">|&gt;</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">"striped"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">height =</span> <span class="st">"500px"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; ">
+<table class="table table-striped caption-top table-sm small">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">cluster</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">gene</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">avg_log2FC</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">p_val_adj</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Mag</td>
+<td style="text-align: right;">4.383435</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Aspa</td>
+<td style="text-align: right;">3.780325</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Gatm</td>
+<td style="text-align: right;">3.552658</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Mog</td>
+<td style="text-align: right;">3.546158</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Ermn</td>
+<td style="text-align: right;">3.428916</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Cldn11</td>
+<td style="text-align: right;">3.402170</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Pllp</td>
+<td style="text-align: right;">3.233256</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Mbp</td>
+<td style="text-align: right;">3.220829</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Plin4</td>
+<td style="text-align: right;">2.529249</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Cers2</td>
+<td style="text-align: right;">2.379943</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Fezf2</td>
+<td style="text-align: right;">3.926472</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Syt6</td>
+<td style="text-align: right;">2.589452</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Slc17a7</td>
+<td style="text-align: right;">2.193611</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Oprk1</td>
+<td style="text-align: right;">2.145726</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Egr1</td>
+<td style="text-align: right;">2.008199</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Hmgcr</td>
+<td style="text-align: right;">1.990255</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Fdft1</td>
+<td style="text-align: right;">1.919471</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Fut9</td>
+<td style="text-align: right;">1.895506</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Pfkp</td>
+<td style="text-align: right;">1.794565</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Dgat2</td>
+<td style="text-align: right;">1.658083</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Plpp3</td>
+<td style="text-align: right;">3.332230</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Htra1</td>
+<td style="text-align: right;">3.276420</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Gja1</td>
+<td style="text-align: right;">3.181930</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Prodh</td>
+<td style="text-align: right;">3.010084</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Aqp4</td>
+<td style="text-align: right;">2.911302</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Slc7a10</td>
+<td style="text-align: right;">2.695929</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Mt2</td>
+<td style="text-align: right;">2.695633</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Cbs</td>
+<td style="text-align: right;">2.619843</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Pla2g7</td>
+<td style="text-align: right;">2.589893</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Aldh1l1</td>
+<td style="text-align: right;">2.525545</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Gck</td>
+<td style="text-align: right;">4.187569</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Nts</td>
+<td style="text-align: right;">3.451327</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Calb2</td>
+<td style="text-align: right;">3.110161</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Tac1</td>
+<td style="text-align: right;">2.635160</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Slc17a6</td>
+<td style="text-align: right;">2.365830</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Tox2</td>
+<td style="text-align: right;">2.242515</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Gaa</td>
+<td style="text-align: right;">2.239222</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Htr2c</td>
+<td style="text-align: right;">2.214612</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Oprk1</td>
+<td style="text-align: right;">2.205385</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Tmx4</td>
+<td style="text-align: right;">1.772893</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Cldn5</td>
+<td style="text-align: right;">5.491522</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Cxcl12</td>
+<td style="text-align: right;">5.189187</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Flt1</td>
+<td style="text-align: right;">4.985453</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Emcn</td>
+<td style="text-align: right;">4.723214</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Clec2d</td>
+<td style="text-align: right;">4.474274</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Klf4</td>
+<td style="text-align: right;">4.317369</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Slc2a1</td>
+<td style="text-align: right;">3.940247</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Ocln</td>
+<td style="text-align: right;">3.860462</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Sgms1</td>
+<td style="text-align: right;">3.707917</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Ly6g</td>
+<td style="text-align: right;">3.458641</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Cst7</td>
+<td style="text-align: right;">6.294296</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Ccl3</td>
+<td style="text-align: right;">5.886143</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Clec7a</td>
+<td style="text-align: right;">5.537485</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Itgax</td>
+<td style="text-align: right;">5.508407</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Ch25h</td>
+<td style="text-align: right;">5.335476</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Lyz2</td>
+<td style="text-align: right;">5.209465</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Bcl2a1b</td>
+<td style="text-align: right;">5.040502</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Ccl4</td>
+<td style="text-align: right;">4.974942</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Cd14</td>
+<td style="text-align: right;">4.920234</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Trem2</td>
+<td style="text-align: right;">4.766109</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Tagln</td>
+<td style="text-align: right;">7.866583</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Slc47a1</td>
+<td style="text-align: right;">6.879890</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Mrc1</td>
+<td style="text-align: right;">6.548159</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Lum</td>
+<td style="text-align: right;">6.476652</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Col1a2</td>
+<td style="text-align: right;">5.689128</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Mgp</td>
+<td style="text-align: right;">5.645771</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Pf4</td>
+<td style="text-align: right;">5.599600</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Serping1</td>
+<td style="text-align: right;">5.162597</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Serpinf1</td>
+<td style="text-align: right;">4.977588</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Osr1</td>
+<td style="text-align: right;">4.715556</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Cldn11</td>
+<td style="text-align: right;">3.264506</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Ermn</td>
+<td style="text-align: right;">3.210113</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Apod</td>
+<td style="text-align: right;">3.159877</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Mog</td>
+<td style="text-align: right;">3.145752</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Aspa</td>
+<td style="text-align: right;">2.663472</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Plin4</td>
+<td style="text-align: right;">2.635924</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Gatm</td>
+<td style="text-align: right;">2.279831</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Pllp</td>
+<td style="text-align: right;">2.174536</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Mag</td>
+<td style="text-align: right;">2.024294</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Ptgds</td>
+<td style="text-align: right;">1.958579</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Agt</td>
+<td style="text-align: right;">4.895230</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Slc7a10</td>
+<td style="text-align: right;">3.656060</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Gja1</td>
+<td style="text-align: right;">2.875742</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Aqp4</td>
+<td style="text-align: right;">2.605584</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Pla2g7</td>
+<td style="text-align: right;">2.543120</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Cbs</td>
+<td style="text-align: right;">2.486927</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Atp1b2</td>
+<td style="text-align: right;">2.478081</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Plpp3</td>
+<td style="text-align: right;">2.267359</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Prodh</td>
+<td style="text-align: right;">2.214877</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Htra1</td>
+<td style="text-align: right;">2.211149</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Lamp5</td>
+<td style="text-align: right;">3.628486</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Pparg</td>
+<td style="text-align: right;">3.002498</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Stard8</td>
+<td style="text-align: right;">2.828778</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Otof</td>
+<td style="text-align: right;">2.746034</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Calb1</td>
+<td style="text-align: right;">2.678198</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Cux2</td>
+<td style="text-align: right;">2.458744</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Junb</td>
+<td style="text-align: right;">2.272286</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Fosb</td>
+<td style="text-align: right;">2.095351</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Chst1</td>
+<td style="text-align: right;">1.922689</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Grin2b</td>
+<td style="text-align: right;">1.894898</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Slc17a6</td>
+<td style="text-align: right;">4.057897</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Plcb4</td>
+<td style="text-align: right;">3.419809</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Calb2</td>
+<td style="text-align: right;">2.924221</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Tunar</td>
+<td style="text-align: right;">2.805995</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Rorb</td>
+<td style="text-align: right;">1.771950</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Abca7</td>
+<td style="text-align: right;">1.724584</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Calb1</td>
+<td style="text-align: right;">1.678332</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Ldhb</td>
+<td style="text-align: right;">1.659120</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Sptlc2</td>
+<td style="text-align: right;">1.447793</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Got1</td>
+<td style="text-align: right;">1.422983</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Tmem119</td>
+<td style="text-align: right;">5.343667</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">P2ry12</td>
+<td style="text-align: right;">5.122628</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Selplg</td>
+<td style="text-align: right;">4.554287</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Siglech</td>
+<td style="text-align: right;">4.495364</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Il1a</td>
+<td style="text-align: right;">4.473793</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Cx3cr1</td>
+<td style="text-align: right;">4.425762</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Gpr34</td>
+<td style="text-align: right;">4.251951</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Lpcat2</td>
+<td style="text-align: right;">4.044562</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Ptgs1</td>
+<td style="text-align: right;">3.937498</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Nlrp3</td>
+<td style="text-align: right;">3.873500</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Lypd1</td>
+<td style="text-align: right;">4.607766</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Slc17a7</td>
+<td style="text-align: right;">2.224886</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Reln</td>
+<td style="text-align: right;">2.110255</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Trh</td>
+<td style="text-align: right;">1.989860</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Plpp4</td>
+<td style="text-align: right;">1.898891</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Otof</td>
+<td style="text-align: right;">1.866226</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Grin2b</td>
+<td style="text-align: right;">1.681540</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Jun</td>
+<td style="text-align: right;">1.650732</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Dgat2</td>
+<td style="text-align: right;">1.647093</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Hmgcr</td>
+<td style="text-align: right;">1.646792</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Lhx6</td>
+<td style="text-align: right;">5.569119</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Sst</td>
+<td style="text-align: right;">5.040512</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Reln</td>
+<td style="text-align: right;">3.865969</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Gad1</td>
+<td style="text-align: right;">3.762152</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Ndnf</td>
+<td style="text-align: right;">3.512782</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Pthlh</td>
+<td style="text-align: right;">2.941915</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Pvalb</td>
+<td style="text-align: right;">2.918572</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Cnr1</td>
+<td style="text-align: right;">2.628885</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Tcap</td>
+<td style="text-align: right;">2.107731</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Wif1</td>
+<td style="text-align: right;">2.050599</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Pdgfra</td>
+<td style="text-align: right;">6.393120</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Tnr</td>
+<td style="text-align: right;">3.915794</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Plpp4</td>
+<td style="text-align: right;">3.460030</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Gpt2</td>
+<td style="text-align: right;">2.395183</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Chst11</td>
+<td style="text-align: right;">2.274471</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Dpyd</td>
+<td style="text-align: right;">2.150614</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Pllp</td>
+<td style="text-align: right;">1.953054</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Mki67</td>
+<td style="text-align: right;">1.813537</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Gpnmb</td>
+<td style="text-align: right;">1.717263</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Arsb</td>
+<td style="text-align: right;">1.656099</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Pou3f1</td>
+<td style="text-align: right;">4.095258</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Grin2a</td>
+<td style="text-align: right;">3.557412</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Chst1</td>
+<td style="text-align: right;">2.698441</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Grin2b</td>
+<td style="text-align: right;">2.674761</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Opcml</td>
+<td style="text-align: right;">2.629697</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Slc17a7</td>
+<td style="text-align: right;">2.181896</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Lpl</td>
+<td style="text-align: right;">2.057908</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Pfkl</td>
+<td style="text-align: right;">1.926660</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Sorl1</td>
+<td style="text-align: right;">1.868101</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Hmgcr</td>
+<td style="text-align: right;">1.856103</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Ido1</td>
+<td style="text-align: right;">4.528115</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Otof</td>
+<td style="text-align: right;">4.177056</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Tac1</td>
+<td style="text-align: right;">4.036024</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Adcy5</td>
+<td style="text-align: right;">3.161787</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Cd36</td>
+<td style="text-align: right;">3.096237</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Nts</td>
+<td style="text-align: right;">2.532909</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Pax6</td>
+<td style="text-align: right;">2.526889</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Gad1</td>
+<td style="text-align: right;">2.110871</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Csgalnact1</td>
+<td style="text-align: right;">1.980500</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Fosb</td>
+<td style="text-align: right;">1.870945</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Rspo1</td>
+<td style="text-align: right;">4.439169</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Tcap</td>
+<td style="text-align: right;">4.281740</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Egr1</td>
+<td style="text-align: right;">3.581794</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Rorb</td>
+<td style="text-align: right;">3.273550</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Whrn</td>
+<td style="text-align: right;">3.236141</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Hkdc1</td>
+<td style="text-align: right;">3.079177</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Pparg</td>
+<td style="text-align: right;">3.074968</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Fos</td>
+<td style="text-align: right;">2.526234</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Junb</td>
+<td style="text-align: right;">2.216539</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">Cux2</td>
+<td style="text-align: right;">2.118268</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Kcnj8</td>
+<td style="text-align: right;">7.825522</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Atp13a5</td>
+<td style="text-align: right;">7.330312</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Vtn</td>
+<td style="text-align: right;">6.393927</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Bgn</td>
+<td style="text-align: right;">3.117563</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Ifitm1</td>
+<td style="text-align: right;">3.046060</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Stard8</td>
+<td style="text-align: right;">2.769252</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Mgp</td>
+<td style="text-align: right;">2.435576</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Axl</td>
+<td style="text-align: right;">2.350232</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Emcn</td>
+<td style="text-align: right;">2.012081</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Ifitm2</td>
+<td style="text-align: right;">1.887409</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Ccdc153</td>
+<td style="text-align: right;">9.037450</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Tmem212</td>
+<td style="text-align: right;">8.943926</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Dnah11</td>
+<td style="text-align: right;">7.123872</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Plin5</td>
+<td style="text-align: right;">5.453552</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Lgals3</td>
+<td style="text-align: right;">4.671004</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">C3</td>
+<td style="text-align: right;">4.443382</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Vim</td>
+<td style="text-align: right;">3.780780</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Ttr</td>
+<td style="text-align: right;">3.531651</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Sncg</td>
+<td style="text-align: right;">3.509755</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Ifitm3</td>
+<td style="text-align: right;">3.165316</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Aspa</td>
+<td style="text-align: right;">1.754582</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Mag</td>
+<td style="text-align: right;">1.723503</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Mog</td>
+<td style="text-align: right;">1.688761</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Gatm</td>
+<td style="text-align: right;">1.574825</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Pllp</td>
+<td style="text-align: right;">1.568383</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Cldn11</td>
+<td style="text-align: right;">1.472485</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Ermn</td>
+<td style="text-align: right;">1.454188</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Plin4</td>
+<td style="text-align: right;">1.433104</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">B3galt5</td>
+<td style="text-align: right;">1.277251</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Aldh3b1</td>
+<td style="text-align: right;">1.274161</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Car12</td>
+<td style="text-align: right;">7.746614</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Ltc4s</td>
+<td style="text-align: right;">5.563204</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Adh1</td>
+<td style="text-align: right;">4.826342</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Tgfbi</td>
+<td style="text-align: right;">4.713876</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">H2-Eb1</td>
+<td style="text-align: right;">4.034490</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Htr2c</td>
+<td style="text-align: right;">3.972629</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Ttr</td>
+<td style="text-align: right;">3.902700</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Dnah11</td>
+<td style="text-align: right;">3.582441</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">H2-Ab1</td>
+<td style="text-align: right;">3.458848</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Bgn</td>
+<td style="text-align: right;">3.266893</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Tshz2</td>
+<td style="text-align: right;">4.204698</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Dpp4</td>
+<td style="text-align: right;">3.127221</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Rspo1</td>
+<td style="text-align: right;">2.739510</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Pparg</td>
+<td style="text-align: right;">2.476746</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Htr2c</td>
+<td style="text-align: right;">2.439292</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Lamp5</td>
+<td style="text-align: right;">2.271230</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Aldob</td>
+<td style="text-align: right;">1.955407</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Fut9</td>
+<td style="text-align: right;">1.872754</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">H2az1</td>
+<td style="text-align: right;">1.762672</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Dcx</td>
+<td style="text-align: right;">1.688074</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Vip</td>
+<td style="text-align: right;">9.931137</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Crh</td>
+<td style="text-align: right;">6.988618</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Pthlh</td>
+<td style="text-align: right;">5.137790</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Cnr1</td>
+<td style="text-align: right;">4.155911</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Gad1</td>
+<td style="text-align: right;">3.142107</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Plpp4</td>
+<td style="text-align: right;">2.770119</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Calb2</td>
+<td style="text-align: right;">2.547786</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Tph2</td>
+<td style="text-align: right;">2.176676</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Macc1</td>
+<td style="text-align: right;">2.125820</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Maf</td>
+<td style="text-align: right;">1.970626</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Wif1</td>
+<td style="text-align: right;">6.078396</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Syt6</td>
+<td style="text-align: right;">5.127498</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Calb2</td>
+<td style="text-align: right;">4.339780</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Sncg</td>
+<td style="text-align: right;">4.194684</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Tac1</td>
+<td style="text-align: right;">2.655219</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Gys2</td>
+<td style="text-align: right;">2.610398</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Plpp4</td>
+<td style="text-align: right;">1.969446</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Slc17a6</td>
+<td style="text-align: right;">1.951280</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">St6galnac4</td>
+<td style="text-align: right;">1.870497</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Acly</td>
+<td style="text-align: right;">1.727315</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">Trh</td>
+<td style="text-align: right;">6.660544</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">Pvalb</td>
+<td style="text-align: right;">5.644235</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">Gad1</td>
+<td style="text-align: right;">4.360512</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">Spp1</td>
+<td style="text-align: right;">3.065417</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">Sst</td>
+<td style="text-align: right;">2.682222</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">Whrn</td>
+<td style="text-align: right;">2.517940</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">Slc32a1</td>
+<td style="text-align: right;">2.471827</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">Gpx1</td>
+<td style="text-align: right;">2.371884</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">Oprk1</td>
+<td style="text-align: right;">2.215167</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">Serpinf1</td>
+<td style="text-align: right;">2.109060</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">Ccl5</td>
+<td style="text-align: right;">7.882194</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">Cd3d</td>
+<td style="text-align: right;">7.605699</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">Itk</td>
+<td style="text-align: right;">6.494796</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">Nkg7</td>
+<td style="text-align: right;">6.292156</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">Ms4a4b</td>
+<td style="text-align: right;">5.994058</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">Gzmb</td>
+<td style="text-align: right;">4.959577</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">Klrb1c</td>
+<td style="text-align: right;">4.845150</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">Tnf</td>
+<td style="text-align: right;">4.698933</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">Cd247</td>
+<td style="text-align: right;">4.586876</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">Cxcl10</td>
+<td style="text-align: right;">4.178977</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell page-columns page-full">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Top 5 markers per cluster at resolution 0.7 feed fiddle().</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>top_5_genes_07 <span class="ot">&lt;-</span> spanorm_markers_07 <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(gene) <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">fiddle</span>(xen,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">genes_of_interest =</span> top_5_genes_07,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">classification_col =</span> <span class="st">"clusters_res07"</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">assay =</span> <span class="st">"SpaNorm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="20260516_SpaNorm_samplep025_clean_files/figure-html/markers-violin-07-1.png" class="img-fluid figure-img column-page" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="cluster-composition-resolution-0.7" class="level4">
+<h4 class="anchored" data-anchor-id="cluster-composition-resolution-0.7">Cluster composition (resolution 0.7)</h4>
+<p>Cell-type calls per cluster, read off the top-10 FindAllMarkers entries above; ordered by lineage. The right-most column carries the matched cluster id at resolution 0.5 for cross-reference.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Lineage</th>
+<th>Cluster</th>
+<th>Cell type</th>
+<th>Top markers</th>
+<th>↔︎ res 0.5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Oligodendrocyte</td>
+<td>0</td>
+<td>Mature OL, high-FC</td>
+<td>Mag / Aspa / Gatm / Mog / Ermn / Cldn11</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Oligodendrocyte</td>
+<td>7</td>
+<td>Mature OL, lower-FC twin (Slide1-restricted)</td>
+<td>Cldn11 / Ermn / Apod / Mog / Aspa / Plin4</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td>Oligodendrocyte</td>
+<td>20</td>
+<td>Third OL state, low-FC (NEW at 0.7)</td>
+<td>Aspa / Mag / Mog / Gatm / Pllp / Cldn11 (FCs 1.5-1.8)</td>
+<td>(merged into 9 at 0.5)</td>
+</tr>
+<tr class="even">
+<td>Oligodendrocyte</td>
+<td>14</td>
+<td>OPCs</td>
+<td>Pdgfra / Tnr / Plpp4 / Gpt2 / Chst11</td>
+<td>12</td>
+</tr>
+<tr class="odd">
+<td>Astrocyte</td>
+<td>2</td>
+<td>Gray-matter Aqp4+/Gja1+</td>
+<td>Plpp3 / Htra1 / Gja1 / Prodh / Aqp4 / Slc7a10</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>Astrocyte</td>
+<td>8</td>
+<td>Agt+ subtype</td>
+<td>Agt / Slc7a10 / Gja1 / Aqp4 / Pla2g7</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>Microglia</td>
+<td>5</td>
+<td><strong>DAM microglia (NEW at 0.7)</strong></td>
+<td>Cst7 / Ccl3 / Clec7a / Itgax / Ch25h / Lyz2 / Trem2</td>
+<td>(merged with 11 into 2 at 0.5)</td>
+</tr>
+<tr class="even">
+<td>Microglia</td>
+<td>11</td>
+<td><strong>Homeostatic microglia (NEW at 0.7)</strong></td>
+<td>Tmem119 / P2ry12 / Selplg / Siglech / Il1a / Cx3cr1</td>
+<td>(merged with 5 into 2 at 0.5)</td>
+</tr>
+<tr class="odd">
+<td>Vascular</td>
+<td>4</td>
+<td>Endothelial cells (BBB)</td>
+<td>Cldn5 / Cxcl12 / Flt1 / Emcn / Clec2d / Klf4</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Vascular</td>
+<td>6</td>
+<td>VLMC + perivascular macrophages</td>
+<td>Tagln / Slc47a1 / Mrc1 / Lum / Col1a2 / Mgp</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td>Vascular</td>
+<td>18</td>
+<td>Pericytes / mural</td>
+<td>Kcnj8 / Atp13a5 / Vtn / Bgn</td>
+<td>15</td>
+</tr>
+<tr class="even">
+<td>Ventricular</td>
+<td>19</td>
+<td>Ependymal</td>
+<td>Ccdc153 / Tmem212 / Dnah11</td>
+<td>17</td>
+</tr>
+<tr class="odd">
+<td>Ventricular</td>
+<td>21</td>
+<td>Choroid plexus + MHC-II</td>
+<td>Car12 / Ltc4s / Adh1 / Tgfbi / H2-Eb1</td>
+<td>18</td>
+</tr>
+<tr class="even">
+<td>Excitatory</td>
+<td>1</td>
+<td>Deep-layer Fezf2+</td>
+<td>Fezf2 / Syt6 / Slc17a7 / Oprk1 / Egr1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Excitatory</td>
+<td>3</td>
+<td>Calb2+/Nts+/Tac1+ mixed</td>
+<td>Gck / Nts / Calb2 / Tac1 / Slc17a6</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>Excitatory</td>
+<td>9</td>
+<td>Cux2+/Lamp5+ upper-layer</td>
+<td>Lamp5 / Pparg / Stard8 / Otof / Calb1 / Cux2</td>
+<td>6 (partial)</td>
+</tr>
+<tr class="odd">
+<td>Excitatory</td>
+<td>17</td>
+<td>Rspo1+/Tcap+/IEG-rich</td>
+<td>Rspo1 / Tcap / Egr1 / Rorb / Whrn</td>
+<td>6 (partial)</td>
+</tr>
+<tr class="even">
+<td>Excitatory</td>
+<td>10</td>
+<td>Vglut2+/Rorb+ thalamic relay</td>
+<td>Slc17a6 / Plcb4 / Calb2 / Rorb</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>Excitatory</td>
+<td>22</td>
+<td>Tshz2+ deep / hippocampal</td>
+<td>Tshz2 / Dpp4 / Rspo1 / Pparg / Htr2c</td>
+<td>19</td>
+</tr>
+<tr class="even">
+<td>Excitatory</td>
+<td>24</td>
+<td>Wif1+/Syt6+</td>
+<td>Wif1 / Syt6 / Calb2 / Sncg / Tac1</td>
+<td>21</td>
+</tr>
+<tr class="odd">
+<td>Excitatory</td>
+<td>15</td>
+<td>Pou3f1+ stressed neurons</td>
+<td>Pou3f1 / Grin2a / Chst1 / Grin2b / Opcml</td>
+<td>13</td>
+</tr>
+<tr class="even">
+<td>GABAergic</td>
+<td>13</td>
+<td>Sst+/Lhx6+ MGE-derived</td>
+<td>Lhx6 / Sst / Reln / Gad1 / Ndnf</td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td>GABAergic</td>
+<td>16</td>
+<td>Striatal-flavored Tac1+/Adcy5+</td>
+<td>Ido1 / Otof / Tac1 / Adcy5 / Cd36</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td>GABAergic</td>
+<td>23</td>
+<td>Vip+/Crh+ CGE-derived</td>
+<td>Vip / Crh / Pthlh / Cnr1 / Gad1</td>
+<td>20</td>
+</tr>
+<tr class="odd">
+<td>GABAergic</td>
+<td>25</td>
+<td>Pvalb+/Trh+</td>
+<td>Trh / Pvalb / Gad1 / Spp1</td>
+<td>22</td>
+</tr>
+<tr class="even">
+<td>Small / atypical</td>
+<td>12</td>
+<td>Lypd1+/Slc17a7+ neuron-like</td>
+<td>Lypd1 / Slc17a7 / Reln / Trh / Plpp4</td>
+<td>16</td>
+</tr>
+<tr class="odd">
+<td>Immune</td>
+<td>26</td>
+<td>T cells / cytotoxic lymphocytes</td>
+<td>Ccl5 / Cd3d / Itk / Nkg7 / Ms4a4b / Gzmb</td>
+<td>24</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>Salim A et al.&nbsp;“SpaNorm: spatially-aware normalization for spatial transcriptomics data.” Genome Biology, 2025. DOI: 10.1186/s13059-025-03565-y.</li>
+<li>SpaNorm vignette: https://bhuvad.github.io/SpaNorm/articles/SpaNorm.html.</li>
+<li>Allen Brain Atlas, mouse: https://mouse.brain-map.org.</li>
+<li>Parent notebook: <code>20260513_SpaNorm_samplep025.qmd</code>.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

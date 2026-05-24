@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-05-24">
+
+<title>Microglia pseudobulk DE: control (E4) vs switched (E2) – Microglia APOE Switch</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Microglia APOE Switch</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./20260512_QC.html"> 
+<span class="menu-text">QC</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-normalization" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Normalization</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-normalization">    
+        <li>
+    <a class="dropdown-item" href="./20260512_SCT_no_regression.html">
+ <span class="dropdown-text">SCT (no regression)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./20260512_SCT_regressed_by_slide.html">
+ <span class="dropdown-text">SCT (regressed by slide)</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./20260512_SpaNorm_sample005.html">
+ <span class="dropdown-text">SpaNorm (sample.p 0.05)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./20260513_SpaNorm_samplep025.html">
+ <span class="dropdown-text">SpaNorm (sample.p 0.25, default)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./20260516_SpaNorm_samplep025_clean.html">
+ <span class="dropdown-text">SpaNorm clean (default scaffold)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-microglia" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Microglia</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-microglia">    
+        <li>
+    <a class="dropdown-item" href="./20260517_microglia_subcluster.html">
+ <span class="dropdown-text">Sub-cluster</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./20260518_microglia_pseudobulk_DE.html">
+ <span class="dropdown-text">Pseudobulk DE</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./20260518_microglia_APOE_per_cell_call.html">
+ <span class="dropdown-text">APOE switch call</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#pseudobulk-de-on-the-full-microglia-object" id="toc-pseudobulk-de-on-the-full-microglia-object" class="nav-link active" data-scroll-target="#pseudobulk-de-on-the-full-microglia-object">Pseudobulk DE on the full microglia object</a></li>
+  <li><a href="#pseudobulk-de-per-microglia-state" id="toc-pseudobulk-de-per-microglia-state" class="nav-link" data-scroll-target="#pseudobulk-de-per-microglia-state">Pseudobulk DE per microglia state</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#caveats" id="toc-caveats" class="nav-link" data-scroll-target="#caveats">Caveats</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Microglia pseudobulk DE: control (E4) vs switched (E2)</h1>
+<p class="subtitle lead">On the microglia sub-cluster object at Louvain 0.5</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 24, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Differential expression on the microglia sub-cluster build (<code>data/20260517_microglia_subcluster.qs2</code>, Louvain 0.5, 11 sub-clusters) to compare the E4 control microglia (genotype label <code>4s2</code>, <code>condition = "control"</code>) against the E2 switched microglia (genotype label <code>4s2M</code>, <code>condition = "switched"</code>).</p>
+<p>Pseudobulk per sample (7 sections: three 4s2 control sections, four 4s2M switched sections). Pseudobulk aggregation collapses each sub-cluster’s cells per sample into a single sample-level count vector before DESeq2. The unit of replication becomes the biological sample (n = 3 control, n = 4 switched).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seurat v5 holds the microglia sub-cluster object with the raw Xenium counts assay we aggregate from.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># qs2 reads the multi-GB checkpoint roughly 10x faster than saveRDS.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qs2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># presto gives a faster FindMarkers backend for the non-DESeq2 paths anayet can take.</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># DESeq2 itself is invoked by FindMarkers(test.use = "DESeq2").</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># EnhancedVolcano renders the volcano plot inside anayet().</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(EnhancedVolcano)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># patchwork + gridExtra combine the volcano with the significant-DEG table side by side.</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Source the shared helper functions; anayet() wraps FindMarkers + EnhancedVolcano for the pseudobulk DE.</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/20260514-helper_functions.R"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Seed any stochastic step so the results are reproducible across renders.</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Reload the microglia sub-cluster checkpoint built by 20260517_microglia_subcluster.qmd.</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>mg <span class="ot">&lt;-</span> <span class="fu">qs_read</span>(<span class="st">"data/20260517_microglia_subcluster.qs2"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># AggregateExpression pulls from the DefaultAssay's counts layer; we want the raw Xenium counts,</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># not the SpaNorm log-residuals that are the analysis-default assay on this object.</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">DefaultAssay</span>(mg) <span class="ot">&lt;-</span> <span class="st">"Xenium"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="pseudobulk-de-on-the-full-microglia-object" class="level2">
+<h2 class="anchored" data-anchor-id="pseudobulk-de-on-the-full-microglia-object">Pseudobulk DE on the full microglia object</h2>
+<blockquote class="blockquote">
+<p>Merge every bona fide microglia sub-cluster (0, 2, 4, 6, 10) and the likely-contaminated clusters (1, 3, 5, 7, 8, 9) into a single sample-level pseudobulk contrast.</p>
+</blockquote>
+<p>Positive log2FC means up in the E2-switched arm.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pool the five bona fide microglia clusters; drop the contamination clusters so the per-sample pseudobulks</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># are not contaminated by neuronal / astrocyte / OL / vascular transcripts segmented into microglia masks.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># mg_pool &lt;- subset(mg, clusters_res05 %in% c("0", "2", "4", "6", "10"))</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Uses the full microglia object</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>mg_pool <span class="ot">&lt;-</span> mg</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate raw Xenium counts per sample; the resulting Seurat object has one column per biological sample.</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>bulk_pool <span class="ot">&lt;-</span> <span class="fu">AggregateExpression</span>(mg_pool,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">assays        =</span> <span class="st">"Xenium"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">group.by      =</span> <span class="st">"sample_id"</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">return.seurat =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># AggregateExpression rewrites sample IDs ("4s2_F1" -&gt; "g4s2-F1"); rebuild the lookup so condition attaches.</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>sample_meta_pool <span class="ot">&lt;-</span> mg_pool<span class="sc">@</span>meta.data <span class="sc">|&gt;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(sample_id, condition) <span class="sc">|&gt;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bulk_id =</span> <span class="fu">paste0</span>(<span class="st">"g"</span>, <span class="fu">gsub</span>(<span class="st">"_"</span>, <span class="st">"-"</span>, sample_id)))</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>bulk_pool<span class="sc">$</span>condition <span class="ot">&lt;-</span> sample_meta_pool<span class="sc">$</span>condition[<span class="fu">match</span>(<span class="fu">colnames</span>(bulk_pool), sample_meta_pool<span class="sc">$</span>bulk_id)]</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="sc">!</span><span class="fu">any</span>(<span class="fu">is.na</span>(bulk_pool<span class="sc">$</span>condition)))</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">Idents</span>(bulk_pool) <span class="ot">&lt;-</span> <span class="st">"condition"</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Run DESeq2 through anayet() with the same thresholds as the per-state loop, for like-for-like comparison.</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>res_pool <span class="ot">&lt;-</span> <span class="fu">anayet</span>(bulk_pool,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ident1          =</span> <span class="st">"switched"</span>,</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ident2          =</span> <span class="st">"control"</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>                   <span class="at">test_method     =</span> <span class="st">"DESeq2"</span>,</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>                   <span class="at">p_adj_threshold =</span> <span class="fl">0.1</span>,</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>                   <span class="at">min_pct         =</span> <span class="fl">0.3</span>,</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                   <span class="at">plot_title      =</span> <span class="st">"Pseudobulk DE (full microglia pool)"</span>,</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                   <span class="at">print_plot      =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Always label the 5 lowest-p genes (blue) plus any FDR &lt; 0.1 hits (red), mirroring the per-state plots so</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co"># the volcano stays readable even when no gene clears FDR.</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>top5_p_pool    <span class="ot">&lt;-</span> res_pool<span class="sc">$</span>all_results <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"gene"</span>) <span class="sc">|&gt;</span> <span class="fu">slice_min</span>(p_val, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(gene)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>sig_genes_pool <span class="ot">&lt;-</span> <span class="fu">rownames</span>(res_pool<span class="sc">$</span>significant_results)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>lab_genes_pool <span class="ot">&lt;-</span> <span class="fu">union</span>(sig_genes_pool, top5_p_pool)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>keyvals_pool <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">"grey60"</span>, <span class="fu">nrow</span>(res_pool<span class="sc">$</span>all_results))</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(keyvals_pool) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(res_pool<span class="sc">$</span>all_results)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>keyvals_pool[top5_p_pool]    <span class="ot">&lt;-</span> <span class="st">"royalblue"</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>keyvals_pool[sig_genes_pool] <span class="ot">&lt;-</span> <span class="st">"red2"</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>fc_range_pool <span class="ot">&lt;-</span> <span class="fu">range</span>(res_pool<span class="sc">$</span>all_results<span class="sc">$</span>avg_log2FC, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>y_max_pool    <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="sc">-</span><span class="fu">log10</span>(res_pool<span class="sc">$</span>all_results<span class="sc">$</span>p_val), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>res_pool<span class="sc">$</span>volcano_plot <span class="ot">&lt;-</span> <span class="fu">EnhancedVolcano</span>(res_pool<span class="sc">$</span>all_results,</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">lab            =</span> <span class="fu">rownames</span>(res_pool<span class="sc">$</span>all_results),</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">selectLab      =</span> lab_genes_pool,</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">x              =</span> <span class="st">"avg_log2FC"</span>,</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">y              =</span> <span class="st">"p_val"</span>,</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">title          =</span> <span class="st">"Pseudobulk DE (full microglia)"</span>,</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">subtitle       =</span> <span class="st">"switched (E2) vs. control (E4)"</span>,</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">caption        =</span> <span class="st">"BLUE: 5 lowest-p genes (FDR&gt;0.1)</span><span class="sc">\n</span><span class="st">RED: FDR &lt; 0.1, min_pct = 0.3"</span>,</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">labFace        =</span> <span class="st">"italic"</span>,</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">pCutoff        =</span> <span class="dv">1</span>,</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">FCcutoff       =</span> <span class="fl">0.001</span>,</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">colCustom      =</span> keyvals_pool,</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">legendPosition =</span> <span class="st">"none"</span>,</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">drawConnectors =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">directionConnectors =</span> <span class="st">"both"</span>,</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">max.overlaps   =</span> <span class="cn">Inf</span>,</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">xlim           =</span> <span class="fu">c</span>(<span class="fu">floor</span>(fc_range_pool[<span class="dv">1</span>]), <span class="fu">ceiling</span>(fc_range_pool[<span class="dv">2</span>])),</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">ylim           =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(<span class="fu">ceiling</span>(y_max_pool <span class="sc">*</span> <span class="fl">1.05</span>), <span class="dv">1</span>)))</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="co"># Fall back to the 5 lowest-p genes when no gene clears FDR &lt; 0.1, so the side table is never empty.</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(res_pool<span class="sc">$</span>significant_results) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>  table_pool <span class="ot">&lt;-</span> res_pool<span class="sc">$</span>significant_results <span class="sc">|&gt;</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"gene"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(gene, p_val, avg_log2FC, p_val_adj) <span class="sc">|&gt;</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(p_val_adj)</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>  table_pool <span class="ot">&lt;-</span> res_pool<span class="sc">$</span>all_results <span class="sc">|&gt;</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"gene"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_min</span>(p_val, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(gene, p_val, avg_log2FC, p_val_adj) <span class="sc">|&gt;</span></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>)))</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>table_grob_pool <span class="ot">&lt;-</span> <span class="fu">tableGrob</span>(table_pool, <span class="at">theme =</span> <span class="fu">ttheme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>), <span class="at">rows =</span> <span class="cn">NULL</span>)</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="co"># 3:4 width ratio matches the per-state combined panels.</span></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>res_pool<span class="sc">$</span>volcano_plot <span class="sc">+</span> <span class="fu">wrap_elements</span>(table_grob_pool) <span class="sc">+</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="20260518_microglia_pseudobulk_DE_files/figure-html/pseudobulk-full-microglia-1.png" class="img-fluid figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>No gene clears FDR &lt; 0.1 on the full microglia object.<br>
+The five lowest-p genes split into two readings. The expected biology comes from <code>Ccl5</code> (+0.91, p = 4.3e-3), <code>Ifit1</code> (+0.76, p = 1.0e-2), and <code>Cxcl10</code> (+0.88, p = 1.9e-2). All three carry positive log2FC and all three are Type-I IFN / inflammatory chemokines.</p>
+<p>The other two top hits are likely segmentation contamination. <code>Plcb4</code> (-0.56, p = 1.3e-2) is a phospholipase C beta isoform expressed in cerebellar Purkinje cells and cortical projection neurons, not in microglia. <code>Tunar</code> (-0.40, p = 1.7e-2) is a long non-coding RNA enriched in neuronal lineages and absent from canonical microglia signatures.</p>
+</section>
+<section id="pseudobulk-de-per-microglia-state" class="level2">
+<h2 class="anchored" data-anchor-id="pseudobulk-de-per-microglia-state">Pseudobulk DE per microglia state</h2>
+<p><strong>Subclusters considered</strong>:</p>
+<ul>
+<li>Cluster 0: DAM Stage-1, Trem2-dependent core (Lyz2 / Ccl3 / Ccl4 / Cst7 / Clec7a / Ctsb / Lpl). 6,919 cells.</li>
+<li>Cluster 4: DAM Stage-2, antigen-presenting late-stage (Spp1 / Apoc4 / Gpnmb / H2-Eb1 / Lgals3 / H2-Ab1 / Cd74 / Itgax). 2,962 cells. <strong>Carries the custom APOE rs429358-WT-228 probe (E2 allele, T at codon 112) in its top-10.</strong></li>
+<li>Cluster 2: Canonical homeostatic microglia (Tmem119 / P2ry12 / Maf / Ltc4s / Pnp / Htra1 / Selplg). 5,123 cells.</li>
+<li>Cluster 6: Low-FC homeostatic boundary / CP-adjacent subset (Tmem119 / Cd68 / Ptgs1 / Gpr34 / P2ry12 / Mertk). 2,082 cells. <strong>Carries the custom APOE rs7412-ALT-226:T probe (E2 allele) in its top-10.</strong></li>
+<li>Cluster 10: IRM + proliferating microglia (Cxcl10 / Mki67 / Ccl2 / Ccl12 / Ifit1 / Ifit2 / Ifitm3 / Plac8). only 399 cells.</li>
+</ul>
+<p><em>The other six likely contaminated clusters (1 inhib + glut neuron, 3 cortical exc neuron, 5 reactive astrocyte, 7 vascular, 8 oligodendrocyte, 9 multi-lineage doublet pool) are excluded from this DE.</em></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pseudobulk replicates per condition per state; n must be &gt;= 2 per group for DESeq2 to run at all.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Qualify count() because DESeq2 pulls in matrixStats, which masks dplyr::count.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>mg<span class="sc">@</span>meta.data <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(clusters_res05 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"2"</span>, <span class="st">"4"</span>, <span class="st">"6"</span>, <span class="st">"10"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    clusters_res05 <span class="sc">==</span> <span class="st">"0"</span>   <span class="sc">~</span> <span class="st">"DAM Stage-1 (cluster 0)"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    clusters_res05 <span class="sc">==</span> <span class="st">"4"</span>   <span class="sc">~</span> <span class="st">"DAM Stage-2 (cluster 4)"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    clusters_res05 <span class="sc">==</span> <span class="st">"2"</span>   <span class="sc">~</span> <span class="st">"Homeostatic canonical (cluster 2)"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    clusters_res05 <span class="sc">==</span> <span class="st">"6"</span>   <span class="sc">~</span> <span class="st">"Homeostatic low-FC (cluster 6)"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    clusters_res05 <span class="sc">==</span> <span class="st">"10"</span>  <span class="sc">~</span> <span class="st">"IRM + proliferating (cluster 10)"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(state, sample_id, condition) <span class="sc">|&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> condition, <span class="at">values_from =</span> n, <span class="at">values_fill =</span> <span class="dv">0</span>L) <span class="sc">|&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(state, sample_id) <span class="sc">|&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">|&gt;</span> <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="st">"striped"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">height =</span> <span class="st">"500px"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; ">
+<table class="table table-striped caption-top table-sm small">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">state</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">sample_id</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">switched</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">control</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DAM Stage-1 (cluster 0)</td>
+<td style="text-align: left;">4s2M_F1</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DAM Stage-1 (cluster 0)</td>
+<td style="text-align: left;">4s2M_F2</td>
+<td style="text-align: right;">633</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DAM Stage-1 (cluster 0)</td>
+<td style="text-align: left;">4s2M_F3</td>
+<td style="text-align: right;">2208</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DAM Stage-1 (cluster 0)</td>
+<td style="text-align: left;">4s2M_F4</td>
+<td style="text-align: right;">1112</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DAM Stage-1 (cluster 0)</td>
+<td style="text-align: left;">4s2_F1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">223</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DAM Stage-1 (cluster 0)</td>
+<td style="text-align: left;">4s2_F2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1316</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DAM Stage-1 (cluster 0)</td>
+<td style="text-align: left;">4s2_F3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1337</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DAM Stage-2 (cluster 4)</td>
+<td style="text-align: left;">4s2M_F1</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DAM Stage-2 (cluster 4)</td>
+<td style="text-align: left;">4s2M_F2</td>
+<td style="text-align: right;">238</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DAM Stage-2 (cluster 4)</td>
+<td style="text-align: left;">4s2M_F3</td>
+<td style="text-align: right;">595</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DAM Stage-2 (cluster 4)</td>
+<td style="text-align: left;">4s2M_F4</td>
+<td style="text-align: right;">663</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DAM Stage-2 (cluster 4)</td>
+<td style="text-align: left;">4s2_F1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">35</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DAM Stage-2 (cluster 4)</td>
+<td style="text-align: left;">4s2_F2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">749</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DAM Stage-2 (cluster 4)</td>
+<td style="text-align: left;">4s2_F3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">665</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Homeostatic canonical (cluster 2)</td>
+<td style="text-align: left;">4s2M_F1</td>
+<td style="text-align: right;">521</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Homeostatic canonical (cluster 2)</td>
+<td style="text-align: left;">4s2M_F2</td>
+<td style="text-align: right;">317</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Homeostatic canonical (cluster 2)</td>
+<td style="text-align: left;">4s2M_F3</td>
+<td style="text-align: right;">1118</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Homeostatic canonical (cluster 2)</td>
+<td style="text-align: left;">4s2M_F4</td>
+<td style="text-align: right;">911</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Homeostatic canonical (cluster 2)</td>
+<td style="text-align: left;">4s2_F1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">372</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Homeostatic canonical (cluster 2)</td>
+<td style="text-align: left;">4s2_F2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">960</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Homeostatic canonical (cluster 2)</td>
+<td style="text-align: left;">4s2_F3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">924</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Homeostatic low-FC (cluster 6)</td>
+<td style="text-align: left;">4s2M_F1</td>
+<td style="text-align: right;">511</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Homeostatic low-FC (cluster 6)</td>
+<td style="text-align: left;">4s2M_F2</td>
+<td style="text-align: right;">598</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Homeostatic low-FC (cluster 6)</td>
+<td style="text-align: left;">4s2M_F3</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Homeostatic low-FC (cluster 6)</td>
+<td style="text-align: left;">4s2M_F4</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Homeostatic low-FC (cluster 6)</td>
+<td style="text-align: left;">4s2_F1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">870</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Homeostatic low-FC (cluster 6)</td>
+<td style="text-align: left;">4s2_F2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">32</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Homeostatic low-FC (cluster 6)</td>
+<td style="text-align: left;">4s2_F3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IRM + proliferating (cluster 10)</td>
+<td style="text-align: left;">4s2M_F1</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IRM + proliferating (cluster 10)</td>
+<td style="text-align: left;">4s2M_F2</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IRM + proliferating (cluster 10)</td>
+<td style="text-align: left;">4s2M_F3</td>
+<td style="text-align: right;">139</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IRM + proliferating (cluster 10)</td>
+<td style="text-align: left;">4s2M_F4</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IRM + proliferating (cluster 10)</td>
+<td style="text-align: left;">4s2_F1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IRM + proliferating (cluster 10)</td>
+<td style="text-align: left;">4s2_F2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">38</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IRM + proliferating (cluster 10)</td>
+<td style="text-align: left;">4s2_F3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">67</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<hr>
+<p>The code iterates over the five microglia states. Positive log2FC means up in the E2-switched microglia.</p>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Map each microglia state to the cluster id it covers.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>microglia_states <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"DAM Stage-1 (cluster 0)"</span>                     <span class="ot">=</span> <span class="st">"0"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"DAM Stage-2 (cluster 4)"</span>                     <span class="ot">=</span> <span class="st">"4"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Homeostatic canonical (cluster 2)"</span>           <span class="ot">=</span> <span class="st">"2"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Homeostatic low-FC / CP-adjacent (cluster 6)"</span> <span class="ot">=</span> <span class="st">"6"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"IRM + proliferating (cluster 10)"</span>            <span class="ot">=</span> <span class="st">"10"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Per-cluster interpretive commentary, keyed by cluster id and emitted under each volcano. Each block</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># splits the top-5 hits into expected microglial biology and likely segmentation contamination. Numbers</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># match the per-state DESeq2 tables; keep this in sync with the rendered Results section above.</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>cluster_commentary <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"0"</span> <span class="ot">=</span> <span class="fu">paste</span>(</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"All five top-5 hits carry positive log2FC. `Lgals3bp` (+0.49),"</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"`Ccl12` (+0.67), `Ifit2` (+0.39), and `Cd74` (+0.42) are bona fide microglial"</span>,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"inflammatory / IFN / antigen-presenting genes; the fifth hit is the E2-allele"</span>,</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"APOE probe `rs7412-ALT-226:T` (+0.97). Expected biology dominates: the E2-switched"</span>,</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"group shows a coordinated IFN / DAM activation signature plus detectable E2 transcript."</span>,</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"No neuronal, astrocytic, or OL marker enters the top-5, so I read this cluster as"</span>,</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"the cleanest of the five; the contamination hypothesis is not needed to explain any"</span>,</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"of the labelled hits."</span>),</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4"</span> <span class="ot">=</span> <span class="fu">paste</span>(</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Expected biology comes from `Lgals3bp` (+0.51), `Ccl12` (+0.87), and the E2"</span>,</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"probe `rs7412-ALT-226:T` (+1.03), reproducing the cluster-0 pattern. Likely"</span>,</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"contamination comes from `Cnr1` (+1.04) and `Slc17a7` (+0.44). `Cnr1` is the"</span>,</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cannabinoid receptor 1 and `Slc17a7` is VGLUT1; both are neuronal markers, not"</span>,</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"microglial. DAM Stage-2 cells sit near amyloid plaques where neuronal processes"</span>),</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2"</span> <span class="ot">=</span> <span class="fu">paste</span>(</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Expected biology dominates. `Tmem119` (-0.37) declines in the E2-switched arm"</span>,</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"(homeostatic marker) and `Csf1` (+0.34) rises. Both custom APOE probes"</span>,</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"hybridize to T alleles and therefore both detect the E2 transcript in this model; both rise"</span>,</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">" in the switched arm: `rs429358-WT-228` (+0.94, p = 3.7e-3; T at codon 112) and"</span>,</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">" `rs7412-ALT-226:T` (+0.70, p = 1.9e-2; T at codon 158). The single likely contamination hit is"</span>,</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"`Pdgfra` (-0.40), an oligodendrocyte-progenitor marker, not microglial;"</span>,</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">"its appearance fits segmentation bleed from OPC neighbors."</span>),</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">"6"</span> <span class="ot">=</span> <span class="fu">paste</span>(</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Expected biology comes from `Tmem119` (-0.47) declining and `Lgals3bp` (+0.62)"</span>,</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rising in the E2-switched arm, plus the E2-allele probe"</span>,</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    <span class="st">"`rs429358-WT-228` (+1.58, p = 1.6e-2; T at codon 112) becoming detectable."</span>,</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Likely contamination comes from `Ms4a4b` (+1.02), a T-cell / lymphocyte marker"</span>,</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"not microglial, and `Gstm1` (-0.64), broadly expressed across cell types."</span>),</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  <span class="st">"10"</span> <span class="ot">=</span> <span class="fu">paste</span>(</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The only cluster that clears FDR. `Ccl12` (+1.32, FDR 3.0e-5),"</span>,</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="st">"`Lgals3bp` (+0.86, FDR 5.9e-3), and `Ifit2` (+1.91, FDR 9.2e-2) line up with"</span>,</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>    <span class="st">"the IFN / inflammatory shift seen across the other states; `Mki67` (-1.00,"</span>,</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FDR 9.6e-3) drops, so the switched arm shifts away from proliferation. The four"</span>,</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FDR hits read as expected biology. `rs429358-WT-228` (+1.86, p = 6.2e-4) appears"</span>,</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    <span class="st">"as the fifth lowest-p but does not clear FDR; the E2-allele probe (T at codon 112)"</span>,</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rising in the switched arm is consistent with E2 transcript becoming detectable."</span>))</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>de_results <span class="ot">&lt;-</span> <span class="fu">imap</span>(microglia_states, \(cluster_ids, label) {</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Subset to the cells of one microglia state; %in% accepts both single ids and bound id-vectors.</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>  sub <span class="ot">&lt;-</span> <span class="fu">subset</span>(mg, clusters_res05 <span class="sc">%in%</span> cluster_ids)</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Aggregate raw Xenium counts per sample; return.seurat = TRUE produces a sample-level Seurat object.</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>  bulk <span class="ot">&lt;-</span> <span class="fu">AggregateExpression</span>(sub,</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>                              <span class="at">assays        =</span> <span class="st">"Xenium"</span>,</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>                              <span class="at">group.by      =</span> <span class="st">"sample_id"</span>,</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>                              <span class="at">return.seurat =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>  <span class="co"># AggregateExpression silently replaces underscores in sample IDs with hyphens, and prepends "g" to any</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>  <span class="co"># group label that starts with a digit ("starts with a number, appending `g` to ensure valid variable names").</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Our sample IDs (4s2_F1, 4s2M_F1, ...) hit both rules, so we mirror them when matching the per-sample</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>  <span class="co"># condition labels back to the pseudobulk column names.</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>  sample_meta <span class="ot">&lt;-</span> sub<span class="sc">@</span>meta.data <span class="sc">|&gt;</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>    <span class="fu">distinct</span>(sample_id, condition) <span class="sc">|&gt;</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">bulk_id =</span> <span class="fu">paste0</span>(<span class="st">"g"</span>, <span class="fu">gsub</span>(<span class="st">"_"</span>, <span class="st">"-"</span>, sample_id)))</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>  bulk<span class="sc">$</span>condition <span class="ot">&lt;-</span> sample_meta<span class="sc">$</span>condition[<span class="fu">match</span>(<span class="fu">colnames</span>(bulk), sample_meta<span class="sc">$</span>bulk_id)]</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Hard-stop if the metadata join produced NA; common cause is forgetting the underscore -&gt; hyphen fix.</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="sc">!</span><span class="fu">any</span>(<span class="fu">is.na</span>(bulk<span class="sc">$</span>condition)))</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Idents</span>(bulk) <span class="ot">&lt;-</span> <span class="st">"condition"</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Run the DE through anayet()</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot_title is left short because anayet() appends " in &lt;cell_type&gt;" derived from ident1; we rebuild the volcano below.</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">anayet</span>(bulk,</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>                <span class="at">ident1          =</span> <span class="st">"switched"</span>,</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>                <span class="at">ident2          =</span> <span class="st">"control"</span>,</span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>                <span class="at">test_method     =</span> <span class="st">"DESeq2"</span>,</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>                <span class="at">p_adj_threshold =</span> <span class="fl">0.1</span>,</span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>                <span class="at">min_pct         =</span> <span class="fl">0.3</span>,</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot_title      =</span> <span class="st">"Pseudobulk DE"</span>,</span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>                <span class="at">print_plot      =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Rebuild the volcano so the 5 genes with the lowest raw p-value are always labelled, even when the</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>  <span class="co"># FDR-significant set is empty (most p_val_adj sit at 1 in low-power pseudobulks on a 480-gene panel).</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Significant-at-FDR-0.1 genes stay in red; the top-5-by-p-value sit in blue if they are not already significant.</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>  top5_p   <span class="ot">&lt;-</span> res<span class="sc">$</span>all_results <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"gene"</span>) <span class="sc">|&gt;</span> <span class="fu">slice_min</span>(p_val, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(gene)</span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  sig_genes <span class="ot">&lt;-</span> <span class="fu">rownames</span>(res<span class="sc">$</span>significant_results)</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>  lab_genes <span class="ot">&lt;-</span> <span class="fu">union</span>(sig_genes, top5_p)</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>  keyvals <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">"grey60"</span>, <span class="fu">nrow</span>(res<span class="sc">$</span>all_results))</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(keyvals) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(res<span class="sc">$</span>all_results)</span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>  keyvals[top5_p]   <span class="ot">&lt;-</span> <span class="st">"royalblue"</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>  keyvals[sig_genes] <span class="ot">&lt;-</span> <span class="st">"red2"</span></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>  fc_range  <span class="ot">&lt;-</span> <span class="fu">range</span>(res<span class="sc">$</span>all_results<span class="sc">$</span>avg_log2FC, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>  y_max     <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="sc">-</span><span class="fu">log10</span>(res<span class="sc">$</span>all_results<span class="sc">$</span>p_val), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>  res<span class="sc">$</span>volcano_plot <span class="ot">&lt;-</span> <span class="fu">EnhancedVolcano</span>(res<span class="sc">$</span>all_results,</span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">lab            =</span> <span class="fu">rownames</span>(res<span class="sc">$</span>all_results),</span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">selectLab      =</span> lab_genes,</span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">x              =</span> <span class="st">"avg_log2FC"</span>,</span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">y              =</span> <span class="st">"p_val"</span>,</span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">title          =</span> <span class="fu">paste</span>(<span class="st">"Pseudobulk DE in"</span>, label),</span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">subtitle       =</span> <span class="st">"switched (E2) vs. control (E4)"</span>,</span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">caption        =</span> <span class="st">"BLUE: 5 lowest-p genes (FDR&gt;0.1)</span><span class="sc">\n</span><span class="st">RED: FDR &lt; 0.1, min_pct = 0.3"</span>,</span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">labFace         =</span> <span class="st">"italic"</span>,</span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">pCutoff        =</span> <span class="dv">1</span>,</span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">FCcutoff       =</span> <span class="fl">0.001</span>,</span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">colCustom      =</span> keyvals,</span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">legendPosition =</span> <span class="st">"none"</span>,</span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">drawConnectors =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">directionConnectors =</span> <span class="st">"both"</span>,</span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">max.overlaps   =</span> <span class="cn">Inf</span>,</span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">xlim           =</span> <span class="fu">c</span>(<span class="fu">floor</span>(fc_range[<span class="dv">1</span>]), <span class="fu">ceiling</span>(fc_range[<span class="dv">2</span>])),</span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">ylim           =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(<span class="fu">ceiling</span>(y_max <span class="sc">*</span> <span class="fl">1.05</span>), <span class="dv">1</span>)))</span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Emit a QMD section header so the rendered report is navigable.</span></span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### "</span>, label, <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Pseudobulk DESeq2 on"</span>, <span class="fu">ncol</span>(bulk), <span class="st">"samples ("</span>, <span class="fu">sum</span>(bulk<span class="sc">$</span>condition <span class="sc">==</span> <span class="st">"control"</span>),</span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>      <span class="st">"control vs"</span>, <span class="fu">sum</span>(bulk<span class="sc">$</span>condition <span class="sc">==</span> <span class="st">"switched"</span>), <span class="st">"switched)."</span>,</span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Total genes tested:"</span>, res<span class="sc">$</span>summary<span class="sc">$</span>total_genes,</span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>      <span class="st">"| Significant at FDR &lt; 0.05:"</span>, res<span class="sc">$</span>summary<span class="sc">$</span>significant_genes, <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Build the table grob. When FDR-significant hits exist, show them. Otherwise fall back to the 5 genes</span></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>  <span class="co"># with the lowest raw p-value so the table mirrors the volcano labels and the user can still read the</span></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>  <span class="co"># top of the ranked list even when no gene clears FDR &lt; 0.1.</span></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(res<span class="sc">$</span>significant_results) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>    sig <span class="ot">&lt;-</span> res<span class="sc">$</span>significant_results <span class="sc">|&gt;</span></span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"gene"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(gene, p_val, avg_log2FC, p_val_adj) <span class="sc">|&gt;</span></span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(p_val_adj)</span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>    table_grob <span class="ot">&lt;-</span> <span class="fu">tableGrob</span>(sig, <span class="at">theme =</span> <span class="fu">ttheme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>), <span class="at">rows =</span> <span class="cn">NULL</span>)</span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a>    top5 <span class="ot">&lt;-</span> res<span class="sc">$</span>all_results <span class="sc">|&gt;</span></span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"gene"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a>      <span class="fu">slice_min</span>(p_val, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(gene, p_val, avg_log2FC, p_val_adj) <span class="sc">|&gt;</span></span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>)))</span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>    table_grob <span class="ot">&lt;-</span> <span class="fu">tableGrob</span>(top5, <span class="at">theme =</span> <span class="fu">ttheme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>), <span class="at">rows =</span> <span class="cn">NULL</span>)</span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Combine the volcano with the significant-DEG table side by side; 2:5 width ratio mirrors the skill default</span></span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjusted for the wider table we want here.</span></span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>  combined <span class="ot">&lt;-</span> res<span class="sc">$</span>volcano_plot <span class="sc">+</span> <span class="fu">wrap_elements</span>(table_grob) <span class="sc">+</span></span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_layout</span>(<span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(combined)</span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Emit the per-cluster expected-biology vs contamination commentary below the panel; results: asis renders</span></span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the cat'd markdown verbatim.</span></span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>, cluster_commentary[[cluster_ids]], <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a>  res</span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<section id="dam-stage-1-cluster-0" class="level3">
+<h3 class="anchored" data-anchor-id="dam-stage-1-cluster-0">DAM Stage-1 (cluster 0)</h3>
+<p>Pseudobulk DESeq2 on 7 samples ( 3 control vs 4 switched). Total genes tested: 480 | Significant at FDR &lt; 0.05: 0</p>
+<p><img src="20260518_microglia_pseudobulk_DE_files/figure-html/pseudobulk-de-1.png" class="img-fluid" width="1344"></p>
+<p>All five top-5 hits carry positive log2FC. <code>Lgals3bp</code> (+0.49), <code>Ccl12</code> (+0.67), <code>Ifit2</code> (+0.39), and <code>Cd74</code> (+0.42) are bona fide microglial inflammatory / IFN / antigen-presenting genes; the fifth hit is the E2-allele APOE probe <code>rs7412-ALT-226:T</code> (+0.97). Expected biology dominates: the E2-switched group shows a coordinated IFN / DAM activation signature plus detectable E2 transcript. No neuronal, astrocytic, or OL marker enters the top-5, so I read this cluster as the cleanest of the five; the contamination hypothesis is not needed to explain any of the labelled hits.</p>
+</section>
+<section id="dam-stage-2-cluster-4" class="level3">
+<h3 class="anchored" data-anchor-id="dam-stage-2-cluster-4">DAM Stage-2 (cluster 4)</h3>
+<p>Pseudobulk DESeq2 on 7 samples ( 3 control vs 4 switched). Total genes tested: 480 | Significant at FDR &lt; 0.05: 0</p>
+<p><img src="20260518_microglia_pseudobulk_DE_files/figure-html/pseudobulk-de-2.png" class="img-fluid" width="1344"></p>
+<p>Expected biology comes from <code>Lgals3bp</code> (+0.51), <code>Ccl12</code> (+0.87), and the E2 probe <code>rs7412-ALT-226:T</code> (+1.03), reproducing the cluster-0 pattern. Likely contamination comes from <code>Cnr1</code> (+1.04) and <code>Slc17a7</code> (+0.44). <code>Cnr1</code> is the cannabinoid receptor 1 and <code>Slc17a7</code> is VGLUT1; both are neuronal markers, not microglial. DAM Stage-2 cells sit near amyloid plaques where neuronal processes</p>
+</section>
+<section id="homeostatic-canonical-cluster-2" class="level3">
+<h3 class="anchored" data-anchor-id="homeostatic-canonical-cluster-2">Homeostatic canonical (cluster 2)</h3>
+<p>Pseudobulk DESeq2 on 7 samples ( 3 control vs 4 switched). Total genes tested: 480 | Significant at FDR &lt; 0.05: 0</p>
+<p><img src="20260518_microglia_pseudobulk_DE_files/figure-html/pseudobulk-de-3.png" class="img-fluid" width="1344"></p>
+<p>Expected biology dominates. <code>Tmem119</code> (-0.37) declines in the E2-switched arm (homeostatic marker) and <code>Csf1</code> (+0.34) rises. Both custom APOE probes hybridize to T alleles and therefore both detect the E2 transcript in this model; both rise in the switched arm: <code>rs429358-WT-228</code> (+0.94, p = 3.7e-3; T at codon 112) and <code>rs7412-ALT-226:T</code> (+0.70, p = 1.9e-2; T at codon 158). The single likely contamination hit is <code>Pdgfra</code> (-0.40), an oligodendrocyte-progenitor marker, not microglial; its appearance fits segmentation bleed from OPC neighbors.</p>
+</section>
+<section id="homeostatic-low-fc-cp-adjacent-cluster-6" class="level3">
+<h3 class="anchored" data-anchor-id="homeostatic-low-fc-cp-adjacent-cluster-6">Homeostatic low-FC / CP-adjacent (cluster 6)</h3>
+<p>Pseudobulk DESeq2 on 7 samples ( 3 control vs 4 switched). Total genes tested: 477 | Significant at FDR &lt; 0.05: 0</p>
+<p><img src="20260518_microglia_pseudobulk_DE_files/figure-html/pseudobulk-de-4.png" class="img-fluid" width="1344"></p>
+<p>Expected biology comes from <code>Tmem119</code> (-0.47) declining and <code>Lgals3bp</code> (+0.62) rising in the E2-switched arm, plus the E2-allele probe <code>rs429358-WT-228</code> (+1.58, p = 1.6e-2; T at codon 112) becoming detectable. Likely contamination comes from <code>Ms4a4b</code> (+1.02), a T-cell / lymphocyte marker not microglial, and <code>Gstm1</code> (-0.64), broadly expressed across cell types.</p>
+</section>
+<section id="irm-proliferating-cluster-10" class="level3">
+<h3 class="anchored" data-anchor-id="irm-proliferating-cluster-10">IRM + proliferating (cluster 10)</h3>
+<p>Pseudobulk DESeq2 on 7 samples ( 3 control vs 4 switched). Total genes tested: 477 | Significant at FDR &lt; 0.05: 4</p>
+<p><img src="20260518_microglia_pseudobulk_DE_files/figure-html/pseudobulk-de-5.png" class="img-fluid" width="1344"></p>
+<p>The only cluster that clears FDR. <code>Ccl12</code> (+1.32, FDR 3.0e-5), <code>Lgals3bp</code> (+0.86, FDR 5.9e-3), and <code>Ifit2</code> (+1.91, FDR 9.2e-2) line up with the IFN / inflammatory shift seen across the other states; <code>Mki67</code> (-1.00, FDR 9.6e-3) drops, so the switched arm shifts away from proliferation. The four FDR hits read as expected biology. <code>rs429358-WT-228</code> (+1.86, p = 6.2e-4) appears as the fifth lowest-p but does not clear FDR; the E2-allele probe (T at codon 112) rising in the switched arm is consistent with E2 transcript becoming detectable.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Persist the pooled-microglia DESeq2 table alongside the per-state tables.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>res_pool<span class="sc">$</span>all_results <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"gene"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">"results/20260518-pseudobulk_DE_microglia_full_pool_switched_vs_control.csv"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Persist the full DESeq2 result tables (all genes, not just significant) per microglia state.</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Filename slug pulls the cluster id(s) from the label (e.g. "clusters 2 + 6" -&gt; "2_6", "cluster 0" -&gt; "0").</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">iwalk</span>(de_results, \(res, label) {</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  slug <span class="ot">&lt;-</span> label <span class="sc">|&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_extract</span>(<span class="st">"clusters? [</span><span class="sc">\\</span><span class="st">d </span><span class="sc">\\</span><span class="st">+]+"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_remove</span>(<span class="st">"clusters? "</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">" </span><span class="sc">\\</span><span class="st">+ "</span>, <span class="st">"_"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_trim</span>()</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  res<span class="sc">$</span>all_results <span class="sc">|&gt;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"gene"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(<span class="fu">paste0</span>(<span class="st">"results/20260518-pseudobulk_DE_microglia_cluster"</span>, slug, <span class="st">"_switched_vs_control.csv"</span>))</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>Pseudobulk DESeq2 at <code>p_adj_threshold = 0.1</code> and <code>min_pct = 0.3</code>, contrasting <code>switched</code> (E2, 4s2M, n = 4 samples) vs <code>control</code> (E4, 4s2, n = 3 samples). Positive log2FC = up in the switched arm. Genes tested per state: 480 in clusters 0, 2, 4; 477 in clusters 6 and 10 (three genes were dropped at the <code>min_pct = 0.3</code> filter on the two smallest pools).</p>
+<p><strong>FDR-significant DEGs (p_val_adj &lt; 0.1).</strong> Only the IRM + proliferating cluster (10, 399 cells) returns FDR-significant hits. The four other microglia states (DAM Stage-1, DAM Stage-2, homeostatic canonical, homeostatic low-FC) return zero genes at FDR &lt; 0.1. Per-state significant-hit counts:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>State</th>
+<th>Cluster</th>
+<th>Cells</th>
+<th>FDR &lt; 0.1 hits</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DAM Stage-1</td>
+<td>0</td>
+<td>6,919</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>DAM Stage-2</td>
+<td>4</td>
+<td>2,962</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Homeostatic canonical</td>
+<td>2</td>
+<td>5,123</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Homeostatic low-FC / CP-adjacent</td>
+<td>6</td>
+<td>2,082</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>IRM + proliferating</td>
+<td>10</td>
+<td>399</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>The four IRM + proliferating DEGs at FDR &lt; 0.1:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Gene</th>
+<th>avg_log2FC</th>
+<th>p_val</th>
+<th>p_val_adj</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ccl12</td>
+<td>+1.32</td>
+<td>6.3e-8</td>
+<td>3.0e-5</td>
+<td>Pro-inflammatory chemokine up in switched arm.</td>
+</tr>
+<tr class="even">
+<td>Lgals3bp</td>
+<td>+0.86</td>
+<td>1.2e-5</td>
+<td>5.9e-3</td>
+<td>Galectin-3 binding protein up in switched arm.</td>
+</tr>
+<tr class="odd">
+<td>Mki67</td>
+<td>-1.00</td>
+<td>2.0e-5</td>
+<td>9.6e-3</td>
+<td>Proliferation marker down in switched arm.</td>
+</tr>
+<tr class="even">
+<td>Ifit2</td>
+<td>+1.91</td>
+<td>1.9e-4</td>
+<td>9.2e-2</td>
+<td>Type-I IFN-responsive gene up in switched arm.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Top-5-by-raw-p-value across all states.</strong> Although only cluster 10 clears FDR, the top-5-by-p genes per state (labelled blue on each volcano) share a recurrent signature: <code>Ccl12</code>, <code>Lgals3bp</code>, and <code>Ifit2</code> appear in the top-5 of three or four of the five states and always with positive log2FC, consistent with a coordinated IFN / inflammatory shift in the switched arm at sub-FDR levels. <code>Tmem119</code> (homeostatic marker) appears in the top-5 of both homeostatic states (2 and 6) with negative log2FC.</p>
+<p><strong>APOE allele probes.</strong> Both custom probes on the panel hybridize to the T allele of their respective SNP and therefore both detect the <strong>E2</strong> transcript in this model:</p>
+<ul>
+<li><code>rs429358-WT-228</code>: T allele at codon 112 (Cys112). The model has no E3, so the T allele uniquely marks E2.</li>
+<li><code>rs7412-ALT-226:T</code>: T allele at codon 158 (Cys158). Defines E2.</li>
+</ul>
+<p>Per-state log2FC and raw p-value:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>State</th>
+<th>rs7412-ALT-226:T (E2)</th>
+<th>rs429358-WT-228 (E2)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DAM Stage-1 (0)</td>
+<td>+0.97 (p 4.5e-3)</td>
+<td>not in top-5</td>
+</tr>
+<tr class="even">
+<td>DAM Stage-2 (4)</td>
+<td>+1.03 (p 1.2e-2)</td>
+<td>not in top-5</td>
+</tr>
+<tr class="odd">
+<td>Homeostatic canonical (2)</td>
+<td>+0.70 (p 1.9e-2)</td>
+<td>+0.94 (p 3.7e-3)</td>
+</tr>
+<tr class="even">
+<td>Homeostatic low-FC (6)</td>
+<td>not in top-5</td>
+<td>+1.58 (p 1.6e-2)</td>
+</tr>
+<tr class="odd">
+<td>IRM + proliferating (10)</td>
+<td>not in top-5</td>
+<td>+1.86 (p 6.2e-4)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Likely segmentation contamination in non-APOE hits.</strong> Several top-5 lowest-p genes across states are not microglial: <code>Cnr1</code> and <code>Slc17a7</code> (excitatory neurons) in cluster 4; <code>Pdgfra</code> (OPC) in cluster 2; <code>Ms4a4b</code> (T cells) in cluster 6; <code>Plcb4</code> and <code>Tunar</code> (neurons) in the full microglia pool. Xenium boundary-stain segmentation bleeds transcripts across adjacent cells, especially at boundaries with high transcript density, and DAM microglia near amyloid plaques carry more high-transcript neuronal neighbors than homeostatic microglia. The cluster-6 boundary leaks (Ttr / Ermn / Apod in its top-10 per the assignment note) already flag this mechanism. A per-cell <code>AddModuleScore()</code> filter against the seven contamination-marker sets is the proper next step before treating any of these non-microglial hits as biology.</p>
+</section>
+<section id="caveats" class="level2">
+<h2 class="anchored" data-anchor-id="caveats">Caveats</h2>
+<ul>
+<li><strong>Cluster 10 (IRM + proliferating) is sparse on three Slide1 samples.</strong> 4s2_F1 contributes 11 cells, 4s2M_F1 contributes 23 cells, and 4s2M_F2 contributes 23 cells; the per-sample pseudobulk counts in those three replicates will be low and DESeq2 dispersion estimates may be unstable. 4s2M_F3 carries 139 of 399 cluster-10 cells (35 %), so a single sample drives a disproportionate fraction of the switched-arm signal.</li>
+<li><strong>lack of statistical power.</strong> Pseudobulk DE on a 480-gene panel with n = 3 vs 4 samples is underpowered. FDR adjustment over 480 tests is stringent and the seven samples are at the lower limit DESeq2 can fit dispersion against. Only cluster 10 (with the strongest IRM / proliferation contrast) produces FDR-significant hits, and three of its four DEGs survive Benjamini-Hochberg only because their p-values are extreme (≤ 2e-5).</li>
+</ul>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>Squair JW et al.&nbsp;“Confronting false discoveries in single-cell differential expression.” Nature Communications, 2021. DOI: 10.1038/s41467-021-25960-2.</li>
+<li>Zimmerman KD et al.&nbsp;“A practical solution to pseudoreplication bias in single-cell studies.” Nature Communications, 2021. DOI: 10.1038/s41467-021-21038-1.</li>
+<li>Love MI, Huber W, Anders S. “Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2.” Genome Biology, 2014. DOI: 10.1186/s13059-014-0550-8.</li>
+<li>Parent microglia sub-cluster notebook: <code>20260517_microglia_subcluster.qmd</code>.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
