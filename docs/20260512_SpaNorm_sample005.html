@@ -201,7 +201,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul class="collapse">
   <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
-  <li><a href="#spanorm-tuning-parameters" id="toc-spanorm-tuning-parameters" class="nav-link" data-scroll-target="#spanorm-tuning-parameters">SpaNorm Tuning parameters</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#build-the-spanorm-assay-one-fit-per-sample" id="toc-build-the-spanorm-assay-one-fit-per-sample" class="nav-link" data-scroll-target="#build-the-spanorm-assay-one-fit-per-sample">Build the SpaNorm assay (one fit per sample)</a></li>
   <li><a href="#pca-split-by-slide" id="toc-pca-split-by-slide" class="nav-link" data-scroll-target="#pca-split-by-slide">PCA split by slide</a></li>
@@ -247,12 +246,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Bibliography for this notebook:</p>
 <ul>
 <li>Salim et al., “SpaNorm: spatially-aware normalization for spatial transcriptomics data,” Genome Biology, 2025. DOI: 10.1186/s13059-025-03565-y.</li>
-<li>SpaNorm package vignette: https://bhuvad.github.io/SpaNorm/articles/SpaNorm.html.</li>
-<li>Cached NotebookLM read-through: <code>notebookLM/2026-05-12_spanorm-background.md</code>.</li>
+<li>SpaNorm package vignette: https://bhuvad.github.io/SpaNorm/articles/SpaNorm.html. ## SpaNorm Tuning parameters</li>
 </ul>
-</section>
-<section id="spanorm-tuning-parameters" class="level2">
-<h2 class="anchored" data-anchor-id="spanorm-tuning-parameters">SpaNorm Tuning parameters</h2>
 <p><strong><code>sample.p</code></strong> is the random fraction of cells used to fit the negative-binomial GLM parameters. The package default is 0.25. We use 0.05 here. Subsampling buys runtime and memory at near-no accuracy cost because the splines only need a representative scatter of cells across each tissue. Salim et al.&nbsp;(Genome Biology, 2025) recommend ~5 % on ~400k-cell Xenium datasets. The companion notebook <code>20260512_SpaNorm_samplep025.qmd</code> re-runs the same pipeline at the package default of 0.25.</p>
 <p><strong><code>df.tps</code></strong> sets the degrees of freedom of the 2D thin-plate spline. The package default is 6. A length-2 vector decouples biology and library-size smoothness. We keep them coupled at 6 because the targeted 480-gene Xenium panel does not show the sharp gradients that justify an asymmetric spline.</p>
 <p><strong><code>adj.method</code></strong> selects how SpaNorm returns the residuals. <code>"auto"</code> lets the package pick among <code>"logpac"</code> (log percentile-invariant adjusted counts; the recommended default for Seurat workflows), <code>"pearson"</code>, <code>"medbio"</code>, and <code>"meanbio"</code> based on the fitted model. We use <code>"auto"</code>.</p>
@@ -462,7 +457,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Salim A et al.&nbsp;“SpaNorm: spatially-aware normalization for spatial transcriptomics data.” Genome Biology, 2025. DOI: 10.1186/s13059-025-03565-y.</li>
 <li>SpaNorm vignette: https://bhuvad.github.io/SpaNorm/articles/SpaNorm.html.</li>
-<li>Cached NotebookLM read-through: <code>notebookLM/2026-05-12_spanorm-background.md</code>.</li>
 </ul>
 
 
