@@ -59,6 +59,12 @@ _freeze/
 *_cache/
 *.html
 
+# Rendered Quarto website served by GitHub Pages (main branch /docs).
+# Re-include docs/ so the built site (HTML, site_libs, .nojekyll) is tracked
+# despite the *.html and *_files/ rules above.
+!docs/
+!docs/**
+
 # Logs / temp
 *.log
 *.tmp
@@ -74,9 +80,13 @@ xenium_rawData/*
 data/*
 !data/README.md
 
-# Claude
+# local-only/
 context/
 notebookLM/
+notes/
+CLAUDE.md
+JOURNAL.md
 
 # HPC - Morgan Compute Core
 HPC/
+**/*.quarto_ipynb
